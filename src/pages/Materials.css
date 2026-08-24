@@ -1,0 +1,55 @@
+.mat-filters,
+.mat-novelty-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.75rem;
+}
+
+.mat-filters button,
+.mat-novelty-filters button {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink-soft);
+  padding: 0.38rem 0.7rem;
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.mat-filters button.active,
+.mat-novelty-filters button.active {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: rgba(0, 52, 43, 0.06);
+}
+
+.mat-novelty-filters button.frontier.active {
+  border-color: #b45309;
+  color: #92400e;
+  background: rgba(180, 83, 9, 0.08);
+}
+
+.mat-count {
+  margin: 0 0 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.mat-brands {
+  font-size: 0.78rem;
+  color: var(--primary);
+  margin: 0.15rem 0 0.35rem;
+}
+
+.mat-gprime {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.mat-brands-panel p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}

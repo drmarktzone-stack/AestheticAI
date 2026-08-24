@@ -4,6 +4,7 @@ import {
   type ClinicalTreatment,
   type DoseUnit,
 } from "../data/clinical/treatmentCatalog";
+import { getMaterial } from "../data";
 import type { Locale } from "../i18n/types";
 
 export type DoseLine = {
@@ -54,11 +55,16 @@ export function buildDosePlan(
     // Clamp into educational range
     calculated = Math.min(t.dosing.rangeMax, Math.max(t.dosing.rangeMin * 0.5, calculated));
 
+    const cat = getMaterial(t.material.id);
+    const catName =
+      cat &&
+      (locale === "he" ? cat.nameHe : locale === "ar" && cat.nameAr ? cat.nameAr : cat.nameEn);
+
     return {
       treatmentId: t.id,
       title: t.title[locale],
-      materialName: t.material.name[locale],
-      brandExample: t.material.brandExample,
+      materialName: catName ?? t.material.name[locale],
+      brandExample: cat?.brands?.join(", ") ?? t.material.brandExample,
       unit: t.dosing.unit,
       calculated,
       rangeMin: t.dosing.rangeMin,
@@ -82,10 +88,18 @@ export function buildDosePlan(
 
   const materialMap = new Map<string, { id: string; name: string; brandExample: string }>();
   for (const t of selected) {
+    const cat = getMaterial(t.material.id);
     materialMap.set(t.material.id, {
       id: t.material.id,
-      name: t.material.name[locale],
-      brandExample: t.material.brandExample,
+      name:
+        (cat &&
+          (locale === "he"
+            ? cat.nameHe
+            : locale === "ar" && cat.nameAr
+              ? cat.nameAr
+              : cat.nameEn)) ??
+        t.material.name[locale],
+      brandExample: cat?.brands?.join(", ") ?? t.material.brandExample,
     });
   }
 

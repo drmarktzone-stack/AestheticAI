@@ -3,8 +3,13 @@ export type MaterialClass =
   | "toxin"
   | "biostimulator"
   | "caha"
+  | "hybrid"
+  | "pn"
+  | "regenerative"
   | "enzyme"
   | "other";
+
+export type MaterialNovelty = "established" | "emerging" | "frontier";
 
 export type TissuePlane =
   | "intradermal"
@@ -27,6 +32,13 @@ export interface Material {
   nameAr?: string;
   nameEn: string;
   class: MaterialClass;
+  /** Manufacturer / trade names */
+  brands?: string[];
+  /** Storage modulus guidance where published */
+  gPrime?: string;
+  concentration?: string;
+  /** established = mainstream · emerging = growing adoption · frontier = very new / niche */
+  novelty?: MaterialNovelty;
   rheology?: string;
   typicalUses: string[];
   planes: TissuePlane[];

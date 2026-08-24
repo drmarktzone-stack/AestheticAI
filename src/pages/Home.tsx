@@ -44,9 +44,9 @@ const MODULES = [
   },
   {
     to: "/materials",
-    he: "חומרים ותכשירים",
-    ar: "المواد والمستحضرات",
-    en: "Materials",
+    he: "65+ חומרים — HA, טוקסין, PN, חזית",
+    ar: "65+ مواد — HA، توكسين، PN",
+    en: "65+ materials — HA, toxin, PN, frontier",
   },
 ];
 

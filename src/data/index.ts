@@ -40,8 +40,17 @@ export const materialClassLabel: Record<string, string> = {
   toxin: "טוקסין",
   biostimulator: "ביוסטימולטור",
   caha: "CaHA",
+  hybrid: "היברידי (HA+CaHA/PDLLA)",
+  pn: "פולינucleotides (PN/PDRN)",
+  regenerative: "רегенרטיבי (exosomes)",
   enzyme: "אנזים",
   other: "אחר",
+};
+
+export const noveltyLabel: Record<string, string> = {
+  established: "מבוסס",
+  emerging: "חדש / בצמיחה",
+  frontier: "חזית — רוב הרופאים עדיין לא מכירים",
 };
 
 export const riskLabel: Record<string, string> = {

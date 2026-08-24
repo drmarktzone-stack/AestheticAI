@@ -65,7 +65,7 @@ export const CLINICAL_TREATMENTS: ClinicalTreatment[] = [
     categoryLabel: T("פילר", "فيلر", "Filler"),
     image: USER_LIPS.beforeAfterGrid,
     material: {
-      id: "ha-lips-soft",
+      id: "restylane-kysse",
       name: T("HA שפתיים — רך/דינמי", "HA شفاه — مرن", "HA lips — soft/dynamic"),
       brandExample: "e.g. Restylane Kysse / Juvéderm Volbella class",
       rheology: T("G′ נמוך־בינוני", "G′ منخفض-متوسط", "Low–mid G′"),
@@ -114,7 +114,7 @@ export const CLINICAL_TREATMENTS: ClinicalTreatment[] = [
     categoryLabel: T("פילר", "فيلر", "Filler"),
     image: USER_LIPS.anatomy[0],
     material: {
-      id: "ha-lips-structure",
+      id: "belotero-lips",
       name: T("HA שפתיים — מבני", "HA شفاه — هيكلي", "HA lips — structural"),
       brandExample: "e.g. Restylane Refyne / Juvederm Ultra class",
       rheology: T("תמיכה מעט גבוהה יותר", "دعم أعلى قليلاً", "Slightly higher support"),
@@ -151,7 +151,7 @@ export const CLINICAL_TREATMENTS: ClinicalTreatment[] = [
     categoryLabel: T("פילר", "فيلر", "Filler"),
     image: STITCH.midface[0],
     material: {
-      id: "ha-voluma-class",
+      id: "juvederm-voluma",
       name: T("HA נפח גבוה (midface)", "HA عالي الحجم", "High G′ HA (midface)"),
       brandExample: "e.g. Juvéderm Voluma / Restylane Lyft class",
       rheology: T("G′ גבוה, הרמה", "G′ مرتفع، رفع", "High G′, lift"),
@@ -188,7 +188,7 @@ export const CLINICAL_TREATMENTS: ClinicalTreatment[] = [
     categoryLabel: T("פילר", "فيلر", "Filler"),
     image: STITCH.side[1],
     material: {
-      id: "ha-jaw-firm",
+      id: "juvederm-volux",
       name: T("HA קשיח לקונטור", "HA صلب للتحديد", "Firm HA for contour"),
       brandExample: "e.g. Restylane Lyft / Volux class",
       rheology: T("G′ גבוה, הקרנה", "G′ مرتفع", "High G′, projection"),
@@ -225,7 +225,7 @@ export const CLINICAL_TREATMENTS: ClinicalTreatment[] = [
     categoryLabel: T("פילר", "فيلر", "Filler"),
     image: STITCH.temple,
     material: {
-      id: "ha-temple",
+      id: "restylane-lyft",
       name: T("HA לרקות", "HA للصدغ", "HA for temples"),
       brandExample: "e.g. Voluma / Lyft class",
       rheology: T("תמיכה בינונית־גבוהה", "دعم متوسط-مرتفع", "Mid–high support"),
@@ -262,7 +262,7 @@ export const CLINICAL_TREATMENTS: ClinicalTreatment[] = [
     categoryLabel: T("פילר · מיצוק", "فيلر · شد", "Filler · firming"),
     image: STITCH.periocular,
     material: {
-      id: "ha-tear-soft",
+      id: "teosyal-redensity-2",
       name: T("HA רך מאוד — periocular", "HA ناعم جداً", "Very soft HA — periocular"),
       brandExample: "e.g. Redensity / Volbella class",
       rheology: T("G′ נמוך, הידרופיליות מבוקרת", "G′ منخفض", "Low G′, controlled hydrophilia"),
@@ -299,7 +299,7 @@ export const CLINICAL_TREATMENTS: ClinicalTreatment[] = [
     categoryLabel: T("פילר · קמטים", "فيلر · تجاعيد", "Filler · wrinkles"),
     image: STITCH.midface[1],
     material: {
-      id: "ha-nlf",
+      id: "restylane-defyne",
       name: T("HA בינוני לקפלים", "HA متوسط للطيات", "Mid HA for folds"),
       brandExample: "e.g. Restylane / Juvederm Ultra Plus class",
       rheology: T("G′ בינוני", "G′ متوسط", "Mid G′"),
@@ -336,7 +336,7 @@ export const CLINICAL_TREATMENTS: ClinicalTreatment[] = [
     categoryLabel: T("מיצוק", "شد", "Firming"),
     image: STITCH.treatment,
     material: {
-      id: "plla-caha",
+      id: "sculptra",
       name: T("ביוסטימולטור (PLLA/CaHA)", "محفز حيوي", "Biostimulator (PLLA/CaHA)"),
       brandExample: "e.g. Sculptra / Radiesse diluted class",
       rheology: T("תלוי דילול ופרוטוקול", "حسب التخفيف", "Dilution / protocol dependent"),
@@ -375,7 +375,7 @@ export const CLINICAL_TREATMENTS: ClinicalTreatment[] = [
     categoryLabel: T("בוטוקס · קמטים", "بوتوكس · تجاعيد", "Botox · wrinkles"),
     image: STITCH.extreme,
     material: {
-      id: "btx-a",
+      id: "botox",
       name: T("Botulinum toxin A", "ذيفان البوتولينوم A", "Botulinum toxin A"),
       brandExample: "e.g. Botox / Dysport / Xeomin — units NOT 1:1",
       rheology: T("תוך־שרירי", "داخل العضل", "Intramuscular"),
@@ -412,7 +412,7 @@ export const CLINICAL_TREATMENTS: ClinicalTreatment[] = [
     categoryLabel: T("בוטוקס · קמטים", "بوتوكس · تجاعيد", "Botox · wrinkles"),
     image: asset("stitch/clinical/extreme.png"),
     material: {
-      id: "btx-a",
+      id: "botox",
       name: T("Botulinum toxin A", "ذيفان البوتولينوم A", "Botulinum toxin A"),
       brandExample: "Brand-specific unit conversion required",
       rheology: T("תוך־שרירי — frontalis", "داخل العضل — الجبهة", "IM — frontalis"),
@@ -449,7 +449,7 @@ export const CLINICAL_TREATMENTS: ClinicalTreatment[] = [
     categoryLabel: T("בוטוקס · קמטים", "بوتوكس · تجاعيد", "Botox · wrinkles"),
     image: STITCH.periocular,
     material: {
-      id: "btx-a",
+      id: "botox",
       name: T("Botulinum toxin A", "ذيفان البوتولينوم A", "Botulinum toxin A"),
       brandExample: "Brand-specific units",
       rheology: T("תוך־שרירי שטחי", "داخل العضل السطحي", "Superficial IM"),
@@ -486,7 +486,7 @@ export const CLINICAL_TREATMENTS: ClinicalTreatment[] = [
     categoryLabel: T("בוטוקס · עיצוב", "بوتوكس · نحت", "Botox · contour"),
     image: STITCH.side[0],
     material: {
-      id: "btx-a",
+      id: "botox",
       name: T("Botulinum toxin A", "ذيفان البوتولينوم A", "Botulinum toxin A"),
       brandExample: "Higher unit loads — brand conversion critical",
       rheology: T("תוך־שרירי עמוק — masseter", "داخل العضل العميق", "Deep IM — masseter"),
@@ -525,7 +525,7 @@ export const CLINICAL_TREATMENTS: ClinicalTreatment[] = [
     categoryLabel: T("בוטוקס טיפולי", "بوتوكس علاجي", "Therapeutic botox"),
     image: STITCH.injection,
     material: {
-      id: "btx-a-therapeutic",
+      id: "botox",
       name: T("Botulinum toxin A — טיפולי", "ذيفان بوتولينوم — علاجي", "Botulinum toxin A — therapeutic"),
       brandExample: "Per neurology/OMFS protocol + IFU",
       rheology: T("תוך־שרירי — masseter ± temporalis", "داخل العضل", "IM — masseter ± temporalis"),
@@ -574,7 +574,7 @@ export const CLINICAL_TREATMENTS: ClinicalTreatment[] = [
     categoryLabel: T("בוטוקס טיפולי", "بوتوكس علاجي", "Therapeutic botox"),
     image: STITCH.treatment,
     material: {
-      id: "btx-a-hh",
+      id: "botox",
       name: T("Botulinum toxin A — hyperhidrosis", "ذيفان — فرط التعرق", "Botulinum toxin A — hyperhidrosis"),
       brandExample: "Approved hyperhidrosis labels vary by brand/region",
       rheology: T("תוך־עורי רשת", "داخل الأدمة — شبكة", "Intradermal grid"),
@@ -611,7 +611,7 @@ export const CLINICAL_TREATMENTS: ClinicalTreatment[] = [
     categoryLabel: T("בוטוקס טיפולי", "بوتوكس علاجي", "Therapeutic botox"),
     image: STITCH.treatment,
     material: {
-      id: "btx-a-hh-palm",
+      id: "botox",
       name: T("Botulinum toxin A — palmar HH", "ذيفان — راحة اليد", "Botulinum toxin A — palmar HH"),
       brandExample: "Regional approval / pain management plan required",
       rheology: T("תוך־עורי פלמרי", "داخل أدمة الراحة", "Palmar intradermal"),
@@ -648,7 +648,7 @@ export const CLINICAL_TREATMENTS: ClinicalTreatment[] = [
     categoryLabel: T("בוטוקס טיפולי", "بوتوكس علاجي", "Therapeutic botox"),
     image: STITCH.profile,
     material: {
-      id: "btx-a-migraine",
+      id: "botox",
       name: T("Botulinum toxin A — migraine", "ذيفان — الشقيقة", "Botulinum toxin A — migraine"),
       brandExample: "OnabotulinumtoxinA migraine label where approved",
       rheology: T("מפת נקודות ראש/צוואר", "خريطة الرأس/العنق", "Head/neck point map"),
@@ -685,7 +685,7 @@ export const CLINICAL_TREATMENTS: ClinicalTreatment[] = [
     categoryLabel: T("בוטוקס טיפולי", "بوتوكس علاجي", "Therapeutic botox"),
     image: STITCH.side[1],
     material: {
-      id: "btx-a-cd",
+      id: "botox",
       name: T("Botulinum toxin A — CD", "ذيفان — خلل التوتر", "Botulinum toxin A — CD"),
       brandExample: "Specialty neurology dosing",
       rheology: T("תוך־שרירי צוואר", "داخل عضلات الرقبة", "Cervical IM"),
