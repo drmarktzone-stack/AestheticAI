@@ -29,6 +29,16 @@
   font-weight: 400;
 }
 
+html[lang="ar"] {
+  --font-display: "Noto Naskh Arabic", "Noto Serif", serif;
+  --font-body: "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+}
+
+html[lang="en"] {
+  --font-display: "Noto Serif", Georgia, serif;
+  --font-body: "Heebo", "Segoe UI", sans-serif;
+}
+
 *,
 *::before,
 *::after {

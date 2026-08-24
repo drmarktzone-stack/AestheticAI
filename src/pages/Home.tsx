@@ -11,6 +11,12 @@ const MODULES = [
     en: "Mentor guide — Lips",
   },
   {
+    to: "/guide/midface",
+    he: "מדריך מנטור — מרכז פנים",
+    ar: "الدليل الموجِّه — منتصف الوجه",
+    en: "Mentor guide — Midface",
+  },
+  {
     to: "/simulation",
     he: "סימולציית מטופל",
     ar: "محاكاة المريض",

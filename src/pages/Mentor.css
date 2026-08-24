@@ -47,13 +47,43 @@
 }
 
 .mentor-disclaimer {
-  margin: 1rem 0 1.25rem;
+  margin: 1rem 0 1rem;
   padding: 0.85rem 1rem;
   border-inline-start: 3px solid var(--primary);
   background: var(--surface-low);
   color: var(--ink-soft);
   font-size: 0.88rem;
   line-height: 1.55;
+}
+
+.mentor-cue {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.mentor-cue > div {
+  border: 1px solid var(--line);
+  background: #fff;
+  padding: 0.85rem 0.95rem;
+}
+
+.mentor-cue span {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--primary);
+}
+
+.mentor-cue p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  font-weight: 400;
 }
 
 .mentor-tabs {
@@ -298,7 +328,8 @@
   }
 
   .mentor-grid,
-  .mentor-two {
+  .mentor-two,
+  .mentor-cue {
     grid-template-columns: 1fr;
   }
 

@@ -17,6 +17,131 @@ const SECTIONS: { id: MentorSectionId; he: string; ar: string; en: string }[] = 
   { id: "document", he: "תיעוד", ar: "توثيق", en: "Document" },
 ];
 
+const CUES: Record<
+  MentorSectionId,
+  { now: { he: string; ar: string; en: string }; why: { he: string; ar: string; en: string }; dont: { he: string; ar: string; en: string } }
+> = {
+  overview: {
+    now: {
+      he: "הבן אנטומיה, מטרות ואזורי סכנה לפני בחירת חומר.",
+      ar: "افهم التشريح والأهداف ومناطق الخطر قبل اختيار المادة.",
+      en: "Lock anatomy, goals and danger zones before choosing product.",
+    },
+    why: {
+      he: "בלי מפה — אין פרוטוקול בטוח.",
+      ar: "بدون خريطة — لا بروتوكول آمن.",
+      en: "Without a map there is no safe protocol.",
+    },
+    dont: {
+      he: "אל תדלג ישר למינון.",
+      ar: "لا تقفز مباشرة إلى الجرعة.",
+      en: "Do not jump straight to dosing.",
+    },
+  },
+  materials: {
+    now: {
+      he: "בחר חומר לפי תפקיד קליני וריאולוגיה — לא לפי מותג בלבד.",
+      ar: "اختر المادة حسب الدور السريري والريولوجيا — لا حسب العلامة فقط.",
+      en: "Choose by clinical role and rheology — not brand alone.",
+    },
+    why: {
+      he: "חומר לא מתאים = סיכון ומראה לא טבעי.",
+      ar: "مادة غير مناسبة = خطر ومظهر غير طبيعي.",
+      en: "Wrong product = risk and unnatural result.",
+    },
+    dont: {
+      he: "אל תערבב הנחיות IFU בין מוצרים.",
+      ar: "لا تخلط نشرات المنتجات.",
+      en: "Do not mix IFU guidance across products.",
+    },
+  },
+  dosing: {
+    now: {
+      he: "תכנן אליקוטות לפי אתר ושכבה; העדף מדורג.",
+      ar: "خطط الدفعات حسب الموقع والطبقة؛ فضّل التدرج.",
+      en: "Plan aliquots by site and plane; prefer staged dosing.",
+    },
+    why: {
+      he: "תיקון יתר קשה יותר מחוסר זמני.",
+      ar: "فرط التصحيح أصعب من نقص مؤقت.",
+      en: "Overfill is harder to undo than underfill.",
+    },
+    dont: {
+      he: "אין כלל אצבע גלובלי במקום IFU.",
+      ar: "لا قاعدة عامة بدل نشرة الشركة.",
+      en: "No global rule-of-thumb replaces IFU.",
+    },
+  },
+  technique: {
+    now: {
+      he: "צפה בהדגמה, סמן נקודות, הזרק לאט עם מודעות וסקולרית.",
+      ar: "شاهد العرض، علّم النقاط، احقن ببطء مع وعي وعائي.",
+      en: "Watch the demo, mark points, inject slowly with vessel awareness.",
+    },
+    why: {
+      he: "הטכניקה היא שכבת הבטיחות האמיתית.",
+      ar: "التقنية هي طبقة الأمان الحقيقية.",
+      en: "Technique is the real safety layer.",
+    },
+    dont: {
+      he: "אל תתעלם מכאב/הלבנה.",
+      ar: "لا تتجاهل الألم/الشحوب.",
+      en: "Never ignore pain or blanching.",
+    },
+  },
+  complications: {
+    now: {
+      he: "זהה סימנים מוקדמים והפעל פרוטוקול חירום מיד.",
+      ar: "تعرف العلامات المبكرة وفعّل بروتوكول الطوارئ فوراً.",
+      en: "Recognize early signs and activate emergency protocol immediately.",
+    },
+    why: {
+      he: "דקות קובעות תוצאה.",
+      ar: "الدقائق تحدد النتيجة.",
+      en: "Minutes determine outcome.",
+    },
+    dont: {
+      he: "אל תחכה שזה יעבור לבד בחסימה חשודה.",
+      ar: "لا تنتظر الزوال التلقائي عند اشتباه انسداد.",
+      en: "Do not wait it out in suspected occlusion.",
+    },
+  },
+  simulation: {
+    now: {
+      he: "הראה למטופל טיימליין ולפני/אחרי לפני החלטה.",
+      ar: "اعرض للمريض الجدول وقبل/بعد قبل القرار.",
+      en: "Show timeline and before/after before deciding.",
+    },
+    why: {
+      he: "הסכמה מושכלת מורידה אי־הבנות.",
+      ar: "الموافقة المستنيرة تقلل سوء الفهم.",
+      en: "Informed consent reduces misunderstanding.",
+    },
+    dont: {
+      he: "אל תבטיח תוצאה זהה לתמונה.",
+      ar: "لا تضمن نتيجة مطابقة للصورة.",
+      en: "Do not promise an identical photo result.",
+    },
+  },
+  document: {
+    now: {
+      he: "תעד חומר, לוט, נפח לאזור, והסכמה.",
+      ar: "وثّق المادة والدفعة والحجم لكل منطقة والموافقة.",
+      en: "Document product, lot, volume per zone, and consent.",
+    },
+    why: {
+      he: "תיעוד = בטיחות משפטית וקלינית.",
+      ar: "التوثيق = أمان سريري وقانوني.",
+      en: "Documentation is clinical and legal safety.",
+    },
+    dont: {
+      he: "אל תשאיר שדות קריטיים ריקים.",
+      ar: "لا تترك الحقول الحاسمة فارغة.",
+      en: "Do not leave critical fields blank.",
+    },
+  },
+};
+
 export function MentorPage() {
   const { regionId = "lips" } = useParams();
   const { locale, pick, t } = useLocale();
@@ -56,6 +181,21 @@ export function MentorPage() {
       </header>
 
       <p className="mentor-disclaimer">{pickL(locale, guide.disclaimer)}</p>
+
+      <div className="mentor-cue" role="note">
+        <div>
+          <span>NOW</span>
+          <p>{CUES[section].now[locale]}</p>
+        </div>
+        <div>
+          <span>WHY</span>
+          <p>{CUES[section].why[locale]}</p>
+        </div>
+        <div>
+          <span>DON&apos;T</span>
+          <p>{CUES[section].dont[locale]}</p>
+        </div>
+      </div>
 
       <nav className="mentor-tabs" aria-label="Mentor sections">
         {SECTIONS.map((s) => (
