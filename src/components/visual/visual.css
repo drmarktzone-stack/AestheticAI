@@ -1,0 +1,264 @@
+.face-map-wrap {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 720px) {
+  .face-map-wrap {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.face-map-svg,
+.technique-svg {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  display: block;
+  background: rgba(8, 22, 27, 0.55);
+  border-radius: 1rem;
+  border: 1px solid rgba(232, 241, 239, 0.1);
+}
+
+.face-outline {
+  fill: rgba(214, 236, 231, 0.08);
+  stroke: rgba(183, 235, 228, 0.35);
+  stroke-width: 0.6;
+}
+
+.face-inner {
+  fill: none;
+  stroke: rgba(183, 235, 228, 0.15);
+  stroke-width: 0.4;
+}
+
+.face-feature {
+  stroke: rgba(183, 235, 228, 0.25);
+  stroke-width: 0.5;
+  fill: none;
+}
+
+.zone-hit {
+  fill: rgba(46, 139, 138, 0.12);
+  stroke: rgba(46, 139, 138, 0.45);
+  stroke-width: 0.5;
+  cursor: pointer;
+  transition: fill 160ms ease, stroke 160ms ease;
+}
+
+.zone-hit:hover {
+  fill: rgba(46, 139, 138, 0.22);
+}
+
+.zone-hit.selected {
+  fill: rgba(46, 139, 138, 0.35);
+  stroke: #9fe3db;
+}
+
+.zone-hit.danger {
+  stroke: rgba(196, 149, 74, 0.8);
+}
+
+.zone-core {
+  fill: rgba(159, 227, 219, 0.55);
+  pointer-events: none;
+}
+
+.zone-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.zone-legend button {
+  border: 1px solid rgba(232, 241, 239, 0.12);
+  background: rgba(8, 22, 27, 0.45);
+  color: var(--ink-soft);
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.zone-legend button.active {
+  border-color: rgba(46, 139, 138, 0.6);
+  background: rgba(46, 139, 138, 0.2);
+}
+
+.danger-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: #c4954a;
+}
+
+.technique-sim {
+  text-align: center;
+}
+
+.technique-path {
+  fill: none;
+  stroke: #9fe3db;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+
+.needle-start {
+  fill: #2e8b8a;
+}
+
+.needle-tip {
+  fill: #f4fffd;
+}
+
+.technique-caption {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.split-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.split-view figure {
+  margin: 0;
+}
+
+.split-view figcaption {
+  margin-bottom: 0.5rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.patient-canvas {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  border: 1px solid rgba(232, 241, 239, 0.12);
+  cursor: crosshair;
+  background: #08161b;
+}
+
+.patient-canvas.single {
+  max-width: 480px;
+  display: block;
+  margin: 0 auto;
+}
+
+.canvas-placeholder {
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  border: 1px dashed rgba(232, 241, 239, 0.2);
+  border-radius: 1rem;
+  color: var(--muted);
+  padding: 2rem;
+  text-align: center;
+}
+
+.lang-switch {
+  display: inline-flex;
+  border: 1px solid rgba(232, 241, 239, 0.14);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.lang-switch button {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  padding: 0.35rem 0.65rem;
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.lang-switch button.active {
+  background: rgba(46, 139, 138, 0.28);
+  color: var(--ink);
+}
+
+.sim-controls {
+  display: grid;
+  gap: 1rem;
+}
+
+.sim-controls label {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.sim-controls input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.upload-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1rem;
+  border-radius: 0.85rem;
+  border: 1px dashed rgba(46, 139, 138, 0.5);
+  background: rgba(46, 139, 138, 0.08);
+  color: var(--ink-soft);
+  cursor: pointer;
+  font: inherit;
+}
+
+.upload-btn input {
+  display: none;
+}
+
+.consult-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.consult-step {
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(232, 241, 239, 0.12);
+  background: rgba(8, 22, 27, 0.45);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.consult-step.active {
+  border-color: rgba(46, 139, 138, 0.55);
+  color: var(--ink);
+  background: rgba(46, 139, 138, 0.18);
+}
+
+.consult-step.done {
+  color: var(--accent-soft);
+}
+
+.unique-list {
+  margin: 0;
+  padding: 0 1.1rem 0 0;
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 640px) {
+  .split-view {
+    grid-template-columns: 1fr;
+  }
+}

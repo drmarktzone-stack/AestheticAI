@@ -1,14 +1,10 @@
 # פרוטוקול (Protokol)
 
-מדריך קליני לרופאי אסתטיקה — חומרים, אזורי הזרקה, טכניקות, פרוטוקולים, חירום ומתכנן טיפול.
+Clinical decision platform for aesthetic physicians — materials, anatomy, techniques, protocols, emergency, patient simulation, and consultation flow.
 
-## אחריות רפואית
+**Languages:** Hebrew · Arabic · English (RTL/LTR)
 
-היישום מיועד לרופאים מוסמכים בלבד. **כל תוכן קליני (מינונים, התוויות, פרוטוקולי חירום) באחריות הרופא המשתמש.**
-
-ערכי ברירת המחדל מסומנים כטיוטה (`reviewedByPhysician: false`) וחייבים אישור + התאמה ל־IFU / מדיניות המרפאה לפני שימוש קליני.
-
-## הרצה
+## Run
 
 ```bash
 cd protokol
@@ -16,23 +12,31 @@ npm install
 npm run dev
 ```
 
-בנייה:
+## What's included (v2)
 
-```bash
-npm run build
-npm run preview
-```
+- **Trilingual UI** — switch עב / عر / EN in the header
+- **Consultation flow** — Assessment → Plan → Simulation → Documentation
+- **Patient simulation** — upload photo, select zones, before/after preview, injection points
+- **Interactive face map** — treatment zones + danger highlighting
+- **Technique simulator** — animated injection paths
+- **Clinical library** — materials, regions, techniques, protocols, emergency
+- **Physician ownership** — draft content until you approve
 
-## מבנה
+## Medical responsibility
 
-- `src/data` — מודל נתונים ותוכן זרע בעברית
-- `src/pages` — מסכים: בית, חומרים, אזורים, טכניקות, פרוטוקולים, חירום, מתכנן
-- `src/components` — מעטפת RTL ו־UI משותף
+For licensed physicians only. All clinical content (dosing, indications, emergency protocols) is your responsibility. Defaults are drafts (`reviewedByPhysician: false`) until approved against IFU and clinic policy.
 
-## שלבים הבאים (מומלץ)
+## Structure
 
-1. אישור ועריכת תוכן קליני על ידך
-2. הוספת מותגים ספציפיים + טבלאות יחידות לפי IFU
-3. מצב עריכה פנימי / CMS
-4. אימות רופא + אופליין (PWA)
-5. תבניות הסכמה מדעת ותיעוד
+- `src/i18n` — locales (he/ar/en)
+- `src/data` — clinical seed content + face zones
+- `src/components/visual` — FaceMap, TechniqueSimulator, BeforeAfterViewer
+- `src/pages` — Home, Consultation, Simulation, library modules
+
+## Next steps
+
+1. Approve/edit clinical content (brands, doses, emergency protocol)
+2. Richer simulation (landmark AI, mesh warping)
+3. Photo/video guides per procedure
+4. PWA offline + physician auth
+5. Consent templates + outcome tracking (simulation vs real)

@@ -1,5 +1,5 @@
 import type { RiskLevel } from "../data";
-import { riskLabel } from "../data";
+import { useLocale } from "../i18n";
 import "./ui.css";
 
 export function Badge({
@@ -13,16 +13,18 @@ export function Badge({
 }
 
 export function RiskBadge({ risk }: { risk: RiskLevel }) {
+  const { pick, t } = useLocale();
   const tone =
     risk === "critical" ? "danger" : risk === "high" ? "warn" : risk === "moderate" ? "accent" : "ok";
-  return <Badge tone={tone}>{riskLabel[risk]}</Badge>;
+  return <Badge tone={tone}>{pick(t.common.risk[risk])}</Badge>;
 }
 
 export function ReviewFlag({ reviewed }: { reviewed: boolean }) {
+  const { pick, t } = useLocale();
   return reviewed ? (
-    <Badge tone="ok">מאושר רופא</Badge>
+    <Badge tone="ok">{pick(t.common.approved)}</Badge>
   ) : (
-    <Badge tone="warn">טיוטה — ממתין לאישורך</Badge>
+    <Badge tone="warn">{pick(t.common.draft)}</Badge>
   );
 }
 
@@ -58,9 +60,10 @@ export function SearchField({
   onChange: (v: string) => void;
   placeholder: string;
 }) {
+  const { pick, t } = useLocale();
   return (
     <label className="search-field">
-      <span className="sr-only">חיפוש</span>
+      <span className="sr-only">{pick(t.common.search)}</span>
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}

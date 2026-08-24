@@ -1,51 +1,66 @@
 import { Link } from "react-router-dom";
-import { appMeta, emergencies, materials, protocols, regions } from "../data";
+import { emergencies, materials, protocols, regions } from "../data";
+import { useLocale } from "../i18n";
 import "./Home.css";
 
-const modules = [
-  {
-    to: "/materials",
-    title: "חומרים",
-    text: "HA, טוקסין, ביוסטימולטורים, אנזימים — שימושים, מישורים והערות מינון.",
-    count: `${materials.length} ערכים`,
-  },
-  {
-    to: "/regions",
-    title: "אזורים ואנטומיה",
-    text: "מטרות, danger zones, משטחי הזרקה ודגלי חירום לפי אזור.",
-    count: `${regions.length} אזורים`,
-  },
-  {
-    to: "/protocols",
-    title: "פרוטוקולים",
-    text: "מסלולי טיפול שלמים: הערכה → תכנון → הזרקה → מעקב.",
-    count: `${protocols.length} פרוטוקולים`,
-  },
-  {
-    to: "/emergency",
-    title: "חירום",
-    text: "זיהוי מהיר ופעולות מיידיות לחסימה וסקולרית, ראייה ואנפילקסיס.",
-    count: `${emergencies.length} תרחישים`,
-  },
-];
-
 export function HomePage() {
+  const { pick, t } = useLocale();
+
+  const modules = [
+    {
+      to: "/consultation",
+      title: pick(t.nav.consultation),
+      text: pick(t.consultation.lead),
+      count: "4 steps",
+    },
+    {
+      to: "/simulation",
+      title: pick(t.nav.simulation),
+      text: pick(t.simulation.lead),
+      count: pick(t.common.before) + " / " + pick(t.common.after),
+    },
+    {
+      to: "/materials",
+      title: pick(t.nav.materials),
+      text: "HA, toxin, biostimulators, enzymes",
+      count: `${materials.length}`,
+    },
+    {
+      to: "/regions",
+      title: pick(t.nav.regions),
+      text: "Danger zones · planes · emergency flags",
+      count: `${regions.length}`,
+    },
+    {
+      to: "/protocols",
+      title: pick(t.nav.protocols),
+      text: pick(t.consultation.stepAssess) + " → " + pick(t.consultation.stepDocument),
+      count: `${protocols.length}`,
+    },
+    {
+      to: "/emergency",
+      title: pick(t.nav.emergency),
+      text: "Vascular · vision · anaphylaxis",
+      count: `${emergencies.length}`,
+    },
+  ];
+
   return (
     <div className="home">
       <section className="hero">
         <div className="hero-copy">
-          <p className="hero-brand">{appMeta.nameHe}</p>
-          <h1>מדריך עבודה לרופא האסתטיקה — ליד המיטה.</h1>
-          <p className="hero-lead">
-            חומרים, אזורים, טכניקות, מינונים ופרוטוקולי חירום במקום אחד. התוכן הקליני
-            באחריותך המלאה — הטיוטות כאן מחכות לאישור ולעריכה שלך.
-          </p>
+          <p className="hero-brand">{pick(t.appName)}</p>
+          <h1>{pick(t.home.heroTitle)}</h1>
+          <p className="hero-lead">{pick(t.home.heroLead)}</p>
           <div className="hero-actions">
-            <Link className="btn primary" to="/emergency">
-              פתיחת חירום
+            <Link className="btn primary" to="/consultation">
+              {pick(t.common.startConsultation)}
             </Link>
-            <Link className="btn ghost" to="/planner">
-              מתכנן טיפול
+            <Link className="btn ghost" to="/simulation">
+              {pick(t.home.openSimulation)}
+            </Link>
+            <Link className="btn ghost" to="/emergency">
+              {pick(t.home.openEmergency)}
             </Link>
           </div>
         </div>
@@ -63,7 +78,7 @@ export function HomePage() {
       </section>
 
       <section className="modules">
-        <h2>מודולים קליניים</h2>
+        <h2>{pick(t.home.modulesTitle)}</h2>
         <div className="module-grid">
           {modules.map((m, i) => (
             <Link key={m.to} to={m.to} className="module" style={{ animationDelay: `${i * 70}ms` }}>
@@ -77,13 +92,18 @@ export function HomePage() {
         </div>
       </section>
 
+      <section className="ownership unique-section">
+        <h2>{pick(t.home.uniqueTitle)}</h2>
+        <ul className="unique-list">
+          {t.home.uniqueItems.map((item) => (
+            <li key={item.en}>{pick(item)}</li>
+          ))}
+        </ul>
+      </section>
+
       <section className="ownership">
-        <h2>אחריות רפואית</h2>
-        <p>
-          היישום מיועד לרופאים מוסמכים בלבד. כל מינון, התוויה ופרוטוקול חייב להיות מאושר
-          על ידך ומבוסס IFU / הנחיות מקצועיות לפני שימוש קליני. ערכי ברירת המחדל מסומנים
-          כטיוטה עד שתאשר אותם.
-        </p>
+        <h2>{pick(t.home.ownershipTitle)}</h2>
+        <p>{pick(t.home.ownershipBody)}</p>
       </section>
     </div>
   );

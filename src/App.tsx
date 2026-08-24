@@ -7,6 +7,8 @@ import { TechniquesPage, TechniqueDetailPage } from "./pages/Techniques";
 import { ProtocolsPage, ProtocolDetailPage } from "./pages/Protocols";
 import { EmergencyPage, EmergencyDetailPage } from "./pages/Emergency";
 import { PlannerPage } from "./pages/Planner";
+import { SimulationPage } from "./pages/Simulation";
+import { ConsultationPage } from "./pages/Consultation";
 
 export default function App() {
   return (
@@ -14,6 +16,8 @@ export default function App() {
       <Shell>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/consultation" element={<ConsultationPage />} />
+          <Route path="/simulation" element={<SimulationPage />} />
           <Route path="/materials" element={<MaterialsPage />} />
           <Route path="/materials/:id" element={<MaterialDetailPage />} />
           <Route path="/regions" element={<RegionsPage />} />

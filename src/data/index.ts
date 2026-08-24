@@ -4,6 +4,7 @@ import { techniques } from "./techniques";
 import { emergencies, protocols } from "./protocols";
 
 export * from "./types";
+export * from "./faceZones";
 export { materials, regions, techniques, emergencies, protocols };
 
 export const appMeta = {

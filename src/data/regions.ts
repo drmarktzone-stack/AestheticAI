@@ -4,6 +4,7 @@ export const regions: InjectionRegion[] = [
   {
     id: "glabella",
     nameHe: "גלאבלה",
+    nameAr: "الجبينة",
     nameEn: "Glabella",
     goals: ["ריכוך קמטי כעס", "איזון מצח"],
     anatomyNotes: [
@@ -28,6 +29,7 @@ export const regions: InjectionRegion[] = [
   {
     id: "lips",
     nameHe: "שפתיים",
+    nameAr: "الشفاه",
     nameEn: "Lips",
     goals: ["נפח", "הגדרה", "סימטריה", "הידרציה חזותית"],
     anatomyNotes: [
@@ -49,6 +51,7 @@ export const regions: InjectionRegion[] = [
   {
     id: "cheeks",
     nameHe: "לחיים / midface",
+    nameAr: "الخدود",
     nameEn: "Cheeks",
     goals: ["תמיכת midface", "החזרת נפח", "שיפור קו מתאר"],
     anatomyNotes: [
@@ -70,6 +73,7 @@ export const regions: InjectionRegion[] = [
   {
     id: "jawline",
     nameHe: "קו לסת",
+    nameAr: "خط الفك",
     nameEn: "Jawline",
     goals: ["הגדרת mandibular border", "איזון פרופיל"],
     anatomyNotes: ["זווית הלסת", "מסהטר", "כלי דם צוואריים סמוכים בקצה"],
@@ -85,6 +89,7 @@ export const regions: InjectionRegion[] = [
   {
     id: "temple",
     nameHe: "רקות",
+    nameAr: "الصدغ",
     nameEn: "Temple",
     goals: ["מילוי שקע רקתי", "הרמת מסגרת פנים עדינה"],
     anatomyNotes: [
@@ -106,6 +111,7 @@ export const regions: InjectionRegion[] = [
   {
     id: "periocular",
     nameHe: "סביב העיניים",
+    nameAr: "محيط العين",
     nameEn: "Periocular",
     goals: ["ריכוך קמטים דינמיים", "שיפור איכות עור עדין — בזהירות"],
     anatomyNotes: ["orbicularis oculi", "מסלול לימפטי עדין", "עור דק"],

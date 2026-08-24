@@ -24,6 +24,7 @@ export interface SourceRef {
 export interface Material {
   id: string;
   nameHe: string;
+  nameAr?: string;
   nameEn: string;
   class: MaterialClass;
   rheology?: string;
@@ -39,6 +40,7 @@ export interface Material {
 export interface InjectionRegion {
   id: string;
   nameHe: string;
+  nameAr?: string;
   nameEn: string;
   goals: string[];
   anatomyNotes: string[];
@@ -55,6 +57,7 @@ export interface InjectionRegion {
 export interface Technique {
   id: string;
   nameHe: string;
+  nameAr?: string;
   nameEn: string;
   summary: string;
   whenToUse: string[];
