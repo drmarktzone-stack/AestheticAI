@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "Protokol",
+    "slug": "protokol-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "scheme": "protokol",
+    "plugins": [
+      "expo-secure-store"
+    ],
+    "extra": {
+      "supabaseUrl": "${EXPO_PUBLIC_SUPABASE_URL}",
+      "supabaseAnonKey": "${EXPO_PUBLIC_SUPABASE_ANON_KEY}",
+      "storageBucket": "${EXPO_PUBLIC_SUPABASE_STORAGE_BUCKET}"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "CFBundleAllowMixedLocalizations": true,
+        "ExpoLocalization_supportsRTL": true
+      },
+      "bundleIdentifier": "com.protokol.aesthetic"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0b1c22",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "package": "com.protokol.aesthetic",
+      "supportsRtl": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "updates": {
+      "enabled": true
+    }
+  }
+}

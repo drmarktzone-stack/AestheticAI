@@ -1,0 +1,57 @@
+{
+  "app": {
+    "name": "פרוטוקול",
+    "tagline": "מדריך קליני לרופאי אסתטיקה"
+  },
+  "common": {
+    "loading": "טוען…",
+    "error": "משהו השתבש",
+    "retry": "נסה שוב",
+    "cancel": "ביטול",
+    "save": "שמור",
+    "language": "שפה",
+    "disclaimer": "לשימוש רופאים מוסמכים בלבד. התוכן הקליני באחריותך."
+  },
+  "auth": {
+    "signIn": "התחברות",
+    "signOut": "התנתקות",
+    "email": "אימייל",
+    "password": "סיסמה",
+    "signInTitle": "כניסת רופא",
+    "signInSubtitle": "גישה מאובטחת לכלים קליניים ולמדיה רפואית",
+    "sessionExpired": "פג תוקף ההתחברות. התחבר מחדש."
+  },
+  "nav": {
+    "home": "בית",
+    "consultation": "ייעוץ",
+    "simulation": "סימולציה",
+    "materials": "חומרים",
+    "regions": "אזורים",
+    "emergency": "חירום"
+  },
+  "home": {
+    "welcome": "ברוכים הבאים לפרוטוקול",
+    "subtitle": "אנטומיה, פרוטוקולים, סימולציה וחירום — בזרימה קלינית אחת.",
+    "startConsultation": "התחל ייעוץ",
+    "openSimulation": "סימולציית מטופל"
+  },
+  "rtl": {
+    "directionChanged": "כיוון התצוגה עודכן",
+    "restartRequired": "מפעיל מחדש את האפליקציה להחלת RTL…"
+  },
+  "storage": {
+    "uploadSuccess": "התמונה הועלתה בצורה מאובטחת",
+    "uploadError": "ההעלאה נכשלה",
+    "accessDenied": "אין לך גישה לקובץ זה"
+  },
+  "errors": {
+    "network": "שגיאת רשת. בדוק את החיבור.",
+    "unauthorized": "לא מורשה",
+    "unknown": "שגיאה לא ידועה"
+  },
+  "setup": {
+    "supabaseReady": "Backend מחובר",
+    "supabaseAuthenticated": "מחובר",
+    "supabaseNotConfigured": "העתק .env.example ל-.env והפעל מחדש את Expo"
+  }
+}

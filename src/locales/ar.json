@@ -1,0 +1,57 @@
+{
+  "app": {
+    "name": "بروتوكول",
+    "tagline": "دليل سريري لأطباء التجميل"
+  },
+  "common": {
+    "loading": "جارٍ التحميل…",
+    "error": "حدث خطأ",
+    "retry": "إعادة المحاولة",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "language": "اللغة",
+    "disclaimer": "للاستخدام من قبل أطباء مرخصين فقط. المحتوى السريري مسؤوليتك."
+  },
+  "auth": {
+    "signIn": "تسجيل الدخول",
+    "signOut": "تسجيل الخروج",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "signInTitle": "دخول الطبيب",
+    "signInSubtitle": "وصول آمن للأدوات السريرية والوسائط الطبية",
+    "sessionExpired": "انتهت الجلسة. يرجى تسجيل الدخول مرة أخرى."
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "consultation": "الاستشارة",
+    "simulation": "المحاكاة",
+    "materials": "المواد",
+    "regions": "المناطق",
+    "emergency": "الطوارئ"
+  },
+  "home": {
+    "welcome": "مرحباً بك في بروتوكول",
+    "subtitle": "التشريح والبروتوكولات والمحاكاة والطوارئ — في مسار سريري واحد.",
+    "startConsultation": "بدء الاستشارة",
+    "openSimulation": "محاكاة المريض"
+  },
+  "rtl": {
+    "directionChanged": "تم تحديث اتجاه العرض",
+    "restartRequired": "إعادة تشغيل التطبيق لتطبيق RTL…"
+  },
+  "storage": {
+    "uploadSuccess": "تم رفع الصورة بشكل آمن",
+    "uploadError": "فشل الرفع",
+    "accessDenied": "ليس لديك صلاحية الوصول إلى هذا الملف"
+  },
+  "errors": {
+    "network": "خطأ في الشبكة. تحقق من الاتصال.",
+    "unauthorized": "غير مصرح",
+    "unknown": "خطأ غير معروف"
+  },
+  "setup": {
+    "supabaseReady": "الخادم متصل",
+    "supabaseAuthenticated": "تم تسجيل الدخول",
+    "supabaseNotConfigured": "انسخ .env.example إلى .env وأعد تشغيل Expo"
+  }
+}
