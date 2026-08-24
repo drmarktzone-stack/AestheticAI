@@ -29,6 +29,7 @@ export interface TranslationSchema {
     home: string;
     consultation: string;
     simulation: string;
+    timeline: string;
     materials: string;
     regions: string;
     emergency: string;
@@ -39,6 +40,7 @@ export interface TranslationSchema {
     subtitle: string;
     startConsultation: string;
     openSimulation: string;
+    openTimeline: string;
     openCamera: string;
   };
   rtl: {
@@ -102,6 +104,49 @@ export interface TranslationSchema {
       saved: string;
       score: string;
       lighting: string;
+    };
+  };
+  timeline: {
+    title: string;
+    subtitle: string;
+    baselinePhoto: string;
+    pickPhoto: string;
+    changePhoto: string;
+    procedureLabel: string;
+    generate: string;
+    baseline: string;
+    compareCaption: string;
+    pendingFrame: string;
+    partial: string;
+    disclaimer: string;
+    procedures: {
+      lip_filler: string;
+      botox_forehead: string;
+      rhinoplasty: string;
+      cheek_filler: string;
+      jawline_contour: string;
+    };
+    milestones: {
+      day1: string;
+      day7: string;
+      month3: string;
+      month6: string;
+    };
+    milestonesShort: {
+      day1: string;
+      day7: string;
+      month3: string;
+      month6: string;
+    };
+    loading: {
+      queued: string;
+      day1: string;
+      day7: string;
+      month3: string;
+      month6: string;
+      finalizing: string;
+      done: string;
+      failed: string;
     };
   };
 }

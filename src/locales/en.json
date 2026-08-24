@@ -25,6 +25,7 @@
     "home": "Home",
     "consultation": "Consultation",
     "simulation": "Simulation",
+    "timeline": "Recovery timeline",
     "materials": "Materials",
     "regions": "Regions",
     "emergency": "Emergency",
@@ -35,6 +36,7 @@
     "subtitle": "Anatomy, protocols, simulation, and emergency — in one clinical workflow.",
     "startConsultation": "Start consultation",
     "openSimulation": "Patient simulation",
+    "openTimeline": "Recovery timeline simulator",
     "openCamera": "Medical photo capture"
   },
   "rtl": {
@@ -98,6 +100,49 @@
       "saved": "Photo captured",
       "score": "Alignment score",
       "lighting": "Lighting"
+    }
+  },
+  "timeline": {
+    "title": "Treatment & recovery timeline",
+    "subtitle": "Simulate post-procedure milestones from a baseline photo.",
+    "baselinePhoto": "Baseline photo",
+    "pickPhoto": "Choose baseline photo",
+    "changePhoto": "Change photo",
+    "procedureLabel": "Procedure",
+    "generate": "Generate timeline",
+    "baseline": "Baseline",
+    "compareCaption": "Side-by-side — {{milestone}}",
+    "pendingFrame": "Generating…",
+    "partial": "Some milestones failed — scrub available frames only.",
+    "disclaimer": "AI simulation for consultation only. Not a clinical outcome guarantee.",
+    "procedures": {
+      "lip_filler": "Lip filler",
+      "botox_forehead": "Botox forehead",
+      "rhinoplasty": "Rhinoplasty",
+      "cheek_filler": "Cheek filler",
+      "jawline_contour": "Jawline contour"
+    },
+    "milestones": {
+      "day1": "Day 1 — post-procedure",
+      "day7": "Day 7 — optimal healed",
+      "month3": "Month 3 — stable",
+      "month6": "Month 6 — absorption baseline"
+    },
+    "milestonesShort": {
+      "day1": "Day 1",
+      "day7": "Day 7",
+      "month3": "Month 3",
+      "month6": "Month 6"
+    },
+    "loading": {
+      "queued": "Queuing AI pipeline…",
+      "day1": "Rendering Day 1 — post-procedure swelling…",
+      "day7": "Rendering Day 7 — optimal healed result…",
+      "month3": "Rendering Month 3 — stable outcome…",
+      "month6": "Rendering Month 6 — absorption baseline…",
+      "finalizing": "Finalizing timeline…",
+      "done": "Timeline ready",
+      "failed": "Generation failed"
     }
   }
 }

@@ -9,3 +9,6 @@ port = 54321
 
 [functions.analyze-face]
 verify_jwt = true
+
+[functions.timeline-simulator]
+verify_jwt = true

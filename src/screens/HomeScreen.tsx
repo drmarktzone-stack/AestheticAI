@@ -7,7 +7,13 @@ import { useAuth } from "@/providers/AuthProvider";
 import { useRTL } from "@/hooks/useRTL";
 import { colors } from "@/theme/colors";
 
-export function HomeScreen({ onOpenCamera }: { onOpenCamera: () => void }) {
+export function HomeScreen({
+  onOpenCamera,
+  onOpenTimeline,
+}: {
+  onOpenCamera: () => void;
+  onOpenTimeline: () => void;
+}) {
   const { t } = useTranslation();
   const { row, textStart } = useRTL();
   const { isConfigured, session } = useAuth();
@@ -29,9 +35,9 @@ export function HomeScreen({ onOpenCamera }: { onOpenCamera: () => void }) {
           <Pressable style={styles.actionPrimary} onPress={onOpenCamera}>
             <Text style={styles.actionPrimaryText}>{t("home.openCamera")}</Text>
           </Pressable>
-          <View style={styles.actionGhost}>
-            <Text style={styles.actionGhostText}>{t("home.openSimulation")}</Text>
-          </View>
+          <Pressable style={styles.actionGhost} onPress={onOpenTimeline}>
+            <Text style={styles.actionGhostText}>{t("home.openTimeline")}</Text>
+          </Pressable>
         </View>
       </View>
 

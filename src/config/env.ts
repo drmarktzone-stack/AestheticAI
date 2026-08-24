@@ -6,6 +6,8 @@ export interface AppEnv {
   storageBucket: string;
   faceAnalysisUrl: string;
   faceAnalysisApiKey: string;
+  timelineSimulatorUrl: string;
+  timelineSimulatorApiKey: string;
   isConfigured: boolean;
 }
 
@@ -24,6 +26,12 @@ function readEnv(): AppEnv {
     process.env.EXPO_PUBLIC_FACE_ANALYSIS_URL ?? extra?.faceAnalysisUrl ?? "";
   const faceAnalysisApiKey =
     process.env.EXPO_PUBLIC_FACE_ANALYSIS_API_KEY ?? extra?.faceAnalysisApiKey ?? "";
+  const timelineSimulatorUrl =
+    process.env.EXPO_PUBLIC_TIMELINE_SIMULATOR_URL ?? extra?.timelineSimulatorUrl ?? "";
+  const timelineSimulatorApiKey =
+    process.env.EXPO_PUBLIC_TIMELINE_SIMULATOR_API_KEY ??
+    extra?.timelineSimulatorApiKey ??
+    "";
 
   return {
     supabaseUrl,
@@ -31,6 +39,8 @@ function readEnv(): AppEnv {
     storageBucket,
     faceAnalysisUrl,
     faceAnalysisApiKey,
+    timelineSimulatorUrl,
+    timelineSimulatorApiKey,
     isConfigured: Boolean(supabaseUrl && supabaseAnonKey),
   };
 }
