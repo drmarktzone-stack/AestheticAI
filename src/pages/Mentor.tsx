@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { getMentorByRegion, type MentorSectionId } from "../data/clinical";
-import { AnimationReel } from "../components/visual/AnimationReel";
 import { TimelineScrubber } from "../components/visual/TimelineScrubber";
+import { ClinicalVideoGrid } from "../components/visual/ClinicalVideo";
+import { featuredLipsVideos, videosForRegion } from "../lib/driveMedia";
 import { useLocale } from "../i18n";
 import { pickL, pickList } from "../data/clinical/types";
 import "./Mentor.css";
@@ -376,18 +377,19 @@ export function MentorPage() {
                   ))}
                 </div>
                 <div className="mentor-tech-media">
+                  <ClinicalVideoGrid
+                    videos={
+                      guide.regionId === "lips"
+                        ? featuredLipsVideos()
+                        : guide.regionId === "cheeks"
+                          ? videosForRegion("midface")
+                          : featuredLipsVideos()
+                    }
+                  />
                   <figure className="mentor-media">
                     <img src={mediaById("inj-still")?.src} alt="" />
                     <figcaption>{pickL(locale, mediaById("inj-still")!.caption)}</figcaption>
                   </figure>
-                  <AnimationReel />
-                  <p className="mentor-media-note">
-                    {locale === "he"
-                      ? "רצף Flow להמחשת פעולה — החלף ב־MP4 כשיסופק."
-                      : locale === "ar"
-                        ? "تسلسل Flow لتوضيح الإجراء — يُستبدل بـ MP4 عند التوفر."
-                        : "Flow frame sequence for procedure demo — replace with MP4 when provided."}
-                  </p>
                 </div>
               </div>
             </section>
@@ -425,7 +427,23 @@ export function MentorPage() {
           {section === "simulation" && (
             <section className="mentor-panel">
               <h2>{sectionLabel("simulation")}</h2>
-              <div className="mentor-two">
+              <h3>
+                {locale === "he"
+                  ? "סרטוני הזרקה וסימולציה"
+                  : locale === "ar"
+                    ? "فيديوهات الحقن والمحاكاة"
+                    : "Injection & simulation videos"}
+              </h3>
+              <ClinicalVideoGrid
+                videos={
+                  guide.regionId === "lips"
+                    ? featuredLipsVideos()
+                    : guide.regionId === "cheeks"
+                      ? videosForRegion("midface")
+                      : featuredLipsVideos()
+                }
+              />
+              <div className="mentor-two" style={{ marginTop: "1.5rem" }}>
                 <div>
                   <h3>
                     {locale === "he"

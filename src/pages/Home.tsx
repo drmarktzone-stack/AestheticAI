@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { STITCH, USER_LIPS } from "../lib/assets";
+import { ClinicalVideo, ClinicalVideoGrid } from "../components/visual/ClinicalVideo";
+import { featuredLipsVideos, injectionVideos } from "../lib/driveMedia";
 import { useLocale } from "../i18n";
 import "./Home.css";
 
@@ -115,6 +117,46 @@ export function HomePage() {
         </div>
         <div className="home-feature-media">
           <img src={USER_LIPS.anatomy[0]} alt="" />
+        </div>
+      </section>
+
+      <section className="home-videos" aria-label="Clinical videos">
+        <div className="home-videos-inner">
+          <header className="home-videos-head">
+            <p className="home-kicker">
+              {locale === "he" ? "מדיה קלינית" : locale === "ar" ? "وسائط سريرية" : "Clinical media"}
+            </p>
+            <h2>
+              {locale === "he"
+                ? "הזרקה מומחשת — לא רק טקסט."
+                : locale === "ar"
+                  ? "حقن مرئي — وليس نصاً فقط."
+                  : "Visualized injection — not text alone."}
+            </h2>
+            <p>
+              {locale === "he"
+                ? "סרטוני סימולציה ואנימציה רפואית מתיקיית המדיה שלך — שפתיים, מרכז פנים וטוקסין."
+                : locale === "ar"
+                  ? "فيديوهات محاكاة ورسوم طبية من مجلد الوسائط — الشفاه ومنتصف الوجه والتوكسين."
+                  : "Simulation and medical animation videos from your media folder — lips, midface and toxin."}
+            </p>
+          </header>
+          <div className="home-videos-stage">
+            <ClinicalVideo video={featuredLipsVideos()[0]} autoPlay />
+            <ClinicalVideoGrid videos={injectionVideos().slice(0, 4)} />
+          </div>
+          <div className="home-videos-actions">
+            <Link className="btn primary" to="/guide/lips#technique">
+              {locale === "he"
+                ? "צפה בהזרקת שפתיים"
+                : locale === "ar"
+                  ? "شاهد حقن الشفاه"
+                  : "Watch lips injection"}
+            </Link>
+            <Link className="btn ghost" to="/library">
+              {locale === "he" ? "ספרייה מלאה" : locale === "ar" ? "المكتبة الكاملة" : "Full library"}
+            </Link>
+          </div>
         </div>
       </section>
 

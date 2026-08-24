@@ -4,6 +4,8 @@ import { FaceMap } from "../components/visual/FaceMap";
 import { BeforeAfterViewer } from "../components/visual/BeforeAfterViewer";
 import { TimelineScrubber } from "../components/visual/TimelineScrubber";
 import { AnimationReel } from "../components/visual/AnimationReel";
+import { ClinicalVideo, ClinicalVideoGrid } from "../components/visual/ClinicalVideo";
+import { DRIVE_VIDEOS, featuredLipsVideos } from "../lib/driveMedia";
 import { STITCH } from "../lib/assets";
 import { useLocale } from "../i18n";
 import "../components/visual/visual.css";
@@ -29,7 +31,7 @@ const ZONES = [
   { id: "jw1", name: "Jawline (JW1)", dose: "—", depth: "Pending", active: false },
 ];
 
-type ViewMode = "canvas" | "compare" | "timeline" | "animation";
+type ViewMode = "videos" | "canvas" | "compare" | "timeline" | "animation";
 
 export function SimulationPage() {
   const { pick, t } = useLocale();
@@ -39,7 +41,7 @@ export function SimulationPage() {
   const [selectedZones, setSelectedZones] = useState<string[]>(["cheek-l", "cheek-r"]);
   const [intensity, setIntensity] = useState(45);
   const [points, setPoints] = useState<InjectionPoint[]>([]);
-  const [mode, setMode] = useState<ViewMode>("timeline");
+  const [mode, setMode] = useState<ViewMode>("videos");
   const [imageUrl, setImageUrl] = useState<string | null>(STITCH.profile);
 
   const activeZones = useMemo(
@@ -165,6 +167,7 @@ export function SimulationPage() {
         <div className="sim-mode-tabs" role="tablist">
           {(
             [
+              ["videos", "סרטוני הזרקה"],
               ["timeline", "טיימליין החלמה"],
               ["animation", "אנימציית Flow"],
               ["compare", "לפני / אחרי"],
@@ -184,6 +187,12 @@ export function SimulationPage() {
         </div>
 
         <div className="sim-stage">
+          {mode === "videos" && (
+            <div className="sim-videos">
+              <ClinicalVideo video={featuredLipsVideos()[0]} autoPlay />
+              <ClinicalVideoGrid videos={DRIVE_VIDEOS} />
+            </div>
+          )}
           {mode === "timeline" && <TimelineScrubber autoPlay />}
           {mode === "animation" && <AnimationReel />}
           {mode === "compare" && (

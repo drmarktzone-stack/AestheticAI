@@ -172,9 +172,14 @@
   overflow: auto;
 }
 
-.sim-face-stage {
-  position: relative;
-  min-height: 420px;
+.sim-videos {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.sim-videos .cvid:first-child video {
+  aspect-ratio: 16 / 9;
+  max-height: 420px;
 }
 
 .sim-face-bg {
