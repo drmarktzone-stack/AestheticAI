@@ -25,10 +25,7 @@ const LocaleContext = createContext<LocaleContextValue | null>(null);
 function detectInitial(): Locale {
   const saved = localStorage.getItem(STORAGE_KEY) as Locale | null;
   if (saved === "he" || saved === "ar" || saved === "en") return saved;
-  const lang = navigator.language.toLowerCase();
-  if (lang.startsWith("ar")) return "ar";
-  if (lang.startsWith("en")) return "en";
-  // Hebrew-first clinical product (Stitch / RTL default)
+  // Hebrew-first clinical product (matches Stitch RTL default)
   return "he";
 }
 
