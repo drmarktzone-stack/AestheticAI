@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { STITCH } from "../lib/assets";
+import { STITCH, USER_LIPS } from "../lib/assets";
 import { useLocale } from "../i18n";
 import "./Home.css";
 
@@ -114,7 +114,7 @@ export function HomePage() {
           </Link>
         </div>
         <div className="home-feature-media">
-          <img src={STITCH.lips[0]} alt="" />
+          <img src={USER_LIPS.anatomy[0]} alt="" />
         </div>
       </section>
 

@@ -1,6 +1,73 @@
-/** Stitch / Drive clinical assets under public/stitch */
+/** Stitch / Drive / user Bing clinical assets under public/stitch */
 export const asset = (path: string) =>
   `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+
+/** Physician-supplied Bing pack (lips MVP) — preferred over Stitch placeholders */
+export const USER_LIPS = {
+  anatomy: [
+    asset("stitch/user/lips/anatomy/lips_anatomy_front_d.jpg"),
+    asset("stitch/user/lips/anatomy/lips_anatomy_front_a.jpg"),
+    asset("stitch/user/lips/anatomy/lips_anatomy_front_c.jpg"),
+    asset("stitch/user/lips/anatomy/lips_anatomy_front_b.jpg"),
+  ],
+  before: asset("stitch/user/lips/before_after/lips_before.jpg"),
+  after: asset("stitch/user/lips/before_after/lips_after.jpg"),
+  beforeAfterGrid: asset("stitch/user/lips/before_after/lips_ba_grid.jpg"),
+  beforeAfterAlts: [
+    asset("stitch/user/lips/before_after/lips_ba_01.jpg"),
+    asset("stitch/user/lips/before_after/lips_ba_02.jpg"),
+    asset("stitch/user/lips/before_after/lips_ba_03.jpg"),
+  ],
+  timeline: [
+    {
+      id: "d1",
+      label: "יום 1",
+      labelAr: "يوم 1",
+      labelEn: "Day 1",
+      sub: "נפיחות קלה",
+      subAr: "تورم خفيف",
+      subEn: "Mild edema",
+      src: asset("stitch/user/lips/timeline/lips_day1.jpg"),
+    },
+    {
+      id: "d7",
+      label: "יום 7",
+      labelAr: "يوم 7",
+      labelEn: "Day 7",
+      sub: "תוצאה אופטימלית",
+      subAr: "نتيجة مبكرة مثالية",
+      subEn: "Optimal early result",
+      src: asset("stitch/user/lips/timeline/lips_day7.jpg"),
+    },
+    {
+      id: "m3",
+      label: "חודש 3",
+      labelAr: "شهر 3",
+      labelEn: "Month 3",
+      sub: "יציבות",
+      subAr: "استقرار",
+      subEn: "Stability",
+      src: asset("stitch/user/lips/timeline/lips_month3.jpg"),
+    },
+    {
+      id: "m6",
+      label: "חודש 6",
+      labelAr: "شهر 6",
+      labelEn: "Month 6",
+      sub: "ספיגה הדרגתית",
+      subAr: "امتصاص تدريجي",
+      subEn: "Gradual resorption",
+      src: asset("stitch/user/lips/timeline/lips_month6.jpg"),
+    },
+  ],
+  timelineGrid: asset("stitch/user/lips/timeline/lips_timeline_grid.jpg"),
+  clinical: [
+    asset("stitch/user/lips/clinical/clinic_01.jpg"),
+    asset("stitch/user/lips/clinical/clinic_02.jpg"),
+    asset("stitch/user/lips/clinical/clinic_03.jpg"),
+    asset("stitch/user/lips/clinical/clinic_04.jpg"),
+  ],
+} as const;
 
 export const STITCH = {
   heroClinic: asset("stitch/hero-clinic.png"),
@@ -9,15 +76,9 @@ export const STITCH = {
   cinematicClinic: asset("stitch/cinematic/clinic.png"),
   injection: asset("stitch/clinical/injection.png"),
   treatment: asset("stitch/clinical/treatment.png"),
-  profile: asset("stitch/clinical/profile.png"),
-  beforeAfter: asset("stitch/clinical/before-after.png"),
-  lips: [
-    asset("stitch/clinical/lips-1.png"),
-    asset("stitch/clinical/lips-2.png"),
-    asset("stitch/clinical/lips-3.png"),
-    asset("stitch/clinical/lips-4.png"),
-    asset("stitch/clinical/lips-5.png"),
-  ],
+  profile: USER_LIPS.anatomy[0],
+  beforeAfter: USER_LIPS.beforeAfterGrid,
+  lips: [...USER_LIPS.anatomy],
   midface: [
     asset("stitch/clinical/midface-1.png"),
     asset("stitch/clinical/midface-2.png"),
@@ -27,12 +88,12 @@ export const STITCH = {
   periocular: asset("stitch/clinical/periocular.png"),
   extreme: asset("stitch/clinical/extreme.png"),
   side: [asset("stitch/clinical/side-1.png"), asset("stitch/clinical/side-2.png")],
-  timeline: [
-    { id: "d1", label: "יום 1", sub: "נפיחות קלה", src: asset("stitch/timeline/lips-day1.png") },
-    { id: "d7", label: "יום 7", sub: "תוצאה אופטימלית", src: asset("stitch/timeline/lips-day7.png") },
-    { id: "m3", label: "חודש 3", sub: "יציבות", src: asset("stitch/timeline/lips-month3.png") },
-    { id: "m6", label: "חודש 6", sub: "ספיגה הדרגתית", src: asset("stitch/timeline/lips-month6.png") },
-  ],
+  timeline: USER_LIPS.timeline.map((f) => ({
+    id: f.id,
+    label: f.label,
+    sub: f.sub,
+    src: f.src,
+  })),
   animation: [
     asset("stitch/animation/frame-1.png"),
     asset("stitch/animation/frame-2.png"),
@@ -47,13 +108,16 @@ export const LIBRARY_SECTIONS = [
     id: "lips",
     title: "שפתיים",
     items: [
-      { title: "סימולציית הזרקה מדורגת", tag: "תקריב קליני", src: STITCH.lips[0] },
-      { title: "יום 1 — נפיחות קלה", tag: "שלב דלקתי", src: STITCH.timeline[0].src },
-      { title: "יום 7 — תוצאה אופטימלית", tag: "אינטגרציה", src: STITCH.timeline[1].src },
-      { title: "חודש 3 — יציבות", tag: "מעקב", src: STITCH.timeline[2].src },
-      { title: "חודש 6 — ספיגה הדרגתית", tag: "פירוק מטבולי", src: STITCH.timeline[3].src },
-      { title: "סימולציית הזרקה — מבט על", tag: "תכנון אנטומי", src: STITCH.lips[2] },
-      { title: "סימולציית הזרקה — פרופיל", tag: "ניתוח נפחים", src: STITCH.lips[3] },
+      { title: "אנטומיה — מבט קדמי", tag: "בסיס קליני", src: USER_LIPS.anatomy[0] },
+      { title: "לפני טיפול", tag: "baseline", src: USER_LIPS.before },
+      { title: "אחרי טיפול", tag: "תוצאה", src: USER_LIPS.after },
+      { title: "לפני / אחרי", tag: "השוואה", src: USER_LIPS.beforeAfterGrid },
+      { title: "יום 1 — נפיחות קלה", tag: "שלב דלקתי", src: USER_LIPS.timeline[0].src },
+      { title: "יום 7 — תוצאה אופטימלית", tag: "אינטגרציה", src: USER_LIPS.timeline[1].src },
+      { title: "חודש 3 — יציבות", tag: "מעקב", src: USER_LIPS.timeline[2].src },
+      { title: "חודש 6 — ספיגה הדרגתית", tag: "פירוק מטבולי", src: USER_LIPS.timeline[3].src },
+      { title: "טיימליין מלא", tag: "Day1→Month6", src: USER_LIPS.timelineGrid },
+      { title: "סביבה קלינית", tag: "הקשר טיפול", src: USER_LIPS.clinical[0] },
     ],
   },
   {

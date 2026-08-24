@@ -1,8 +1,9 @@
-import { asset } from "../../lib/assets";
+import { USER_LIPS, asset } from "../../lib/assets";
 import { L, type ClinicalMentorGuide } from "./types";
 
 /**
  * Lips clinical mentor pack — trilingual educational draft.
+ * Media: physician Bing pack under public/stitch/user/lips.
  * Not a substitute for IFU / physician judgment. Marked unreviewed.
  */
 export const lipsMentor: ClinicalMentorGuide = {
@@ -308,32 +309,50 @@ export const lipsMentor: ClinicalMentorGuide = {
     {
       id: "anatomy-front",
       kind: "image",
-      src: asset("stitch/clinical/lips-1.png"),
+      src: USER_LIPS.anatomy[0],
       caption: L("מבט קדמי — בסיס קליני", "منظر أمامي — أساس سريري", "Frontal view — clinical baseline"),
     },
     {
-      id: "anatomy-profile",
+      id: "anatomy-alt",
       kind: "image",
-      src: asset("stitch/clinical/lips-3.png"),
-      caption: L("פרופיל / נפחים", "جانبي / الأحجام", "Profile / volumes"),
+      src: USER_LIPS.anatomy[1],
+      caption: L("אנטומיה — וריאציה", "تشريح — تباين", "Anatomy — variation"),
     },
     {
-      id: "inj-still",
+      id: "before",
       kind: "image",
-      src: asset("stitch/clinical/injection.png"),
-      caption: L("הדגמת הזרקה — סטילס קליני", "عرض الحقن — صورة سريرية", "Injection demo — clinical still"),
+      src: USER_LIPS.before,
+      caption: L("לפני HA", "قبل HA", "Before HA"),
+    },
+    {
+      id: "after",
+      kind: "image",
+      src: USER_LIPS.after,
+      caption: L("אחרי HA", "بعد HA", "After HA"),
     },
     {
       id: "before-after",
       kind: "beforeAfter",
-      src: asset("stitch/clinical/before-after.png"),
+      src: USER_LIPS.beforeAfterGrid,
       caption: L("לפני / אחרי", "قبل / بعد", "Before / after"),
+    },
+    {
+      id: "inj-still",
+      kind: "image",
+      src: USER_LIPS.clinical[0],
+      caption: L("הקשר קליני / הזרקה", "سياق سريري / حقن", "Clinical context / injection"),
     },
     {
       id: "timeline",
       kind: "timeline",
-      src: asset("stitch/timeline/lips-day1.png"),
+      src: USER_LIPS.timeline[0].src,
       caption: L("טיימליין החלמה יום1→חודש6", "جدول التعافي يوم1→شهر6", "Recovery timeline Day1→Month6"),
+    },
+    {
+      id: "timeline-grid",
+      kind: "image",
+      src: USER_LIPS.timelineGrid,
+      caption: L("רצף מלא Day1–Month6", "التسلسل الكامل", "Full Day1–Month6 sequence"),
     },
     {
       id: "flow-anim",

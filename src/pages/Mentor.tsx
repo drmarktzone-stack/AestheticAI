@@ -310,8 +310,13 @@ export function MentorPage() {
                 </tbody>
               </table>
               <figure className="mentor-media wide">
-                <img src={mediaById("anatomy-profile")?.src} alt="" />
-                <figcaption>{pickL(locale, mediaById("anatomy-profile")!.caption)}</figcaption>
+                <img src={mediaById("anatomy-alt")?.src ?? mediaById("anatomy-front")?.src} alt="" />
+                <figcaption>
+                  {pickL(
+                    locale,
+                    (mediaById("anatomy-alt") ?? mediaById("anatomy-front"))!.caption,
+                  )}
+                </figcaption>
               </figure>
             </section>
           )}
