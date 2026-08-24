@@ -27,13 +27,15 @@
     "simulation": "Simulation",
     "materials": "Materials",
     "regions": "Regions",
-    "emergency": "Emergency"
+    "emergency": "Emergency",
+    "camera": "Camera"
   },
   "home": {
     "welcome": "Welcome to Protokol",
     "subtitle": "Anatomy, protocols, simulation, and emergency — in one clinical workflow.",
     "startConsultation": "Start consultation",
-    "openSimulation": "Patient simulation"
+    "openSimulation": "Patient simulation",
+    "openCamera": "Medical photo capture"
   },
   "rtl": {
     "directionChanged": "Layout direction updated",
@@ -53,5 +55,39 @@
     "supabaseReady": "Backend connected",
     "supabaseAuthenticated": "Signed in",
     "supabaseNotConfigured": "Copy .env.example to .env and restart Expo"
+  },
+  "camera": {
+    "title": "Clinical photo capture",
+    "capture": "Capture",
+    "permission": {
+      "message": "Camera access is required for standardized aesthetic photography.",
+      "grant": "Allow camera"
+    },
+    "stage": {
+      "before": "Before",
+      "after": "After"
+    },
+    "ghost": {
+      "toggle": "Ghost overlay",
+      "active": "Ghost 30%"
+    },
+    "guide": {
+      "ready": "Aligned — ready to capture",
+      "adjustPitch": "Adjust phone pitch (up/down)",
+      "adjustYaw": "Center face — reduce yaw",
+      "adjustRoll": "Level the device — reduce roll",
+      "adjustDistance": "Fit face to mesh outline"
+    },
+    "metrics": {
+      "pitch": "Pitch",
+      "yaw": "Yaw",
+      "roll": "Roll",
+      "score": "Score"
+    },
+    "result": {
+      "saved": "Photo captured",
+      "score": "Alignment score",
+      "lighting": "Lighting"
+    }
   }
 }

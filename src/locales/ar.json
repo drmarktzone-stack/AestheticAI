@@ -27,13 +27,15 @@
     "simulation": "المحاكاة",
     "materials": "المواد",
     "regions": "المناطق",
-    "emergency": "الطوارئ"
+    "emergency": "الطوارئ",
+    "camera": "الكاميرا"
   },
   "home": {
     "welcome": "مرحباً بك في بروتوكول",
     "subtitle": "التشريح والبروتوكولات والمحاكاة والطوارئ — في مسار سريري واحد.",
     "startConsultation": "بدء الاستشارة",
-    "openSimulation": "محاكاة المريض"
+    "openSimulation": "محاكاة المريض",
+    "openCamera": "التقاط صورة سريرية"
   },
   "rtl": {
     "directionChanged": "تم تحديث اتجاه العرض",
@@ -53,5 +55,39 @@
     "supabaseReady": "الخادم متصل",
     "supabaseAuthenticated": "تم تسجيل الدخول",
     "supabaseNotConfigured": "انسخ .env.example إلى .env وأعد تشغيل Expo"
+  },
+  "camera": {
+    "title": "التقاط صورة سريرية",
+    "capture": "التقاط",
+    "permission": {
+      "message": "يلزم الوصول إلى الكاميرا للتصوير التجميلي المعياري.",
+      "grant": "السماح بالكاميرا"
+    },
+    "stage": {
+      "before": "قبل",
+      "after": "بعد"
+    },
+    "ghost": {
+      "toggle": "طبقة Ghost",
+      "active": "Ghost 30%"
+    },
+    "guide": {
+      "ready": "محاذاة جاهزة — يمكن التصوير",
+      "adjustPitch": "اضبط ميل الهاتف (أعلى/أسفل)",
+      "adjustYaw": "وسّط الوجه — قلّل الانحراف",
+      "adjustRoll": "سوِّ الجهاز — قلّل الميل الجانبي",
+      "adjustDistance": "اضبط المسافة — الوجه داخل الإطار"
+    },
+    "metrics": {
+      "pitch": "Pitch",
+      "yaw": "Yaw",
+      "roll": "Roll",
+      "score": "النتيجة"
+    },
+    "result": {
+      "saved": "تم حفظ الصورة",
+      "score": "درجة المحاذاة",
+      "lighting": "الإضاءة"
+    }
   }
 }

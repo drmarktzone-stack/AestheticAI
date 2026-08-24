@@ -27,13 +27,15 @@
     "simulation": "סימולציה",
     "materials": "חומרים",
     "regions": "אזורים",
-    "emergency": "חירום"
+    "emergency": "חירום",
+    "camera": "מצלמה"
   },
   "home": {
     "welcome": "ברוכים הבאים לפרוטוקול",
     "subtitle": "אנטומיה, פרוטוקולים, סימולציה וחירום — בזרימה קלינית אחת.",
     "startConsultation": "התחל ייעוץ",
-    "openSimulation": "סימולציית מטופל"
+    "openSimulation": "סימולציית מטופל",
+    "openCamera": "צילום קליני"
   },
   "rtl": {
     "directionChanged": "כיוון התצוגה עודכן",
@@ -53,5 +55,39 @@
     "supabaseReady": "Backend מחובר",
     "supabaseAuthenticated": "מחובר",
     "supabaseNotConfigured": "העתק .env.example ל-.env והפעל מחדש את Expo"
+  },
+  "camera": {
+    "title": "צילום קליני",
+    "capture": "צלם",
+    "permission": {
+      "message": "נדרשת גישה למצלמה לצילום אסתטי סטנדרטי.",
+      "grant": "אשר מצלמה"
+    },
+    "stage": {
+      "before": "לפני",
+      "after": "אחרי"
+    },
+    "ghost": {
+      "toggle": "שכבת Ghost",
+      "active": "Ghost 30%"
+    },
+    "guide": {
+      "ready": "מיושר — מוכן לצילום",
+      "adjustPitch": "התאם זווית pitch (למעלה/למטה)",
+      "adjustYaw": "מרכז את הפנים — הפחת yaw",
+      "adjustRoll": "יישר את המכשיר — הפחת roll",
+      "adjustDistance": "התאם מרחק — הפנים למסגרת"
+    },
+    "metrics": {
+      "pitch": "Pitch",
+      "yaw": "Yaw",
+      "roll": "Roll",
+      "score": "ציון"
+    },
+    "result": {
+      "saved": "התמונה נשמרה",
+      "score": "ציון יישור",
+      "lighting": "תאורה"
+    }
   }
 }

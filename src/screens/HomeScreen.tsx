@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useTranslation } from "react-i18next";
 
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
@@ -7,7 +7,7 @@ import { useAuth } from "@/providers/AuthProvider";
 import { useRTL } from "@/hooks/useRTL";
 import { colors } from "@/theme/colors";
 
-export function HomeScreen() {
+export function HomeScreen({ onOpenCamera }: { onOpenCamera: () => void }) {
   const { t } = useTranslation();
   const { row, textStart } = useRTL();
   const { isConfigured, session } = useAuth();
@@ -26,9 +26,9 @@ export function HomeScreen() {
         <Text style={[styles.body, { textAlign: textStart }]}>{t("home.subtitle")}</Text>
 
         <View style={[styles.actions, { flexDirection: row }]}>
-          <View style={styles.actionPrimary}>
-            <Text style={styles.actionPrimaryText}>{t("home.startConsultation")}</Text>
-          </View>
+          <Pressable style={styles.actionPrimary} onPress={onOpenCamera}>
+            <Text style={styles.actionPrimaryText}>{t("home.openCamera")}</Text>
+          </Pressable>
           <View style={styles.actionGhost}>
             <Text style={styles.actionGhostText}>{t("home.openSimulation")}</Text>
           </View>

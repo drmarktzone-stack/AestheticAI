@@ -32,12 +32,14 @@ export interface TranslationSchema {
     materials: string;
     regions: string;
     emergency: string;
+    camera: string;
   };
   home: {
     welcome: string;
     subtitle: string;
     startConsultation: string;
     openSimulation: string;
+    openCamera: string;
   };
   rtl: {
     directionChanged: string;
@@ -57,6 +59,40 @@ export interface TranslationSchema {
     supabaseReady: string;
     supabaseAuthenticated: string;
     supabaseNotConfigured: string;
+  };
+  camera: {
+    title: string;
+    capture: string;
+    permission: {
+      message: string;
+      grant: string;
+    };
+    stage: {
+      before: string;
+      after: string;
+    };
+    ghost: {
+      toggle: string;
+      active: string;
+    };
+    guide: {
+      ready: string;
+      adjustPitch: string;
+      adjustYaw: string;
+      adjustRoll: string;
+      adjustDistance: string;
+    };
+    metrics: {
+      pitch: string;
+      yaw: string;
+      roll: string;
+      score: string;
+    };
+    result: {
+      saved: string;
+      score: string;
+      lighting: string;
+    };
   };
 }
 

@@ -8,7 +8,21 @@
     "userInterfaceStyle": "automatic",
     "scheme": "protokol",
     "plugins": [
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Protokol needs camera access for standardized aesthetic medical photography.",
+          "microphonePermission": false,
+          "recordAudioAndroid": false
+        }
+      ],
+      [
+        "expo-sensors",
+        {
+          "motionPermission": "Protokol uses device motion to guide head alignment (pitch, yaw, roll) during clinical photography."
+        }
+      ]
     ],
     "extra": {
       "supabaseUrl": "${EXPO_PUBLIC_SUPABASE_URL}",
@@ -19,7 +33,9 @@
       "supportsTablet": true,
       "infoPlist": {
         "CFBundleAllowMixedLocalizations": true,
-        "ExpoLocalization_supportsRTL": true
+        "ExpoLocalization_supportsRTL": true,
+        "NSCameraUsageDescription": "Clinical aesthetic photography requires camera access.",
+        "NSMotionUsageDescription": "Head alignment guidance uses device motion sensors."
       },
       "bundleIdentifier": "com.protokol.aesthetic"
     },
@@ -32,7 +48,8 @@
       },
       "package": "com.protokol.aesthetic",
       "supportsRtl": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": ["CAMERA", "HIGH_SAMPLING_RATE_SENSORS"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
