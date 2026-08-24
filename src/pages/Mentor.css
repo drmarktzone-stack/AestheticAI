@@ -91,6 +91,8 @@
   flex-wrap: wrap;
   gap: 0.35rem;
   margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
 }
 
 .mentor-tabs button {
@@ -103,6 +105,8 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
+  position: relative;
+  z-index: 2;
 }
 
 .mentor-tabs button.active {

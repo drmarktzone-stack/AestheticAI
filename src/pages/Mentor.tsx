@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { getMentorByRegion, type MentorSectionId } from "../data/clinical";
 import { AnimationReel } from "../components/visual/AnimationReel";
@@ -6,6 +6,21 @@ import { TimelineScrubber } from "../components/visual/TimelineScrubber";
 import { useLocale } from "../i18n";
 import { pickL, pickList } from "../data/clinical/types";
 import "./Mentor.css";
+
+const SECTION_IDS: MentorSectionId[] = [
+  "overview",
+  "materials",
+  "dosing",
+  "technique",
+  "complications",
+  "simulation",
+  "document",
+];
+
+function sectionFromHash(): MentorSectionId {
+  const raw = window.location.hash.replace(/^#/, "");
+  return (SECTION_IDS.includes(raw as MentorSectionId) ? raw : "overview") as MentorSectionId;
+}
 
 const SECTIONS: { id: MentorSectionId; he: string; ar: string; en: string }[] = [
   { id: "overview", he: "סקירה", ar: "نظرة عامة", en: "Overview" },
@@ -146,7 +161,19 @@ export function MentorPage() {
   const { regionId = "lips" } = useParams();
   const { locale, pick, t } = useLocale();
   const guide = getMentorByRegion(regionId);
-  const [section, setSection] = useState<MentorSectionId>("overview");
+  const [section, setSection] = useState<MentorSectionId>(() => sectionFromHash());
+
+  useEffect(() => {
+    const onHash = () => setSection(sectionFromHash());
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
+  const goSection = (id: MentorSectionId) => {
+    setSection(id);
+    const url = `${window.location.pathname}${window.location.search}#${id}`;
+    window.history.replaceState(null, "", url);
+  };
 
   const sectionLabel = useMemo(
     () => (id: MentorSectionId) => {
@@ -197,13 +224,16 @@ export function MentorPage() {
         </div>
       </div>
 
-      <nav className="mentor-tabs" aria-label="Mentor sections">
+      <nav className="mentor-tabs" aria-label="Mentor sections" role="tablist">
         {SECTIONS.map((s) => (
           <button
             key={s.id}
             type="button"
+            role="tab"
+            aria-selected={section === s.id}
+            id={`mentor-tab-${s.id}`}
             className={section === s.id ? "active" : ""}
-            onClick={() => setSection(s.id)}
+            onClick={() => goSection(s.id)}
           >
             {s[locale]}
           </button>
