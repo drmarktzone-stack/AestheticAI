@@ -10,6 +10,7 @@ import { PlannerPage } from "./pages/Planner";
 import { SimulationPage } from "./pages/Simulation";
 import { ConsultationPage } from "./pages/Consultation";
 import { LibraryPage } from "./pages/Library";
+import { MentorIndexPage, MentorPage } from "./pages/Mentor";
 
 export default function App() {
   return (
@@ -17,6 +18,8 @@ export default function App() {
       <Shell>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/guide" element={<MentorIndexPage />} />
+          <Route path="/guide/:regionId" element={<MentorPage />} />
           <Route path="/consultation" element={<ConsultationPage />} />
           <Route path="/simulation" element={<SimulationPage />} />
           <Route path="/library" element={<LibraryPage />} />

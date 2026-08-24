@@ -5,9 +5,9 @@ const L = (he: string, ar: string, en: string) => ({ he, ar, en });
 export const strings: LocaleStrings = {
   appName: L("פרוטוקול", "بروتوكول", "Protokol"),
   tagline: L(
-    "מדריך קליני לרופאי אסתטיקה",
-    "دليل سريري لأطباء التجميل",
-    "Clinical guide for aesthetic physicians",
+    "מדריך־מנטור קליני לרופאי אסתטיקה",
+    "دليل سريري موجِّه لأطباء التجميل",
+    "Clinical mentor guide for aesthetic physicians",
   ),
   ownership: L(
     "התוכן הקליני באחריות הרופא המשתמש. ערכי ברירת המחדל הם טיוטות לאישור.",

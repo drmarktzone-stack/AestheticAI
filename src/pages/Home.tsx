@@ -1,18 +1,45 @@
 import { Link } from "react-router-dom";
-import { AnimationReel } from "../components/visual/AnimationReel";
-import { TimelineScrubber } from "../components/visual/TimelineScrubber";
 import { STITCH } from "../lib/assets";
 import { useLocale } from "../i18n";
 import "./Home.css";
 
 const MODULES = [
-  { to: "/consultation", he: "ייעוץ קליני", key: "consultation" as const },
-  { to: "/simulation", he: "סימולציית מטופל", key: "simulation" as const },
-  { to: "/library", he: "ספריית נכסים קליניים", key: "library" as const },
-  { to: "/materials", he: "חומרים ותכשירים", key: "materials" as const },
-  { to: "/regions", he: "אזורי הזרקה", key: "regions" as const },
-  { to: "/protocols", he: "פרוטוקולים טיפוליים", key: "protocols" as const },
-  { to: "/emergency", he: "עזרה ראשונה", key: "emergency" as const },
+  {
+    to: "/guide/lips",
+    he: "מדריך מנטור — שפתיים",
+    ar: "الدليل الموجِّه — الشفاه",
+    en: "Mentor guide — Lips",
+  },
+  {
+    to: "/simulation",
+    he: "סימולציית מטופל",
+    ar: "محاكاة المريض",
+    en: "Patient simulation",
+  },
+  {
+    to: "/consultation",
+    he: "ייעוץ קליני",
+    ar: "الاستشارة السريرية",
+    en: "Clinical consultation",
+  },
+  {
+    to: "/library",
+    he: "ספריית נכסים קליניים",
+    ar: "مكتبة الأصول السريرية",
+    en: "Clinical asset library",
+  },
+  {
+    to: "/emergency",
+    he: "עזרה ראשונה / חירום",
+    ar: "الطوارئ",
+    en: "Emergency",
+  },
+  {
+    to: "/materials",
+    he: "חומרים ותכשירים",
+    ar: "المواد والمستحضرات",
+    en: "Materials",
+  },
 ];
 
 export function HomePage() {
@@ -27,83 +54,61 @@ export function HomePage() {
         </div>
 
         <div className="hero-content">
-          <h1 className="hero-brand">
-            {locale === "en" ? "Protokol" : pick(t.appName)}
-          </h1>
+          <h1 className="hero-brand">{pick(t.appName)}</h1>
           <p className="hero-title">
             {locale === "he"
-              ? "מצוינות קלינית באסתטיקה רפואית."
-              : pick(t.home.heroTitle)}
+              ? "מדריך־מנטור קליני לרופאי אסתטיקה."
+              : locale === "ar"
+                ? "دليل سريري موجِّه لأطباء التجميل."
+                : "Clinical mentor guide for aesthetic physicians."}
           </p>
           <p className="hero-lead">
             {locale === "he"
-              ? "סימולציות, טיימליין החלמה, ספריית נכסים וייעוץ מקצועי — לרופאים בלבד."
-              : pick(t.home.heroLead)}
+              ? "פרוטוקולים, חומרים, מינונים, סיבוכים והזרקה מומחשת — בעברית, ערבית ואנגלית."
+              : locale === "ar"
+                ? "بروتوكولات ومواد وجرعات ومضاعفات وحقن مرئي — بالعبرية والعربية والإنجليزية."
+                : "Protocols, materials, dosing, complications and visualized injection — in Hebrew, Arabic and English."}
           </p>
           <div className="hero-actions">
-            <Link className="btn primary" to="/simulation">
-              {locale === "he" ? "פתח סימולציה" : pick(t.home.openSimulation)}
+            <Link className="btn primary" to="/guide/lips">
+              {locale === "he"
+                ? "פתח מדריך שפתיים"
+                : locale === "ar"
+                  ? "افتح دليل الشفاه"
+                  : "Open lips mentor"}
             </Link>
-            <Link className="btn ghost" to="/library">
-              {locale === "he" ? "ספריית נכסים" : "Clinical library"}
+            <Link className="btn ghost" to="/simulation">
+              {pick(t.home.openSimulation)}
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="home-feature" aria-label="סימולציית Flow">
+      <section className="home-feature">
         <div className="home-feature-copy">
-          <p className="home-kicker">Google Flow · Stitch</p>
-          <h2>סימולציה רפואית בתנועה</h2>
-          <p>
-            אנימציות קליניות וסטוריבורדים שיצרת ב-Flow — משולבים כרצף סימולציה
-            חי בתוך המערכת, לצד טיימליין החלמה יום 1 / יום 7 / חודש 3 / חודש 6.
+          <p className="home-kicker">
+            {locale === "he" ? "מנטור קליני" : locale === "ar" ? "موجِّه سريري" : "Clinical mentor"}
           </p>
-          <Link className="btn primary" to="/simulation">
-            כניסה לסימולטור
+          <h2>
+            {locale === "he"
+              ? "לא גלריה. מסלול החלטה."
+              : locale === "ar"
+                ? "ليس معرضاً. مسار قرار."
+                : "Not a gallery. A decision path."}
+          </h2>
+          <p>
+            {locale === "he"
+              ? "סקירה → חומר → מינון → הזרקה → סיבוך → סימולציה → תיעוד. כל שלב עם מדיה קלינית."
+              : locale === "ar"
+                ? "نظرة عامة → مادة → جرعة → حقن → مضاعفة → محاكاة → توثيق. كل خطوة مع وسائط سريرية."
+                : "Overview → material → dose → injection → complication → simulation → documentation. Every step with clinical media."}
+          </p>
+          <Link className="btn primary" to="/guide/lips">
+            {locale === "he" ? "התחל בשפתיים" : locale === "ar" ? "ابدأ بالشفاه" : "Start with lips"}
           </Link>
         </div>
         <div className="home-feature-media">
-          <AnimationReel />
-        </div>
-      </section>
-
-      <section className="home-timeline-band" aria-label="טיימליין החלמה">
-        <div className="home-timeline-copy">
-          <p className="home-kicker">Recovery timeline</p>
-          <h2>טיימליין שפתיים — HA filler</h2>
-          <p>
-            צילומים קליניים מדורגים מהארכיון שלך. גרור את הסרגל או הפעל ניגון
-            אוטומטי להצגת תוצאה מול מטופל.
-          </p>
-        </div>
-        <div className="home-timeline-media">
-          <TimelineScrubber />
-        </div>
-      </section>
-
-      <section className="home-gallery" aria-label="תצוגה קלינית">
-        <div className="home-gallery-head">
-          <h2>ארכיון קליני</h2>
-          <Link to="/library">לספרייה המלאה ←</Link>
-        </div>
-        <div className="home-gallery-row">
-          <figure>
-            <img src={STITCH.injection} alt="" />
-            <figcaption>הזרקה — מבט קליני</figcaption>
-          </figure>
-          <figure>
-            <img src={STITCH.midface[0]} alt="" />
-            <figcaption>Midface</figcaption>
-          </figure>
-          <figure>
-            <img src={STITCH.beforeAfter} alt="" />
-            <figcaption>לפני / אחרי</figcaption>
-          </figure>
-          <figure>
-            <img src={STITCH.treatment} alt="" />
-            <figcaption>סביבת טיפול</figcaption>
-          </figure>
+          <img src={STITCH.lips[0]} alt="" />
         </div>
       </section>
 
@@ -111,13 +116,7 @@ export function HomePage() {
         <div className="modules-inner">
           {MODULES.map((m) => (
             <Link key={m.to} to={m.to} className="module-row">
-              <h2>
-                {locale === "he"
-                  ? m.he
-                  : m.key in t.nav
-                    ? pick(t.nav[m.key as keyof typeof t.nav])
-                    : m.he}
-              </h2>
+              <h2>{m[locale]}</h2>
               <span className="module-arrow" aria-hidden="true">
                 ←
               </span>

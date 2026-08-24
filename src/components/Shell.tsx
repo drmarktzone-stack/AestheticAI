@@ -16,9 +16,9 @@ export function Shell({ children }: { children: React.ReactNode }) {
           <div className="topbar-mid">
             <LanguageSwitcher />
           </div>
-          <NavLink to="/consultation" className="doctor-enter">
+          <NavLink to="/guide/lips" className="doctor-enter">
             {locale === "en"
-              ? "Doctor login"
+              ? "Physician enter"
               : locale === "ar"
                 ? "دخول الأطباء"
                 : "כניסת רופאים"}

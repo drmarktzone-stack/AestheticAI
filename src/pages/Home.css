@@ -123,6 +123,18 @@
   max-width: 38ch;
 }
 
+.home-feature-media {
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.home-feature-media img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+}
+
 .home-timeline-band {
   background: var(--surface-low);
   width: 100%;
