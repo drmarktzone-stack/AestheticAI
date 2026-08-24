@@ -9,6 +9,7 @@ import { EmergencyPage, EmergencyDetailPage } from "./pages/Emergency";
 import { PlannerPage } from "./pages/Planner";
 import { SimulationPage } from "./pages/Simulation";
 import { ConsultationPage } from "./pages/Consultation";
+import { LibraryPage } from "./pages/Library";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/consultation" element={<ConsultationPage />} />
           <Route path="/simulation" element={<SimulationPage />} />
+          <Route path="/library" element={<LibraryPage />} />
           <Route path="/materials" element={<MaterialsPage />} />
           <Route path="/materials/:id" element={<MaterialDetailPage />} />
           <Route path="/regions" element={<RegionsPage />} />

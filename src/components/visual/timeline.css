@@ -1,0 +1,86 @@
+.timeline {
+  display: grid;
+  gap: 1rem;
+}
+
+.timeline-stage {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  max-height: min(70vh, 720px);
+  overflow: hidden;
+  background: #eae7e7;
+  border: 1px solid var(--line);
+}
+
+.timeline-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+
+.timeline-frame.active {
+  opacity: 1;
+}
+
+.timeline-caption {
+  position: absolute;
+  inset-inline-start: 1rem;
+  bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.65rem 0.9rem;
+  background: rgba(252, 249, 248, 0.92);
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.timeline-caption strong {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.timeline-caption span {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+}
+
+.timeline-controls {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.timeline-dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.timeline-dots button {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink-soft);
+  padding: 0.45rem 0.8rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.timeline-dots button.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.timeline-controls input[type="range"] {
+  width: 100%;
+  accent-color: var(--primary);
+}

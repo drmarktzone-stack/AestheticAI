@@ -4,9 +4,11 @@ import { faceZones, type InjectionPoint } from "../data/faceZones";
 import { FaceMap } from "../components/visual/FaceMap";
 import { BeforeAfterViewer } from "../components/visual/BeforeAfterViewer";
 import { TechniqueSimulator } from "../components/visual/TechniqueSimulator";
+import { TimelineScrubber } from "../components/visual/TimelineScrubber";
 import { PageHeader } from "../components/ui";
 import { useLocale } from "../i18n";
 import { entityName } from "../lib/entityName";
+import { STITCH } from "../lib/assets";
 import "../components/visual/visual.css";
 import "./Consultation.css";
 
@@ -21,7 +23,7 @@ export function ConsultationPage() {
   const [techniqueId, setTechniqueId] = useState(techniques[0]?.id ?? "");
   const [dose, setDose] = useState("");
   const [notes, setNotes] = useState("");
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(STITCH.profile);
   const [intensity, setIntensity] = useState(40);
   const [points, setPoints] = useState<InjectionPoint[]>([]);
 
@@ -135,6 +137,11 @@ export function ConsultationPage() {
       {step === 2 && (
         <section className="detail-panel">
           <h2>{pick(t.consultation.stepSimulate)}</h2>
+          <div className="consult-ref-strip">
+            <img src={STITCH.profile} alt="" />
+            <img src={STITCH.beforeAfter} alt="" />
+            <img src={STITCH.midface[0]} alt="" />
+          </div>
           <label className="upload-btn">
             {pick(t.common.uploadPhoto)}
             <input
@@ -164,6 +171,12 @@ export function ConsultationPage() {
             onAddPoint={(x, y) => setPoints((p) => [...p, { id: crypto.randomUUID(), x, y }])}
             mode="split"
           />
+          <div style={{ marginTop: "1.5rem" }}>
+            <h3 style={{ fontFamily: "var(--font-display)", color: "var(--primary)" }}>
+              טיימליין החלמה
+            </h3>
+            <TimelineScrubber />
+          </div>
         </section>
       )}
 

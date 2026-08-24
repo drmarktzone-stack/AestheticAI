@@ -1,42 +1,278 @@
-.sim-layout {
+.sim-workspace {
   display: grid;
-  gap: 1rem;
+  grid-template-columns: minmax(240px, 300px) 1fr minmax(220px, 280px);
+  min-height: calc(100vh - 72px);
+  background: var(--bg);
+  border-top: 1px solid rgba(229, 226, 225, 0.8);
 }
 
-@media (min-width: 960px) {
-  .sim-layout {
-    grid-template-columns: 0.95fr 1.05fr;
-    align-items: start;
-  }
+.sim-rail {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  overflow: auto;
 }
 
-.sim-disclaimer {
-  margin: -0.75rem 0 1.25rem;
-  padding: 0.75rem 1rem;
-  border-radius: 0.85rem;
-  border: 1px solid rgba(196, 149, 74, 0.35);
-  background: rgba(196, 149, 74, 0.1);
-  color: #f0d3a0;
-  font-size: 0.88rem;
-  line-height: 1.55;
+.sim-rail-start {
+  border-inline-end: 1px solid var(--line);
 }
 
-.sim-preview h2 {
-  margin: 0 0 1rem;
+.sim-rail-end {
+  border-inline-start: 1px solid var(--line);
+}
+
+.sim-rail-head {
+  padding: 1.25rem 1.25rem 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.sim-rail-head h1,
+.sim-rail-head h2 {
+  margin: 0;
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: 1.2rem;
+  font-size: 1.45rem;
+  font-weight: 500;
+  color: var(--primary);
 }
 
-.sim-note {
-  margin: 1rem 0 0;
-  color: var(--muted);
-  font-size: 0.85rem;
-  line-height: 1.6;
-}
-
-.simulation-page .btn.ghost {
-  border: 1px solid rgba(232, 241, 239, 0.22);
-  background: rgba(8, 22, 27, 0.35);
+.sim-rail-head p {
+  margin: 0.35rem 0 0;
   color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.sim-block {
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.sim-block h2 {
+  margin: 0 0 0.85rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sim-materials {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.sim-materials label {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding: 0.7rem;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  background: #fff;
+}
+
+.sim-materials label.active {
+  border-color: var(--primary);
+  background: var(--surface-low);
+}
+
+.sim-materials strong {
+  display: block;
+  color: var(--primary);
+  font-size: 0.95rem;
+}
+
+.sim-materials em {
+  display: block;
+  font-style: normal;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+}
+
+.sim-slider {
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: 0.9rem;
+}
+
+.sim-slider span {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--ink);
+}
+
+.sim-slider b {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.sim-slider input {
+  width: 100%;
+  accent-color: var(--primary);
+}
+
+.sim-rail-actions {
+  margin-top: auto;
+  padding: 1rem 1.25rem 1.35rem;
+  display: grid;
+  gap: 0.6rem;
+  border-top: 1px solid var(--line);
+  background: var(--surface-low);
+}
+
+.sim-rail-actions .upload {
+  position: relative;
+  overflow: hidden;
+}
+
+.sim-rail-actions .upload input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.sim-canvas {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--surface-low);
+}
+
+.sim-mode-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--line);
+  background: #fff;
+}
+
+.sim-mode-tabs button {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ink-soft);
+  padding: 0.55rem 0.9rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.sim-mode-tabs button.active {
+  color: var(--primary);
+  border-color: var(--primary);
+  background: rgba(0, 77, 64, 0.06);
+}
+
+.sim-stage {
+  flex: 1;
+  padding: 1rem;
+  overflow: auto;
+}
+
+.sim-face-stage {
+  position: relative;
+  min-height: 420px;
+}
+
+.sim-face-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.sim-status {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--line);
+  background: rgba(252, 249, 248, 0.95);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.sim-status strong {
+  color: var(--primary);
+}
+
+.sim-zone-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sim-zone-list li {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem 1.15rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.sim-zone-list li.active {
+  background: var(--surface-variant);
+  box-shadow: inset -3px 0 0 var(--primary);
+}
+
+.sim-zone-num {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  font-size: 0.7rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.sim-zone-list strong {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.sim-zone-list em {
+  display: block;
+  margin-top: 0.2rem;
+  font-style: normal;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.sim-ba-thumb {
+  margin-top: auto;
+  padding: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.sim-ba-thumb img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  display: block;
+}
+
+.sim-ba-thumb p {
+  margin: 0.55rem 0 0;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 1100px) {
+  .sim-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .sim-rail-end {
+    order: 3;
+  }
 }

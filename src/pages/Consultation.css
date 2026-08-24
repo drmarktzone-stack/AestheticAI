@@ -7,19 +7,27 @@
 .consult-form label {
   display: grid;
   gap: 0.35rem;
-  color: var(--muted);
+  color: var(--ink-soft);
   font-size: 0.88rem;
 }
 
 .consult-form select,
 .consult-form input,
 .consult-form textarea {
-  border: 1px solid rgba(232, 241, 239, 0.14);
-  background: rgba(8, 22, 27, 0.55);
+  border: none;
+  border-bottom: 1px solid var(--muted);
+  background: transparent;
   color: var(--ink);
-  border-radius: 0.75rem;
-  padding: 0.7rem 0.8rem;
+  border-radius: 0;
+  padding: 0.55rem 0;
   font: inherit;
+}
+
+.consult-form select:focus,
+.consult-form input:focus,
+.consult-form textarea:focus {
+  outline: none;
+  border-bottom-color: var(--primary);
 }
 
 .consult-nav {
@@ -29,13 +37,47 @@
   margin-top: 1.25rem;
 }
 
-.consult-nav .btn.ghost {
-  border: 1px solid rgba(232, 241, 239, 0.22);
-  background: rgba(8, 22, 27, 0.35);
-  color: var(--ink-soft);
-}
-
 .consult-nav .btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+.consult-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.consult-step {
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+
+.consult-step.active {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: rgba(0, 77, 64, 0.06);
+}
+
+.consult-step.done {
+  color: var(--ink-soft);
+}
+
+.consult-ref-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.consult-ref-strip img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  display: block;
 }

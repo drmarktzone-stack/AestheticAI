@@ -95,7 +95,7 @@
   width: 100%;
 }
 
-.main > :not(.home) {
+.main > :not(.home):not(.sim-workspace):not(.library) {
   width: min(1100px, 100%);
   margin-inline: auto;
   padding: 1.75rem 5vw 3.25rem;
