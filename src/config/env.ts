@@ -8,6 +8,9 @@ export interface AppEnv {
   faceAnalysisApiKey: string;
   timelineSimulatorUrl: string;
   timelineSimulatorApiKey: string;
+  checkInUrl: string;
+  clinicAlertsUrl: string;
+  checkInApiKey: string;
   isConfigured: boolean;
 }
 
@@ -32,6 +35,12 @@ function readEnv(): AppEnv {
     process.env.EXPO_PUBLIC_TIMELINE_SIMULATOR_API_KEY ??
     extra?.timelineSimulatorApiKey ??
     "";
+  const checkInUrl =
+    process.env.EXPO_PUBLIC_CHECKIN_URL ?? extra?.checkInUrl ?? "";
+  const clinicAlertsUrl =
+    process.env.EXPO_PUBLIC_CLINIC_ALERTS_URL ?? extra?.clinicAlertsUrl ?? "";
+  const checkInApiKey =
+    process.env.EXPO_PUBLIC_CHECKIN_API_KEY ?? extra?.checkInApiKey ?? "";
 
   return {
     supabaseUrl,
@@ -41,6 +50,9 @@ function readEnv(): AppEnv {
     faceAnalysisApiKey,
     timelineSimulatorUrl,
     timelineSimulatorApiKey,
+    checkInUrl,
+    clinicAlertsUrl,
+    checkInApiKey,
     isConfigured: Boolean(supabaseUrl && supabaseAnonKey),
   };
 }

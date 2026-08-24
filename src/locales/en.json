@@ -26,6 +26,8 @@
     "consultation": "Consultation",
     "simulation": "Simulation",
     "timeline": "Recovery timeline",
+    "checkin": "Daily check-in",
+    "clinicAlerts": "Clinic alerts",
     "materials": "Materials",
     "regions": "Regions",
     "emergency": "Emergency",
@@ -37,6 +39,8 @@
     "startConsultation": "Start consultation",
     "openSimulation": "Patient simulation",
     "openTimeline": "Recovery timeline simulator",
+    "openCheckIn": "Daily recovery check-in",
+    "openClinicAlerts": "Clinic alert dashboard",
     "openCamera": "Medical photo capture"
   },
   "rtl": {
@@ -143,6 +147,93 @@
       "finalizing": "Finalizing timeline…",
       "done": "Timeline ready",
       "failed": "Generation failed"
+    }
+  },
+  "checkin": {
+    "title": "Daily recovery check-in",
+    "subtitle": "Submit today's photo and symptom questionnaire for post-treatment monitoring.",
+    "photoTitle": "Recovery photo",
+    "photoHint": "Capture the treated area in consistent lighting.",
+    "takePhoto": "Take photo",
+    "choosePhoto": "Choose from library",
+    "questionnaireTitle": "Symptom questionnaire",
+    "painLevel": "Pain level: {{level}}/10",
+    "swelling": "Swelling",
+    "bruising": "Bruising",
+    "asymmetry": "Asymmetry",
+    "fever": "Fever or chills",
+    "systemicSymptoms": "Chest pain, breathing difficulty, or systemic pain",
+    "visionChanges": "Vision changes",
+    "warmthOrDischarge": "Warmth, redness spread, or discharge",
+    "notesLabel": "Additional notes (optional)",
+    "notesPlaceholder": "Private notes for your care team…",
+    "notesEncryptedHint": "Notes are encrypted on your device before upload.",
+    "previewFlags": "Possible concerns detected — review before submitting:",
+    "submit": "Submit today's check-in",
+    "success": "Check-in submitted successfully.",
+    "error": "Check-in submission failed",
+    "disclaimer": "Not for emergencies. Call emergency services if you have severe or sudden symptoms.",
+    "reminderTitle": "Daily reminder",
+    "reminderBody": "Get a localized push reminder to complete your check-in. Notifications never include medical details.",
+    "enableReminder": "Enable daily reminder (9:00)",
+    "reminderScheduled": "Daily reminder scheduled",
+    "notificationDenied": "Notification permission denied. Enable in system settings.",
+    "levels": {
+      "swelling": {
+        "none": "None",
+        "mild": "Mild",
+        "moderate": "Moderate",
+        "severe": "Severe"
+      },
+      "bruising": {
+        "none": "None",
+        "expected": "Expected",
+        "unexpected_spread": "Unexpected spread"
+      },
+      "asymmetry": {
+        "none": "None",
+        "mild": "Mild",
+        "severe": "Severe"
+      }
+    },
+    "redFlag": {
+      "title": "Clinical alert",
+      "message": "Your responses indicate signs that may need urgent clinical review.",
+      "urgent": "If symptoms are worsening rapidly, contact your clinic or emergency services now.",
+      "contactClinic": "Contact clinic",
+      "acknowledge": "I understand — continue monitoring",
+      "codes": {
+        "severe_asymmetry": "Severe asymmetry reported",
+        "unexpected_bruising": "Unexpected bruising spread",
+        "systemic_pain": "Systemic or severe pain",
+        "fever_infection": "Fever or infection signs",
+        "vision_changes": "Vision changes",
+        "severe_swelling": "Severe swelling",
+        "image_asymmetry_signal": "Photo asymmetry signal elevated",
+        "image_bruising_signal": "Photo bruising signal elevated"
+      }
+    }
+  },
+  "clinicAlerts": {
+    "title": "Clinic alert dashboard",
+    "subtitle": "Red-flag check-ins requiring physician review.",
+    "empty": "No alerts at this time.",
+    "acknowledge": "Acknowledge",
+    "acknowledged": "Acknowledged",
+    "patientRef": "Patient ref: {{id}}…",
+    "severity": {
+      "high": "HIGH",
+      "critical": "CRITICAL"
+    }
+  },
+  "notifications": {
+    "reminder": {
+      "title": "Protokol",
+      "body": "Time for your daily recovery check-in."
+    },
+    "redFlag": {
+      "title": "Protokol — action needed",
+      "body": "Open the app to review an important clinical notice."
     }
   }
 }

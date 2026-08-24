@@ -22,6 +22,12 @@
         {
           "motionPermission": "Protokol uses device motion to guide head alignment (pitch, yaw, roll) during clinical photography."
         }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#2e8b8a"
+        }
       ]
     ],
     "extra": {
@@ -35,7 +41,8 @@
         "CFBundleAllowMixedLocalizations": true,
         "ExpoLocalization_supportsRTL": true,
         "NSCameraUsageDescription": "Clinical aesthetic photography requires camera access.",
-        "NSMotionUsageDescription": "Head alignment guidance uses device motion sensors."
+        "NSMotionUsageDescription": "Head alignment guidance uses device motion sensors.",
+        "NSPhotoLibraryUsageDescription": "Recovery check-in photos are selected from your library."
       },
       "bundleIdentifier": "com.protokol.aesthetic"
     },

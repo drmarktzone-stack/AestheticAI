@@ -30,6 +30,8 @@ export interface TranslationSchema {
     consultation: string;
     simulation: string;
     timeline: string;
+    checkin: string;
+    clinicAlerts: string;
     materials: string;
     regions: string;
     emergency: string;
@@ -41,6 +43,8 @@ export interface TranslationSchema {
     startConsultation: string;
     openSimulation: string;
     openTimeline: string;
+    openCheckIn: string;
+    openClinicAlerts: string;
     openCamera: string;
   };
   rtl: {
@@ -147,6 +151,93 @@ export interface TranslationSchema {
       finalizing: string;
       done: string;
       failed: string;
+    };
+  };
+  checkin: {
+    title: string;
+    subtitle: string;
+    photoTitle: string;
+    photoHint: string;
+    takePhoto: string;
+    choosePhoto: string;
+    questionnaireTitle: string;
+    painLevel: string;
+    swelling: string;
+    bruising: string;
+    asymmetry: string;
+    fever: string;
+    systemicSymptoms: string;
+    visionChanges: string;
+    warmthOrDischarge: string;
+    notesLabel: string;
+    notesPlaceholder: string;
+    notesEncryptedHint: string;
+    previewFlags: string;
+    submit: string;
+    success: string;
+    error: string;
+    disclaimer: string;
+    reminderTitle: string;
+    reminderBody: string;
+    enableReminder: string;
+    reminderScheduled: string;
+    notificationDenied: string;
+    levels: {
+      swelling: {
+        none: string;
+        mild: string;
+        moderate: string;
+        severe: string;
+      };
+      bruising: {
+        none: string;
+        expected: string;
+        unexpected_spread: string;
+      };
+      asymmetry: {
+        none: string;
+        mild: string;
+        severe: string;
+      };
+    };
+    redFlag: {
+      title: string;
+      message: string;
+      urgent: string;
+      contactClinic: string;
+      acknowledge: string;
+      codes: {
+        severe_asymmetry: string;
+        unexpected_bruising: string;
+        systemic_pain: string;
+        fever_infection: string;
+        vision_changes: string;
+        severe_swelling: string;
+        image_asymmetry_signal: string;
+        image_bruising_signal: string;
+      };
+    };
+  };
+  clinicAlerts: {
+    title: string;
+    subtitle: string;
+    empty: string;
+    acknowledge: string;
+    acknowledged: string;
+    patientRef: string;
+    severity: {
+      high: string;
+      critical: string;
+    };
+  };
+  notifications: {
+    reminder: {
+      title: string;
+      body: string;
+    };
+    redFlag: {
+      title: string;
+      body: string;
     };
   };
 }

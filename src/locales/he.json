@@ -26,6 +26,8 @@
     "consultation": "ייעוץ",
     "simulation": "סימולציה",
     "timeline": "ציר זמן החלמה",
+    "checkin": "צ'ק-אין יומי",
+    "clinicAlerts": "התראות מרפאה",
     "materials": "חומרים",
     "regions": "אזורים",
     "emergency": "חירום",
@@ -37,6 +39,8 @@
     "startConsultation": "התחל ייעוץ",
     "openSimulation": "סימולציית מטופל",
     "openTimeline": "סימולטור ציר זמן החלמה",
+    "openCheckIn": "צ'ק-אין החלמה יומי",
+    "openClinicAlerts": "לוח התראות מרפאה",
     "openCamera": "צילום קליני"
   },
   "rtl": {
@@ -143,6 +147,77 @@
       "finalizing": "מסיים את ציר הזמן…",
       "done": "ציר הזמן מוכן",
       "failed": "היצירה נכשלה"
+    }
+  },
+  "checkin": {
+    "title": "צ'ק-אין החלמה יומי",
+    "subtitle": "שלח/י תמונה יומית ושאלון תסמינים למעקב לאחר הטיפול.",
+    "photoTitle": "תמונת החלמה",
+    "photoHint": "צלם/י את האזור המטופל בתאורה עקבית.",
+    "takePhoto": "צלם תמונה",
+    "choosePhoto": "בחר/י מהגלריה",
+    "questionnaireTitle": "שאלון תסמינים",
+    "painLevel": "רמת כאב: {{level}}/10",
+    "swelling": "נפיחות",
+    "bruising": "שטפי דם",
+    "asymmetry": "א-סימטריה",
+    "fever": "חום או צמרמורות",
+    "systemicSymptoms": "כאב חזה, קושי בנשימה או כאב מערכתי",
+    "visionChanges": "שינויי ראייה",
+    "warmthOrDischarge": "חום מקומי, התפשטות אדמומיות או הפרשה",
+    "notesLabel": "הערות נוספות (אופציונלי)",
+    "notesPlaceholder": "הערות פרטיות לצוות המטפל…",
+    "notesEncryptedHint": "ההערות מוצפנות במכשיר לפני ההעלאה.",
+    "previewFlags": "זוהו סימנים אפשריים — בדוק/י לפני השליחה:",
+    "submit": "שלח/י צ'ק-אין יומי",
+    "success": "הצ'ק-אין נשלח בהצלחה.",
+    "error": "שליחת הצ'ק-אין נכשלה",
+    "disclaimer": "לא לשימוש בחירום. במקרה של תסמינים חמורים — פנה/י לחדר מיון או למרפאה.",
+    "reminderTitle": "תזכורת יומית",
+    "reminderBody": "קבל/י תזכורת push מותאמת לשפה. ההתראות לא כוללות פרטים רפואיים.",
+    "enableReminder": "הפעל תזכורת יומית (9:00)",
+    "reminderScheduled": "תזכורת יומית נקבעה",
+    "notificationDenied": "הרשאת התראות נדחתה. הפעל/י בהגדרות המערכת.",
+    "levels": {
+      "swelling": { "none": "ללא", "mild": "קלה", "moderate": "בינונית", "severe": "חמורה" },
+      "bruising": { "none": "ללא", "expected": "צפוי", "unexpected_spread": "התפשטות בלתי צפויה" },
+      "asymmetry": { "none": "ללא", "mild": "קלה", "severe": "חמורה" }
+    },
+    "redFlag": {
+      "title": "התראה קלינית",
+      "message": "התשובות שלך מצביעות על סימנים שעשויים לדרוש בדיקה דחופה.",
+      "urgent": "אם התסמינים מחמירים במהירות — פנה/י למרפאה או לחדר מיון.",
+      "contactClinic": "צור/י קשר עם המרפאה",
+      "acknowledge": "הבנתי — אמשיך במעקב",
+      "codes": {
+        "severe_asymmetry": "דיווח על א-סימטריה חמורה",
+        "unexpected_bruising": "התפשטות שטפי דם בלתי צפויה",
+        "systemic_pain": "כאב מערכתי או חמור",
+        "fever_infection": "חום או סימני זיהום",
+        "vision_changes": "שינויי ראייה",
+        "severe_swelling": "נפיחות חמורה",
+        "image_asymmetry_signal": "אות א-סימטריה בתמונה",
+        "image_bruising_signal": "אות שטפי דם בתמונה"
+      }
+    }
+  },
+  "clinicAlerts": {
+    "title": "לוח התראות מרפאה",
+    "subtitle": "צ'ק-אינים עם דגל אדום לבדיקת רופא.",
+    "empty": "אין התראות כרגע.",
+    "acknowledge": "אישור",
+    "acknowledged": "אושר",
+    "patientRef": "מזהה מטופל: {{id}}…",
+    "severity": { "high": "גבוה", "critical": "קריטי" }
+  },
+  "notifications": {
+    "reminder": {
+      "title": "פרוטוקול",
+      "body": "הגיע הזמן לצ'ק-אין ההחלמה היומי."
+    },
+    "redFlag": {
+      "title": "פרוטוקול — נדרשת פעולה",
+      "body": "פתח/י את האפליקציה לעיון בהודעה קלינית חשובה."
     }
   }
 }

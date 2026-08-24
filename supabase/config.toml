@@ -12,3 +12,9 @@ verify_jwt = true
 
 [functions.timeline-simulator]
 verify_jwt = true
+
+[functions.submit-checkin]
+verify_jwt = true
+
+[functions.clinic-alerts]
+verify_jwt = true

@@ -26,6 +26,8 @@
     "consultation": "الاستشارة",
     "simulation": "المحاكاة",
     "timeline": "جدول التعافي",
+    "checkin": "المتابعة اليومية",
+    "clinicAlerts": "تنبيهات العيادة",
     "materials": "المواد",
     "regions": "المناطق",
     "emergency": "الطوارئ",
@@ -37,6 +39,8 @@
     "startConsultation": "بدء الاستشارة",
     "openSimulation": "محاكاة المريض",
     "openTimeline": "محاكي جدول التعافي",
+    "openCheckIn": "المتابعة اليومية بعد العلاج",
+    "openClinicAlerts": "لوحة تنبيهات العيادة",
     "openCamera": "التقاط صورة سريرية"
   },
   "rtl": {
@@ -143,6 +147,77 @@
       "finalizing": "جارٍ إنهاء الجدول الزمني…",
       "done": "الجدول الزمني جاهز",
       "failed": "فشل الإنشاء"
+    }
+  },
+  "checkin": {
+    "title": "المتابعة اليومية للتعافي",
+    "subtitle": "أرسل صورة اليوم واستبيان الأعراض للمتابعة بعد العلاج.",
+    "photoTitle": "صورة التعافي",
+    "photoHint": "التقط المنطقة المعالجة بإضاءة ثابتة.",
+    "takePhoto": "التقاط صورة",
+    "choosePhoto": "اختيار من المعرض",
+    "questionnaireTitle": "استبيان الأعراض",
+    "painLevel": "مستوى الألم: {{level}}/10",
+    "swelling": "الانتفاخ",
+    "bruising": "الكدمات",
+    "asymmetry": "عدم التماثل",
+    "fever": "حمى أو قشعريرة",
+    "systemicSymptoms": "ألم صدر، صعوبة تنفس، أو ألم جهازي",
+    "visionChanges": "تغيرات في الرؤية",
+    "warmthOrDischarge": "دفء، انتشار احمرار، أو إفرازات",
+    "notesLabel": "ملاحظات إضافية (اختياري)",
+    "notesPlaceholder": "ملاحظات خاصة لفريق الرعاية…",
+    "notesEncryptedHint": "تُشفّر الملاحظات على جهازك قبل الرفع.",
+    "previewFlags": "تم رصد مؤشرات محتملة — راجع قبل الإرسال:",
+    "submit": "إرسال متابعة اليوم",
+    "success": "تم إرسال المتابعة بنجاح.",
+    "error": "فشل إرسال المتابعة",
+    "disclaimer": "ليس للطوارئ. اتصل بالطوارئ عند ظهور أعراض حادة.",
+    "reminderTitle": "تذكير يومي",
+    "reminderBody": "احصل على تذكير push مترجم. الإشعارات لا تتضمن تفاصيل طبية.",
+    "enableReminder": "تفعيل التذكير اليومي (9:00)",
+    "reminderScheduled": "تم جدولة التذكير اليومي",
+    "notificationDenied": "تم رفض إذن الإشعارات. فعّله من إعدادات النظام.",
+    "levels": {
+      "swelling": { "none": "لا يوجد", "mild": "خفيف", "moderate": "متوسط", "severe": "شديد" },
+      "bruising": { "none": "لا يوجد", "expected": "متوقع", "unexpected_spread": "انتشار غير متوقع" },
+      "asymmetry": { "none": "لا يوجد", "mild": "خفيف", "severe": "شديد" }
+    },
+    "redFlag": {
+      "title": "تنبيه سريري",
+      "message": "تشير إجاباتك إلى علامات قد تتطلب مراجعة عاجلة.",
+      "urgent": "إذا تفاقمت الأعراض بسرعة — تواصل مع العيادة أو الطوارئ.",
+      "contactClinic": "الاتصال بالعيادة",
+      "acknowledge": "فهمت — سأتابع المراقبة",
+      "codes": {
+        "severe_asymmetry": "عدم تماثل شديد",
+        "unexpected_bruising": "انتشار كدمات غير متوقع",
+        "systemic_pain": "ألم جهازي أو شديد",
+        "fever_infection": "حمى أو علامات عدوى",
+        "vision_changes": "تغيرات في الرؤية",
+        "severe_swelling": "انتفاخ شديد",
+        "image_asymmetry_signal": "مؤشر عدم تماثل في الصورة",
+        "image_bruising_signal": "مؤشر كدمات في الصورة"
+      }
+    }
+  },
+  "clinicAlerts": {
+    "title": "لوحة تنبيهات العيادة",
+    "subtitle": "متابعات يومية بعلامات خطر تتطلب مراجعة الطبيب.",
+    "empty": "لا توجد تنبيهات حالياً.",
+    "acknowledge": "تأكيد",
+    "acknowledged": "تم التأكيد",
+    "patientRef": "مرجع المريض: {{id}}…",
+    "severity": { "high": "مرتفع", "critical": "حرج" }
+  },
+  "notifications": {
+    "reminder": {
+      "title": "بروتوكول",
+      "body": "حان وقت المتابعة اليومية للتعافي."
+    },
+    "redFlag": {
+      "title": "بروتوكول — إجراء مطلوب",
+      "body": "افتح التطبيق لمراجعة إشعار سريري مهم."
     }
   }
 }

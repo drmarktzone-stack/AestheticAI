@@ -10,9 +10,13 @@ import { colors } from "@/theme/colors";
 export function HomeScreen({
   onOpenCamera,
   onOpenTimeline,
+  onOpenCheckIn,
+  onOpenClinicAlerts,
 }: {
   onOpenCamera: () => void;
   onOpenTimeline: () => void;
+  onOpenCheckIn: () => void;
+  onOpenClinicAlerts: () => void;
 }) {
   const { t } = useTranslation();
   const { row, textStart } = useRTL();
@@ -32,11 +36,17 @@ export function HomeScreen({
         <Text style={[styles.body, { textAlign: textStart }]}>{t("home.subtitle")}</Text>
 
         <View style={[styles.actions, { flexDirection: row }]}>
-          <Pressable style={styles.actionPrimary} onPress={onOpenCamera}>
-            <Text style={styles.actionPrimaryText}>{t("home.openCamera")}</Text>
+          <Pressable style={styles.actionPrimary} onPress={onOpenCheckIn}>
+            <Text style={styles.actionPrimaryText}>{t("home.openCheckIn")}</Text>
+          </Pressable>
+          <Pressable style={styles.actionGhost} onPress={onOpenCamera}>
+            <Text style={styles.actionGhostText}>{t("home.openCamera")}</Text>
           </Pressable>
           <Pressable style={styles.actionGhost} onPress={onOpenTimeline}>
             <Text style={styles.actionGhostText}>{t("home.openTimeline")}</Text>
+          </Pressable>
+          <Pressable style={styles.actionGhost} onPress={onOpenClinicAlerts}>
+            <Text style={styles.actionGhostText}>{t("home.openClinicAlerts")}</Text>
           </Pressable>
         </View>
       </View>
