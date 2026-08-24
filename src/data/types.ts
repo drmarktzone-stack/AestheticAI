@@ -24,6 +24,71 @@ export type RiskLevel = "low" | "moderate" | "high" | "critical";
 export interface SourceRef {
   label: string;
   note?: string;
+  /** Link to global citation registry */
+  citationId?: string;
+  url?: string;
+}
+
+export type CitationType =
+  | "guideline"
+  | "consensus"
+  | "society"
+  | "ifu"
+  | "trial"
+  | "training";
+
+export interface GlobalCitation {
+  id: string;
+  type: CitationType;
+  issuer: string;
+  year?: number;
+  title: { he: string; ar: string; en: string };
+  summary: { he: string; ar: string; en: string };
+  url?: string;
+  doi?: string;
+  pmid?: string;
+  /** Related protocol/material/domain ids */
+  tags?: string[];
+}
+
+export interface AestheticCompany {
+  id: string;
+  name: string;
+  hq: string;
+  website?: string;
+  focus: string[];
+  productIds: string[];
+  description: { he: string; ar: string; en: string };
+  differentiators: { he: string[]; ar: string[]; en: string[] };
+  whyRecommended: { he: string; ar: string; en: string };
+  citationIds: string[];
+  reviewedByPhysician: boolean;
+}
+
+export type AestheticDomainId =
+  | "injectables"
+  | "threads"
+  | "peels"
+  | "hair"
+  | "body"
+  | "devices"
+  | "lipolytics"
+  | "combinations";
+
+export interface DomainProduct {
+  id: string;
+  domain: AestheticDomainId;
+  companyId?: string;
+  nameHe: string;
+  nameAr: string;
+  nameEn: string;
+  characteristics: { he: string[]; ar: string[]; en: string[] };
+  whyRecommended: { he: string; ar: string; en: string };
+  typicalUses: string[];
+  doseNotes: string[];
+  citationIds: string[];
+  materialId?: string;
+  reviewedByPhysician: boolean;
 }
 
 export interface Material {
@@ -86,6 +151,8 @@ export interface ProtocolStep {
 export interface Protocol {
   id: string;
   nameHe: string;
+  nameAr?: string;
+  nameEn?: string;
   indication: string;
   regionIds: string[];
   materialIds: string[];
@@ -95,6 +162,8 @@ export interface Protocol {
   followUp: string[];
   redFlags: string[];
   sources: SourceRef[];
+  /** Global protocol / guideline citations */
+  citationIds?: string[];
   reviewedByPhysician: boolean;
 }
 
@@ -107,5 +176,7 @@ export interface EmergencyProtocol {
   medsAndTools: string[];
   escalation: string[];
   documentation: string[];
+  /** Global emergency protocol citations (ACE, etc.) */
+  citationIds?: string[];
   reviewedByPhysician: boolean;
 }

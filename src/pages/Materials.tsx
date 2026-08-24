@@ -6,8 +6,10 @@ import {
   materials,
   noveltyLabel,
   planeLabel,
+  companyForProduct,
 } from "../data";
 import type { MaterialClass, MaterialNovelty } from "../data/types";
+import { CitationList } from "../components/CitationBlock";
 import { EmptyState, PageHeader, ReviewFlag, SearchField, Badge } from "../components/ui";
 import { useLocale } from "../i18n";
 import "./Materials.css";
@@ -169,6 +171,7 @@ export function MaterialDetailPage() {
 
   const displayName =
     locale === "ar" && material.nameAr ? material.nameAr : material.nameHe;
+  const company = companyForProduct(material.id);
 
   return (
     <div>
@@ -196,6 +199,16 @@ export function MaterialDetailPage() {
         <section className="detail-panel mat-brands-panel">
           <h2>{locale === "he" ? "מותגים / שמות מסחר" : "Brands / trade names"}</h2>
           <p>{material.brands.join(" · ")}</p>
+        </section>
+      ) : null}
+
+      {company ? (
+        <section className="detail-panel">
+          <h2>{locale === "he" ? "חברה / יצרן" : "Company / manufacturer"}</h2>
+          <Link to={`/companies/${company.id}`}>
+            <strong>{company.name}</strong>
+          </Link>
+          <p>{company.focus.slice(0, 4).join(" · ")}</p>
         </section>
       ) : null}
 
@@ -248,7 +261,11 @@ export function MaterialDetailPage() {
             <ul>
               {material.sources.map((s) => (
                 <li key={s.label}>
-                  {s.label}
+                  {s.citationId ? (
+                    <Link to={`/evidence/${s.citationId}`}>{s.label}</Link>
+                  ) : (
+                    s.label
+                  )}
                   {s.note ? ` — ${s.note}` : ""}
                 </li>
               ))}
@@ -256,6 +273,8 @@ export function MaterialDetailPage() {
           </section>
         </div>
       </div>
+
+      {company?.citationIds?.length ? <CitationList ids={company.citationIds} /> : null}
     </div>
   );
 }

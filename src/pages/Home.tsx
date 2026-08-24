@@ -7,6 +7,24 @@ import "./Home.css";
 
 const MODULES = [
   {
+    to: "/world",
+    he: "עולם האסתטיקה — threads, peels, hair, body, devices",
+    ar: "عالم التجميل — خيوط، تقشير، شعر، جسم، أجهزة",
+    en: "Aesthetic world — threads, peels, hair, body, devices",
+  },
+  {
+    to: "/companies",
+    he: "12 חברות — כל המוצרים, מאפיינים, למה מומלץ",
+    ar: "12 شركة — منتجات وخصائص وتوصيات",
+    en: "12 companies — all products, traits, why recommended",
+  },
+  {
+    to: "/evidence",
+    he: "22+ פרוטוקולים עולמיים — ACE, MD Codes, IFU",
+    ar: "22+ بروتوكول عالمي — ACE، MD Codes",
+    en: "22+ global protocols — ACE, MD Codes, IFU",
+  },
+  {
     to: "/guide/lips",
     he: "מדריך מנטור — שפתיים",
     ar: "الدليل الموجِّه — الشفاه",
@@ -25,6 +43,12 @@ const MODULES = [
     en: "Smart planner — upload, dose, AI after",
   },
   {
+    to: "/protocols",
+    he: "12 פרוטוקולים קליניים + ציטוטים",
+    ar: "12 بروتوكول سريري + استشهادات",
+    en: "12 clinical protocols + citations",
+  },
+  {
     to: "/simulation",
     he: "סימולציית מטופל",
     ar: "محاكاة المريض",
@@ -38,9 +62,9 @@ const MODULES = [
   },
   {
     to: "/emergency",
-    he: "עזרה ראשונה / חירום",
-    ar: "الطوارئ",
-    en: "Emergency",
+    he: "6 פרוטוקולי חירום + ACE",
+    ar: "6 بروتوكولات طوارئ + ACE",
+    en: "6 emergency protocols + ACE",
   },
   {
     to: "/materials",
@@ -72,10 +96,10 @@ export function HomePage() {
           </p>
           <p className="hero-lead">
             {locale === "he"
-              ? "פרוטוקולים, חומרים, מינונים, סיבוכים והזרקה מומחשת — בעברית, ערבית ואנגלית."
+              ? "פרוטוקולים, חומרים, חברות, עולם אסתטיקה מלא, מינונים, סיבוכים והזרקה מומחשת — בעברית, ערבית ואנגלית."
               : locale === "ar"
-                ? "بروتوكولات ومواد وجرعات ومضاعفات وحقن مرئي — بالعبرية والعربية والإنجليزية."
-                : "Protocols, materials, dosing, complications and visualized injection — in Hebrew, Arabic and English."}
+                ? "بروتوكولات ومواد وشركات وعالم تجميل كامل وجرعات ومضاعفات — بالعبرية والعربية والإنجليزية."
+                : "Protocols, materials, companies, full aesthetic world, dosing, complications and visualized injection — in Hebrew, Arabic and English."}
           </p>
           <div className="hero-actions">
             <Link className="btn primary" to="/guide/lips">
@@ -85,12 +109,12 @@ export function HomePage() {
                   ? "افتح دليل الشفاه"
                   : "Open lips mentor"}
             </Link>
-            <Link className="btn ghost" to="/consultation">
+            <Link className="btn ghost" to="/world">
               {locale === "he"
-                ? "מתכנן חכם + AI אחרי"
+                ? "עולם האסתטיקה המלא"
                 : locale === "ar"
-                  ? "مخطط ذكي + صورة بعد"
-                  : "Smart planner + AI after"}
+                  ? "عالم التجميل الكامل"
+                  : "Full aesthetic world"}
             </Link>
           </div>
         </div>

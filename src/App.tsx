@@ -11,6 +11,9 @@ import { SimulationPage } from "./pages/Simulation";
 import { ConsultationPage } from "./pages/Consultation";
 import { LibraryPage } from "./pages/Library";
 import { MentorIndexPage, MentorPage } from "./pages/Mentor";
+import { CompaniesPage, CompanyDetailPage } from "./pages/Companies";
+import { WorldPage, WorldDomainPage, WorldProductDetailPage } from "./pages/World";
+import { EvidencePage, EvidenceDetailPage } from "./pages/Evidence";
 
 export default function App() {
   return (
@@ -18,6 +21,13 @@ export default function App() {
       <Shell>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/world" element={<WorldPage />} />
+          <Route path="/world/:domain" element={<WorldDomainPage />} />
+          <Route path="/world/:domain/:productId" element={<WorldProductDetailPage />} />
+          <Route path="/companies" element={<CompaniesPage />} />
+          <Route path="/companies/:id" element={<CompanyDetailPage />} />
+          <Route path="/evidence" element={<EvidencePage />} />
+          <Route path="/evidence/:id" element={<EvidenceDetailPage />} />
           <Route path="/guide" element={<MentorIndexPage />} />
           <Route path="/guide/:regionId" element={<MentorPage />} />
           <Route path="/consultation" element={<ConsultationPage />} />

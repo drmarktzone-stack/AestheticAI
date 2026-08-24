@@ -1,0 +1,125 @@
+.evidence-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.evidence-tags button {
+  border: 1px solid rgba(191, 201, 196, 0.55);
+  background: transparent;
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  text-transform: lowercase;
+}
+
+.evidence-tags button.active {
+  background: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+}
+
+.evidence-count {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-bottom: 1rem;
+}
+
+.evidence-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.evidence-card {
+  display: block;
+  padding: 1.15rem 1.25rem;
+  border: 1px solid rgba(191, 201, 196, 0.55);
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 180ms ease;
+}
+
+.evidence-card:hover {
+  border-color: var(--primary);
+}
+
+.evidence-card h2 {
+  font-size: 1.05rem;
+  margin: 0.5rem 0 0.25rem;
+}
+
+.evidence-issuer {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.5rem;
+}
+
+.evidence-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.65rem;
+}
+
+.evidence-tag {
+  font-size: 0.72rem;
+  padding: 0.2rem 0.55rem;
+  background: rgba(7, 80, 67, 0.08);
+  color: var(--primary);
+  border-radius: 999px;
+}
+
+.evidence-links a {
+  color: var(--primary);
+  word-break: break-all;
+}
+
+.citation-panel {
+  margin-top: 1.5rem;
+}
+
+.citation-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.citation-card {
+  padding: 1rem 1.15rem;
+  border: 1px solid rgba(191, 201, 196, 0.45);
+  border-radius: 6px;
+  background: rgba(252, 249, 248, 0.6);
+}
+
+.citation-card h3 {
+  font-size: 0.98rem;
+  margin: 0.5rem 0 0.25rem;
+}
+
+.citation-issuer {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.45rem;
+}
+
+.citation-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.65rem;
+  font-size: 0.82rem;
+}
+
+.citation-links a,
+.citation-ref-link {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.citation-links a:hover,
+.citation-ref-link:hover {
+  text-decoration: underline;
+}

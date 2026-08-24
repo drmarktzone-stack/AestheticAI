@@ -1,20 +1,33 @@
 import { Link, useParams } from "react-router-dom";
 import { emergencies, getEmergency } from "../data";
+import { CitationList } from "../components/CitationBlock";
 import {
   EmptyState,
   PageHeader,
   ReviewFlag,
   RiskBadge,
+  Badge,
 } from "../components/ui";
+import { useLocale } from "../i18n";
 import "./Emergency.css";
 
 export function EmergencyPage() {
+  const { locale } = useLocale();
   return (
     <div>
       <PageHeader
-        eyebrow="גישה מהירה"
-        title="פרוטוקולי חירום"
-        lead="זיהוי → פעולה מיידית → אסקלציה → תיעוד. עדכן לפי פרוטוקול המרפאה שאישרת."
+        eyebrow={locale === "he" ? "גישה מהירה" : "Quick access"}
+        title={locale === "he" ? "פרוטוקולי חירום" : "Emergency protocols"}
+        lead={
+          locale === "he"
+            ? "זיהוי → פעולה מיידית → אסקלציה → תיעוד. כל פרוטוקול מצוטט ל-ACE / ASAPS."
+            : "Recognition → immediate action → escalation → documentation. Cited to ACE / ASAPS."
+        }
+        actions={
+          <Link to="/evidence" className="btn ghost">
+            ACE evidence
+          </Link>
+        }
       />
       <div className="emergency-banner">
         שינוי ראייה, חשד לחסימה וסקולרית או אנפילקסיס — הפעל מיד את הפרוטוקול המאושר שלך.
@@ -25,6 +38,9 @@ export function EmergencyPage() {
           <Link key={e.id} to={`/emergency/${e.id}`} className="list-link emergency-link">
             <div className="meta-row">
               <RiskBadge risk={e.urgency} />
+              {e.citationIds?.length ? (
+                <Badge tone="accent">{e.citationIds.length} ACE</Badge>
+              ) : null}
               <ReviewFlag reviewed={e.reviewedByPhysician} />
             </div>
             <h2>{e.nameHe}</h2>
@@ -38,6 +54,7 @@ export function EmergencyPage() {
 
 export function EmergencyDetailPage() {
   const { id } = useParams();
+  const { locale } = useLocale();
   const item = getEmergency(id ?? "");
   if (!item) {
     return (
@@ -101,13 +118,15 @@ export function EmergencyDetailPage() {
         </section>
       </div>
       <section className="detail-panel" style={{ marginTop: "1rem" }}>
-        <h2>תיעוד</h2>
+        <h2>{locale === "he" ? "תיעוד" : "Documentation"}</h2>
         <ul>
           {item.documentation.map((x) => (
             <li key={x}>{x}</li>
           ))}
         </ul>
       </section>
+
+      {item.citationIds?.length ? <CitationList ids={item.citationIds} /> : null}
     </div>
   );
 }
