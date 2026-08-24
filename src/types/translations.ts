@@ -60,6 +60,16 @@ export interface TranslationSchema {
     supabaseAuthenticated: string;
     supabaseNotConfigured: string;
   };
+  analysis: {
+    title: string;
+    run: string;
+    running: string;
+    symmetry: string;
+    skin: string;
+    wrinkles: string;
+    degraded: string;
+    error: string;
+  };
   camera: {
     title: string;
     capture: string;

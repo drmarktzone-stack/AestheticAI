@@ -56,6 +56,16 @@
     "supabaseAuthenticated": "Signed in",
     "supabaseNotConfigured": "Copy .env.example to .env and restart Expo"
   },
+  "analysis": {
+    "title": "AI facial analysis",
+    "run": "Run AI analysis",
+    "running": "Analyzing…",
+    "symmetry": "Symmetry",
+    "skin": "Skin quality",
+    "wrinkles": "Wrinkles",
+    "degraded": "Degraded mode — verify manually",
+    "error": "Analysis failed"
+  },
   "camera": {
     "title": "Clinical photo capture",
     "capture": "Capture",

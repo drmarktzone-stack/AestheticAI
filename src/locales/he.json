@@ -56,6 +56,16 @@
     "supabaseAuthenticated": "מחובר",
     "supabaseNotConfigured": "העתק .env.example ל-.env והפעל מחדש את Expo"
   },
+  "analysis": {
+    "title": "ניתוח פנים AI",
+    "run": "הרץ ניתוח AI",
+    "running": "מנתח…",
+    "symmetry": "סימטריה",
+    "skin": "איכות עור",
+    "wrinkles": "קמטים",
+    "degraded": "מצב מוגבל — אמת ידנית",
+    "error": "הניתוח נכשל"
+  },
   "camera": {
     "title": "צילום קליני",
     "capture": "צלם",

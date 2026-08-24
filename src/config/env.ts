@@ -4,6 +4,8 @@ export interface AppEnv {
   supabaseUrl: string;
   supabaseAnonKey: string;
   storageBucket: string;
+  faceAnalysisUrl: string;
+  faceAnalysisApiKey: string;
   isConfigured: boolean;
 }
 
@@ -18,11 +20,17 @@ function readEnv(): AppEnv {
     process.env.EXPO_PUBLIC_SUPABASE_STORAGE_BUCKET ??
     extra?.storageBucket ??
     "medical-images";
+  const faceAnalysisUrl =
+    process.env.EXPO_PUBLIC_FACE_ANALYSIS_URL ?? extra?.faceAnalysisUrl ?? "";
+  const faceAnalysisApiKey =
+    process.env.EXPO_PUBLIC_FACE_ANALYSIS_API_KEY ?? extra?.faceAnalysisApiKey ?? "";
 
   return {
     supabaseUrl,
     supabaseAnonKey,
     storageBucket,
+    faceAnalysisUrl,
+    faceAnalysisApiKey,
     isConfigured: Boolean(supabaseUrl && supabaseAnonKey),
   };
 }

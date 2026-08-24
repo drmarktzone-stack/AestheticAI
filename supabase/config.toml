@@ -1,0 +1,11 @@
+
+[project]
+id = "protokol-mobile"
+name = "protokol-mobile"
+
+[api]
+enabled = true
+port = 54321
+
+[functions.analyze-face]
+verify_jwt = true

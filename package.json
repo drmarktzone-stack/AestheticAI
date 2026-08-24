@@ -19,7 +19,8 @@
     "react": "19.2.3",
     "react-i18next": "^17.0.12",
     "react-native": "0.86.2",
-    "react-native-svg": "15.15.4"
+    "react-native-svg": "15.15.4",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/base64-arraybuffer": "^0.1.0",

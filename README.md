@@ -13,6 +13,7 @@ src/
 ├── i18n/             # i18next init, RTL engine
 ├── lib/supabase/     # Client, auth, medical image storage
 ├── locales/          # en.json, he.json, ar.json (unified schema)
+├── features/camera/  # Medical aesthetic camera module
 ├── screens/          # Feature screens
 ├── theme/            # Design tokens
 └── types/            # TranslationSchema + shared types
@@ -180,6 +181,136 @@ npx supabase gen types typescript --project-id YOUR_ID > src/lib/supabase/databa
 | `npm run android` | Android |
 | `npm run ios` | iOS (macOS) |
 | `npx tsc --noEmit` | Typecheck |
+
+## Medical aesthetic camera
+
+Module: `src/features/camera/`
+
+| Component | Purpose |
+|-----------|---------|
+| `MedicalAestheticCamera` | Live preview + capture |
+| `FaceMeshOverlay` | SVG landmark mesh (MediaPipe topology subset) |
+| `GhostImageOverlay` | Previous photo at **30% opacity** |
+| `AlignmentGuide` | i18n on-screen guidance (pitch/yaw/roll) |
+| `useHeadAlignment` | DeviceMotion @ ~60Hz |
+
+**Metadata** (`AestheticPhotoMetadata`): `stage` (before/after), `orientation`, `alignmentScore`, `lighting`, `timestamp`, `ghostReferenceUri`.
+
+**Flow:** Capture **before** → saved as ghost reference → capture **after** with ghost overlay for exact angle match.
+
+**Note:** Uses `expo-camera` (Expo Go compatible). For `react-native-vision-camera` + frame processors (live ML landmarks), use an Expo **development build** — can be added in v2.
+
+### Camera permissions (app.json)
+
+Already configured via `expo-camera` and `expo-sensors` plugins. After changing plugins:
+
+```bash
+npx expo prebuild --clean   # native projects only
+npx expo start -c
+```
+
+Test on a **physical device** — simulators lack reliable motion/camera.
+
+## AI facial analysis engine
+
+Analyzes symmetry, wrinkles (forehead/nasolabial/crow's feet/etc.), skin quality, landmarks, and localized clinical summary.
+
+### Architecture
+
+```
+supabase/functions/analyze-face/     # Edge Function (production)
+supabase/functions/_shared/face-analysis/
+  schema.ts                          # Strict Zod + OpenAI JSON schema
+  openai.ts                          # Primary: GPT-4o Vision structured output
+  replicate.ts                       # Fallback: Replicate vision model
+  analyze.ts                         # Orchestrator + localization + degraded mode
+services/face-analysis-api/          # Express mirror for local dev
+src/lib/ai/                          # Mobile client + response validation
+```
+
+### Deploy Supabase Edge Function
+
+```bash
+# Install Supabase CLI, link project
+supabase login
+supabase link --project-ref YOUR_PROJECT_REF
+
+# Set secrets
+supabase secrets set OPENAI_API_KEY=sk-...
+supabase secrets set REPLICATE_API_TOKEN=r8_...   # optional fallback
+
+# Deploy
+supabase functions deploy analyze-face
+```
+
+Endpoint: `https://YOUR_PROJECT.supabase.co/functions/v1/analyze-face`
+
+### Local Express API (development)
+
+```bash
+cd services/face-analysis-api
+cp .env.example .env   # OPENAI_API_KEY required
+npm install
+npm run dev
+```
+
+Set in mobile `.env`:
+
+```env
+EXPO_PUBLIC_FACE_ANALYSIS_URL=http://YOUR_LAN_IP:8787/v1/analyze-face
+EXPO_PUBLIC_FACE_ANALYSIS_API_KEY=dev-local-key
+```
+
+### Request / response
+
+**POST** JSON:
+
+```json
+{
+  "imageBase64": "...",
+  "locale": "he",
+  "mimeType": "image/jpeg",
+  "captureMetadata": { "stage": "before", "alignmentScore": 91 }
+}
+```
+
+**Response** (validated):
+
+```json
+{
+  "success": true,
+  "data": {
+    "symmetry": { "overallPercent": 87, "leftHemispherePercent": 44, "rightHemispherePercent": 43, "deltaPercent": 1 },
+    "wrinkles": { "overallDepthScore": 3.2, "regions": [] },
+    "skinQuality": { "hydration": 72, "texture": 68, "redness": 22, "pigmentation": 30, "overallScore": 70 },
+    "landmarks": [{ "id": "nose_tip", "x": 0.5, "y": 0.48 }],
+    "clinicalTags": ["periorbital_wrinkling"],
+    "summary": "... localized ...",
+    "recommendations": ["..."],
+    "locale": "he",
+    "degraded": false,
+    "disclaimer": "..."
+  }
+}
+```
+
+### Reliability
+
+- OpenAI structured JSON schema (`strict: true`) + Zod validation
+- Retries with exponential backoff (3 attempts)
+- Replicate fallback if OpenAI fails
+- Degraded neutral scores if all providers fail
+- Translation to `he` / `ar` via GPT-4o-mini when needed
+
+### Mobile usage
+
+After capture → **Run AI analysis** (uses active i18n locale).
+
+```tsx
+import { useFaceAnalysis } from '@/hooks/useFaceAnalysis';
+const { analyze, result } = useFaceAnalysis();
+await analyze({ imageUri, captureMetadata: { stage: 'before' } });
+```
 
 ## Next implementation phases
 

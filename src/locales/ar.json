@@ -56,6 +56,16 @@
     "supabaseAuthenticated": "تم تسجيل الدخول",
     "supabaseNotConfigured": "انسخ .env.example إلى .env وأعد تشغيل Expo"
   },
+  "analysis": {
+    "title": "تحليل الوجه بالذكاء الاصطناعي",
+    "run": "تشغيل التحليل",
+    "running": "جارٍ التحليل…",
+    "symmetry": "التماثل",
+    "skin": "جودة الجلد",
+    "wrinkles": "التجاعيد",
+    "degraded": "وضع متدهور — تحقق يدوياً",
+    "error": "فشل التحليل"
+  },
   "camera": {
     "title": "التقاط صورة سريرية",
     "capture": "التقاط",
