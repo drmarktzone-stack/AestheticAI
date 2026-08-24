@@ -1,33 +1,398 @@
-.consult-form {
-  display: grid;
-  gap: 0.75rem;
+.smart-consult {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.smart-consult-head {
+  max-width: 52rem;
+  margin-bottom: 1.75rem;
+}
+
+.smart-kicker {
+  margin: 0 0 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.smart-consult-head h1 {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 3.2vw, 2.2rem);
+  font-weight: 550;
+  color: var(--primary);
+  line-height: 1.25;
+}
+
+.smart-consult-head > p {
+  margin: 0;
+  color: var(--ink-soft);
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+.smart-panel {
+  border: 1px solid var(--line);
+  background: #fff;
+  padding: 1.5rem 1.35rem 1.75rem;
+}
+
+.smart-panel h2 {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--primary);
+}
+
+.smart-lead {
+  margin: 0 0 1.25rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  max-width: 52rem;
+}
+
+.smart-upload {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
   margin-bottom: 1rem;
 }
 
-.consult-form label {
-  display: grid;
-  gap: 0.35rem;
+.upload-btn input {
+  display: none;
+}
+
+.smart-file {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.smart-photo-frame {
+  margin: 0;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  background: var(--surface-low);
+}
+
+.smart-photo-frame img {
+  display: block;
+  width: 100%;
+  max-height: 520px;
+  object-fit: contain;
+  background: #0d1512;
+}
+
+.smart-hidden-img {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.smart-family-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1.1rem;
+}
+
+.smart-family-tabs button {
+  border: 1px solid var(--line);
+  background: #fff;
   color: var(--ink-soft);
+  padding: 0.4rem 0.75rem;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.smart-family-tabs button.active {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: rgba(0, 52, 43, 0.06);
+}
+
+.smart-treat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.85rem;
+}
+
+.smart-treat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: start;
+  border: 1px solid var(--line);
+  background: #fff;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  overflow: hidden;
+  transition: border-color 160ms ease, transform 180ms ease;
+}
+
+.smart-treat-card:hover {
+  border-color: rgba(0, 52, 43, 0.45);
+}
+
+.smart-treat-card.is-on {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.smart-treat-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  background: var(--surface-variant);
+}
+
+.smart-treat-tag {
+  margin: 0.55rem 0.7rem 0;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.smart-treat-card strong {
+  margin: 0.25rem 0.7rem 0;
+  font-size: 0.95rem;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.smart-treat-card em {
+  margin: 0.25rem 0.7rem 0;
+  font-style: normal;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+.smart-treat-dose {
+  margin: 0.55rem 0.7rem 0.75rem;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.smart-selected-count {
+  margin: 1rem 0 0;
+  font-size: 0.9rem;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.smart-materials ul {
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.smart-materials li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--line);
+  background: var(--surface-low);
+}
+
+.smart-materials strong {
+  color: var(--primary);
+}
+
+.smart-materials span {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.smart-dose-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 1.25rem;
+}
+
+.smart-dose-table {
+  width: 100%;
+  border-collapse: collapse;
   font-size: 0.88rem;
 }
 
-.consult-form select,
-.consult-form input,
-.consult-form textarea {
-  border: none;
-  border-bottom: 1px solid var(--muted);
-  background: transparent;
-  color: var(--ink);
-  border-radius: 0;
-  padding: 0.55rem 0;
+.smart-dose-table th,
+.smart-dose-table td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.7rem 0.55rem;
+  text-align: start;
+  vertical-align: top;
+}
+
+.smart-dose-table th {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.smart-dose-table .num {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+.smart-mat-sub {
+  margin-top: 0.2rem;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.smart-totals {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.smart-totals > div {
+  border: 1px solid var(--line);
+  padding: 1rem;
+  background: rgba(0, 52, 43, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.smart-totals span {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.smart-totals strong {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  color: var(--primary);
+}
+
+.smart-edu ul {
+  margin: 0 0 1.25rem;
+  padding-inline-start: 1.1rem;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+.smart-notes {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.smart-notes textarea {
+  border: 1px solid var(--line);
+  background: #fff;
+  padding: 0.7rem;
+  font: inherit;
+  resize: vertical;
+}
+
+.smart-slider {
+  display: grid;
+  gap: 0.45rem;
+  margin-bottom: 1.25rem;
+  max-width: 28rem;
+}
+
+.smart-slider span {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.smart-ba {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.smart-ba figure {
+  margin: 0;
+  border: 1px solid var(--line);
+  background: #0b1210;
+}
+
+.smart-ba img,
+.smart-generating {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.smart-generating {
+  display: grid;
+  place-items: center;
+  color: #d7e4df;
+  font-size: 0.95rem;
+  background: #0b1210;
+}
+
+.smart-ba figcaption {
+  padding: 0.55rem 0.7rem;
+  background: #fff;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--line);
+}
+
+.smart-after-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.consult-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.consult-step {
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  background: #fff;
+  cursor: pointer;
   font: inherit;
 }
 
-.consult-form select:focus,
-.consult-form input:focus,
-.consult-form textarea:focus {
-  outline: none;
-  border-bottom-color: var(--primary);
+.consult-step.active {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: rgba(0, 77, 64, 0.06);
+}
+
+.consult-step.done {
+  color: var(--ink-soft);
 }
 
 .consult-nav {
@@ -42,42 +407,17 @@
   cursor: not-allowed;
 }
 
-.consult-steps {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-}
+@media (max-width: 800px) {
+  .smart-consult {
+    padding: 1.25rem 1rem 3rem;
+  }
 
-.consult-step {
-  padding: 0.45rem 0.8rem;
-  border: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 0.78rem;
-  letter-spacing: 0.04em;
-}
+  .smart-ba,
+  .smart-totals {
+    grid-template-columns: 1fr;
+  }
 
-.consult-step.active {
-  border-color: var(--primary);
-  color: var(--primary);
-  background: rgba(0, 77, 64, 0.06);
-}
-
-.consult-step.done {
-  color: var(--ink-soft);
-}
-
-.consult-ref-strip {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.6rem;
-  margin-bottom: 1rem;
-}
-
-.consult-ref-strip img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border: 1px solid var(--line);
-  display: block;
+  .smart-dose-table {
+    font-size: 0.8rem;
+  }
 }

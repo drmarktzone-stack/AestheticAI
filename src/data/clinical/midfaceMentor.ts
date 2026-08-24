@@ -84,14 +84,22 @@ export const midfaceMentor: ClinicalMentorGuide = {
     {
       id: "ck1",
       site: L("Zygomatic Arch (CK1)", "القوس الوجني (CK1)", "Zygomatic Arch (CK1)"),
-      typical: L("אליקוטות קטנות לפי תוכנית", "دفعات صغيرة حسب الخطة", "Small aliquots per plan"),
+      typical: L(
+        "0.2–0.5 מ״ל לצד; בולוסים עמוקים 0.05–0.1 מ״ל לנקודה",
+        "0.2–0.5 مل/جانب؛ بلعات عميقة 0.05–0.1 مل/نقطة",
+        "0.2–0.5 ml/side; deep boluses 0.05–0.1 ml/point",
+      ),
       plane: L("Supraperiosteal / deep", "فوق العظم / عميق", "Supraperiosteal / deep"),
       note: L("סמן על מפה לפני הזרקה", "علّم على الخريطة قبل الحقن", "Mark map before injecting"),
     },
     {
       id: "malar",
       site: L("Malar / mid-cheek", "المنطقة الوجنية", "Malar / mid-cheek"),
-      typical: L("נפח לפי חסר אנטומי", "حجم حسب النقص التشريحي", "Volume by anatomic deficit"),
+      typical: L(
+        "0.3–0.8 מ״ל ללחי לפי חסר; סה״כ דו־צדדי לעיתים 1.0–2.0 מ״ל",
+        "0.3–0.8 مل/خد؛ ثنائي الجانب غالباً 1.0–2.0 مل",
+        "0.3–0.8 ml/cheek by deficit; bilateral often 1.0–2.0 ml",
+      ),
       plane: L("Deep fat", "دهون عميقة", "Deep fat"),
       note: L("בדוק סימטריה בישיבה", "افحص التناظر جلوساً", "Check symmetry seated"),
     },

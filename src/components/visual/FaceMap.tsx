@@ -1,5 +1,5 @@
 import { useLocale } from "../../i18n";
-import { faceZones } from "../../data/faceZones";
+import { faceZones, ZONE_LABELS } from "../../data/faceZones";
 import { getRegion } from "../../data";
 import "./visual.css";
 
@@ -7,10 +7,32 @@ interface FaceMapProps {
   selectedZoneIds: string[];
   onToggleZone: (zoneId: string) => void;
   showDanger?: boolean;
+  /** Limit which zones appear (multi-select body+face). Default: all */
+  zoneFilter?: string[];
 }
 
-export function FaceMap({ selectedZoneIds, onToggleZone, showDanger = true }: FaceMapProps) {
+export function FaceMap({
+  selectedZoneIds,
+  onToggleZone,
+  showDanger = true,
+  zoneFilter,
+}: FaceMapProps) {
   const { locale, pick } = useLocale();
+  const zones = zoneFilter
+    ? faceZones.filter((z) => zoneFilter.includes(z.id))
+    : faceZones;
+
+  const labelFor = (id: string) => {
+    const region = getRegion(faceZones.find((z) => z.id === id)?.regionId ?? "");
+    if (region) {
+      return locale === "he"
+        ? region.nameHe
+        : locale === "ar"
+          ? region.nameAr ?? region.nameHe
+          : region.nameEn;
+    }
+    return ZONE_LABELS[id]?.[locale] ?? id;
+  };
 
   return (
     <div className="face-map-wrap">
@@ -21,7 +43,7 @@ export function FaceMap({ selectedZoneIds, onToggleZone, showDanger = true }: Fa
         <ellipse cx="62" cy="36" rx="4" ry="2.5" className="face-feature" />
         <path d="M 44 62 Q 50 66 56 62" className="face-feature" fill="none" />
 
-        {faceZones.map((zone) => {
+        {zones.map((zone) => {
           const region = getRegion(zone.regionId);
           const selected = selectedZoneIds.includes(zone.id);
           const isCritical = region?.risk === "critical" || region?.risk === "high";
@@ -51,15 +73,9 @@ export function FaceMap({ selectedZoneIds, onToggleZone, showDanger = true }: Fa
         })}
       </svg>
       <ul className="zone-legend">
-        {faceZones.map((z) => {
+        {zones.map((z) => {
           const region = getRegion(z.regionId);
-          if (!region) return null;
-          const name =
-            locale === "he"
-              ? region.nameHe
-              : locale === "ar"
-                ? region.nameAr ?? region.nameHe
-                : region.nameEn;
+          const name = labelFor(z.id);
           return (
             <li key={z.id}>
               <button
@@ -68,8 +84,11 @@ export function FaceMap({ selectedZoneIds, onToggleZone, showDanger = true }: Fa
                 onClick={() => onToggleZone(z.id)}
               >
                 {name}
-                {showDanger && (region.risk === "critical" || region.risk === "high") ? (
-                  <span className="danger-dot" title={pick({ he: "סיכון גבוה", ar: "خطر مرتفع", en: "High risk" })} />
+                {showDanger && region && (region.risk === "critical" || region.risk === "high") ? (
+                  <span
+                    className="danger-dot"
+                    title={pick({ he: "סיכון גבוה", ar: "خطر مرتفع", en: "High risk" })}
+                  />
                 ) : null}
               </button>
             </li>

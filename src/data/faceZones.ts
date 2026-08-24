@@ -22,7 +22,41 @@ export const faceZones: FaceZone[] = [
   { id: "jaw-r", regionId: "jawline", cx: 0.72, cy: 0.72, rx: 0.08, ry: 0.06, effect: "contour" },
   { id: "temple-l", regionId: "temple", cx: 0.22, cy: 0.32, rx: 0.06, ry: 0.08, effect: "volume" },
   { id: "temple-r", regionId: "temple", cx: 0.78, cy: 0.32, rx: 0.06, ry: 0.08, effect: "volume" },
+  { id: "masseter-l", regionId: "jawline", cx: 0.24, cy: 0.58, rx: 0.06, ry: 0.09, effect: "contour" },
+  { id: "masseter-r", regionId: "jawline", cx: 0.76, cy: 0.58, rx: 0.06, ry: 0.09, effect: "contour" },
+  { id: "tmj-l", regionId: "jawline", cx: 0.2, cy: 0.42, rx: 0.045, ry: 0.05, effect: "smooth" },
+  { id: "tmj-r", regionId: "jawline", cx: 0.8, cy: 0.42, rx: 0.045, ry: 0.05, effect: "smooth" },
+  { id: "chin", regionId: "chin", cx: 0.5, cy: 0.78, rx: 0.07, ry: 0.05, effect: "volume" },
+  { id: "neck", regionId: "neck", cx: 0.5, cy: 0.9, rx: 0.14, ry: 0.05, effect: "smooth" },
+  // Body therapeutic sites (shown on extended map legend; positioned off classic face grid)
+  { id: "axilla-l", regionId: "body", cx: 0.08, cy: 0.55, rx: 0.05, ry: 0.07, effect: "smooth" },
+  { id: "axilla-r", regionId: "body", cx: 0.92, cy: 0.55, rx: 0.05, ry: 0.07, effect: "smooth" },
+  { id: "palm-l", regionId: "body", cx: 0.1, cy: 0.88, rx: 0.06, ry: 0.05, effect: "smooth" },
+  { id: "palm-r", regionId: "body", cx: 0.9, cy: 0.88, rx: 0.06, ry: 0.05, effect: "smooth" },
 ];
+
+export const ZONE_LABELS: Record<string, { he: string; ar: string; en: string }> = {
+  glabella: { he: "גלאבלה", ar: "الجبينة", en: "Glabella" },
+  "periocular-l": { he: "עין עורב שמאל", ar: "حول العين يسار", en: "Periocular L" },
+  "periocular-r": { he: "עין עורב ימין", ar: "حول العين يمين", en: "Periocular R" },
+  "cheek-l": { he: "לחי שמאל", ar: "خد أيسر", en: "Cheek L" },
+  "cheek-r": { he: "לחי ימין", ar: "خد أيمن", en: "Cheek R" },
+  lips: { he: "שפתיים", ar: "الشفاه", en: "Lips" },
+  "jaw-l": { he: "קו לסת שמאל", ar: "خط فك أيسر", en: "Jaw L" },
+  "jaw-r": { he: "קו לסת ימין", ar: "خط فك أيمن", en: "Jaw R" },
+  "temple-l": { he: "רקה שמאל", ar: "صدغ أيسر", en: "Temple L" },
+  "temple-r": { he: "רקה ימין", ar: "صدغ أيمن", en: "Temple R" },
+  "masseter-l": { he: "מסהטר שמאל", ar: "ماضغة يسرى", en: "Masseter L" },
+  "masseter-r": { he: "מסהטר ימין", ar: "ماضغة يمنى", en: "Masseter R" },
+  "tmj-l": { he: "TMJ שמאל", ar: "مفصل فك أيسر", en: "TMJ L" },
+  "tmj-r": { he: "TMJ ימין", ar: "مفصل فك أيمن", en: "TMJ R" },
+  chin: { he: "סנטר", ar: "الذقن", en: "Chin" },
+  neck: { he: "צוואר", ar: "الرقبة", en: "Neck" },
+  "axilla-l": { he: "בית שחי שמאל", ar: "إبط أيسر", en: "Axilla L" },
+  "axilla-r": { he: "בית שחי ימין", ar: "إبط أيمن", en: "Axilla R" },
+  "palm-l": { he: "כף יד שמאל", ar: "راحة يسرى", en: "Palm L" },
+  "palm-r": { he: "כף יד ימין", ar: "راحة يمنى", en: "Palm R" },
+};
 
 export interface InjectionPoint {
   id: string;

@@ -118,11 +118,11 @@ export const strings: LocaleStrings = {
     compare: L("השוואה", "مقارنة", "Compare"),
   },
   consultation: {
-    title: L("מסלול ייעוץ", "مسار الاستشارة", "Consultation flow"),
+    title: L("מתכנן קליני חכם", "المخطط السريري الذكي", "Smart clinical planner"),
     lead: L(
-      "הערכה → תכנון → סימולציה → תיעוד. זרימה אחת שמחברת את כל הכלים.",
-      "تقييم ← تخطيط ← محاكاة ← توثيق. مسار واحد يربط جميع الأدوات.",
-      "Assessment → planning → simulation → documentation. One flow connecting all tools.",
+      "העלאת תמונה → בחירה מרובה של טיפולים → סימון אזורים → חומר ומינון אוטומטיים → תמונת אחרי AI.",
+      "رفع صورة ← اختيار علاجات متعدد ← تحديد المناطق ← مادة وجرعة تلقائية ← صورة بعد بالذكاء الاصطناعي.",
+      "Upload photo → multi-select treatments → mark zones → auto material & dose → AI after image.",
     ),
     stepAssess: L("הערכה", "التقييم", "Assessment"),
     stepPlan: L("תכנון", "التخطيط", "Planning"),

@@ -19,16 +19,16 @@ const MODULES = [
     en: "Mentor guide — Midface",
   },
   {
+    to: "/consultation",
+    he: "מתכנן חכם — העלאה, מינון, אחרי AI",
+    ar: "مخطط ذكي — رفع، جرعة، بعد AI",
+    en: "Smart planner — upload, dose, AI after",
+  },
+  {
     to: "/simulation",
     he: "סימולציית מטופל",
     ar: "محاكاة المريض",
     en: "Patient simulation",
-  },
-  {
-    to: "/consultation",
-    he: "ייעוץ קליני",
-    ar: "الاستشارة السريرية",
-    en: "Clinical consultation",
   },
   {
     to: "/library",
@@ -85,8 +85,12 @@ export function HomePage() {
                   ? "افتح دليل الشفاه"
                   : "Open lips mentor"}
             </Link>
-            <Link className="btn ghost" to="/simulation">
-              {pick(t.home.openSimulation)}
+            <Link className="btn ghost" to="/consultation">
+              {locale === "he"
+                ? "מתכנן חכם + AI אחרי"
+                : locale === "ar"
+                  ? "مخطط ذكي + صورة بعد"
+                  : "Smart planner + AI after"}
             </Link>
           </div>
         </div>

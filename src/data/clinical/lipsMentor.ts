@@ -145,30 +145,57 @@ export const lipsMentor: ClinicalMentorGuide = {
     {
       id: "body-lower",
       site: L("גוף שפה תחתונה", "جسم الشفة السفلية", "Lower lip body"),
-      typical: L("אליקוטות קטנות; סה״כ לפי תוכנית", "دفعات صغيرة؛ المجموع حسب الخطة", "Small aliquots; total per plan"),
+      typical: L(
+        "0.35–0.60 מ״ל לסשן (מדורג); אליקוטות 0.05–0.10 מ״ל לנקודה",
+        "0.35–0.60 مل للجلسة؛ دفعات 0.05–0.10 مل/نقطة",
+        "0.35–0.60 ml/session (staged); aliquots 0.05–0.10 ml/point",
+      ),
       plane: L("תת־עורי / intramucosal לפי טכניקה", "تحت الجلد / مخاطي حسب التقنية", "Subdermal / intramucosal per technique"),
       note: L("בנה סימטריה לפני נפח נוסף", "ابنِ التناظر قبل حجم إضافي", "Build symmetry before extra volume"),
     },
     {
       id: "body-upper",
       site: L("גוף שפה עליונה", "جسم الشفة العلوية", "Upper lip body"),
-      typical: L("שמרני יותר מהתחתונה ברוב המקרים", "أكثر تحفظاً من السفلية غالباً", "Often more conservative than lower"),
+      typical: L(
+        "0.20–0.40 מ״ל לסשן; לרוב שמרני יותר מהתחתונה (~יחס 1:1.2–1.6)",
+        "0.20–0.40 مل؛ غالباً أقل من السفلية (~نسبة 1:1.2–1.6)",
+        "0.20–0.40 ml/session; often more conservative than lower (~ratio 1:1.2–1.6)",
+      ),
       plane: L("שטחי־מבוקר", "سطحي مضبوط", "Controlled superficial"),
       note: L("שמור על תנועת דיבור", "حافظ على حركة الكلام", "Preserve speech dynamics"),
     },
     {
       id: "border",
       site: L("גבול vermilion", "حدود الـvermilion", "Vermilion border"),
-      typical: L("מיקרו־אליקוטות להגדרה", "دفعات دقيقة للتعريف", "Micro-aliquots for definition"),
+      typical: L(
+        "0.05–0.15 מ״ל לכל צד; מיקרו־אליקוטות 0.02–0.05 מ״ל",
+        "0.05–0.15 مل لكل جانب؛ دفعات 0.02–0.05 مل",
+        "0.05–0.15 ml per side; micro-aliquots 0.02–0.05 ml",
+      ),
       plane: L("לאורך הגבול — זהירות יתר", "على طول الحدود — حذر شديد", "Along border — extreme caution"),
       note: L("הימנע מקו ״נקניק״", "تجنب مظهر السجق", "Avoid sausage border"),
     },
     {
       id: "commissure",
       site: L("קומיסורות", "زوايا الفم", "Oral commissures"),
-      typical: L("תמיכה נקודתית קטנה", "دعم نقطي صغير", "Small focal support"),
+      typical: L(
+        "0.05–0.10 מ״ל לכל קומיסורה",
+        "0.05–0.10 مل لكل زاوية",
+        "0.05–0.10 ml per commissure",
+      ),
       plane: L("לפי אנטומיית המטופל", "حسب تشريح المريض", "Per patient anatomy"),
-      note: L("שקול השפעה על חיוך", "راعی تأثیر الابتسامة", "Consider smile vector"),
+      note: L("שקול השפעה על חיוך", "راعِ تأثير الابتسامة", "Consider smile vector"),
+    },
+    {
+      id: "session-total",
+      site: L("סה״כ סשן שפתיים (טיפוסי)", "مجموع جلسة الشفاه", "Typical lips session total"),
+      typical: L(
+        "0.5–1.2 מ״ל לסשן ראשון; השלמה במעקב אם נדרש",
+        "0.5–1.2 مل للجلسة الأولى؛ إكمال في المتابعة إن لزم",
+        "0.5–1.2 ml first session; top-up at follow-up if needed",
+      ),
+      plane: L("משולב לפי מפה", "مشترك حسب الخريطة", "Combined per map"),
+      note: L("לא כלל אצבע — IFU + אנטומיה", "ليس قاعدة ثابتة — النشرة + التشريح", "Not a rule of thumb — IFU + anatomy"),
     },
   ],
   techniques: [
