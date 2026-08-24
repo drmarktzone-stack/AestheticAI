@@ -1,0 +1,82 @@
+.planner-form,
+.plan-line {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.planner-form {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.plan-line {
+  grid-template-columns: 1.1fr 1.3fr 0.9fr 1.1fr auto;
+  align-items: end;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(232, 241, 239, 0.1);
+  background: rgba(8, 22, 27, 0.45);
+}
+
+.planner-form label,
+.plan-line label {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.planner-form input,
+.plan-line input,
+.plan-line select {
+  width: 100%;
+  border: 1px solid rgba(232, 241, 239, 0.14);
+  background: rgba(8, 22, 27, 0.55);
+  color: var(--ink);
+  border-radius: 0.75rem;
+  padding: 0.7rem 0.8rem;
+  font: inherit;
+}
+
+.planner-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  border-radius: 999px;
+  padding: 0.7rem 1.15rem;
+  font: inherit;
+  font-weight: 600;
+}
+
+.btn.primary {
+  background: linear-gradient(120deg, #2e8b8a, #1f6f6d);
+  color: #f4fffd;
+}
+
+.linkish {
+  border: none;
+  background: transparent;
+  color: #f0b4b4;
+  cursor: pointer;
+  font: inherit;
+  padding: 0.7rem 0.2rem;
+}
+
+.planner-meta {
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+}
+
+@media (max-width: 960px) {
+  .planner-form,
+  .plan-line {
+    grid-template-columns: 1fr;
+  }
+}

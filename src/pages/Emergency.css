@@ -1,0 +1,19 @@
+.emergency-banner {
+  margin-bottom: 1.25rem;
+  padding: 1rem 1.15rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(176, 72, 72, 0.45);
+  background: rgba(176, 72, 72, 0.14);
+  color: #f3d2d2;
+  line-height: 1.6;
+  animation: rise 450ms ease both;
+}
+
+.emergency-link {
+  border-color: rgba(176, 72, 72, 0.22);
+}
+
+.detail-panel.urgent {
+  border-color: rgba(176, 72, 72, 0.4);
+  background: rgba(80, 28, 28, 0.35);
+}

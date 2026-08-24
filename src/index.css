@@ -1,0 +1,54 @@
+:root {
+  --font-display: "Secular One", "IBM Plex Sans Hebrew", sans-serif;
+  --font-body: "IBM Plex Sans Hebrew", "Segoe UI", Tahoma, sans-serif;
+  --ink: #f2fbf8;
+  --ink-soft: #d7ebe6;
+  --muted: #9bb5b1;
+  --accent: #2e8b8a;
+  --accent-soft: #8fd0c9;
+  color: var(--ink);
+  background: #0b1c22;
+  font-family: var(--font-body);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  direction: rtl;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  color: var(--accent-soft);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
