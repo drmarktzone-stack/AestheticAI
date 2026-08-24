@@ -1,8 +1,8 @@
 import { useLocale, type Locale } from "../i18n";
 
 const labels: Record<Locale, string> = {
-  he: "עב",
-  ar: "عر",
+  he: "HE",
+  ar: "AR",
   en: "EN",
 };
 

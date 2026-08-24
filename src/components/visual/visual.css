@@ -168,28 +168,6 @@
   text-align: center;
 }
 
-.lang-switch {
-  display: inline-flex;
-  border: 1px solid rgba(232, 241, 239, 0.14);
-  border-radius: 999px;
-  overflow: hidden;
-}
-
-.lang-switch button {
-  border: none;
-  background: transparent;
-  color: var(--muted);
-  padding: 0.35rem 0.65rem;
-  font: inherit;
-  font-size: 0.78rem;
-  cursor: pointer;
-}
-
-.lang-switch button.active {
-  background: rgba(46, 139, 138, 0.28);
-  color: var(--ink);
-}
-
 .sim-controls {
   display: grid;
   gap: 1rem;

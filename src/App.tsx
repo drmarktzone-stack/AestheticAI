@@ -12,7 +12,7 @@ import { ConsultationPage } from "./pages/Consultation";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, "") || "/"}>
       <Shell>
         <Routes>
           <Route path="/" element={<HomePage />} />

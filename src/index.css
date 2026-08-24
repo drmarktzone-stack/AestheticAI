@@ -1,13 +1,25 @@
 :root {
-  --font-display: "Secular One", "IBM Plex Sans Hebrew", sans-serif;
-  --font-body: "IBM Plex Sans Hebrew", "Segoe UI", Tahoma, sans-serif;
-  --ink: #f2fbf8;
-  --ink-soft: #d7ebe6;
-  --muted: #9bb5b1;
-  --accent: #2e8b8a;
-  --accent-soft: #8fd0c9;
+  --font-display: "Noto Serif Hebrew", "Noto Serif", Georgia, serif;
+  --font-body: "Heebo", "Segoe UI", Tahoma, sans-serif;
+
+  --bg: #fcf9f8;
+  --surface: #fcf9f8;
+  --surface-low: #f6f3f2;
+  --surface-variant: #e5e2e1;
+  --ink: #1c1b1b;
+  --ink-soft: #3f4945;
+  --muted: #707975;
+  --line: #bfc9c4;
+  --primary: #00342b;
+  --primary-container: #004d40;
+  --on-primary: #ffffff;
+  --accent: #004d40;
+  --accent-deep: #00342b;
+  --accent-soft: rgba(0, 77, 64, 0.1);
+  --bg-elevated: #ffffff;
+
   color: var(--ink);
-  background: #0b1c22;
+  background: var(--bg);
   font-family: var(--font-body);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -31,6 +43,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background: var(--bg);
 }
 
 #root {
@@ -38,7 +51,7 @@ body {
 }
 
 a {
-  color: var(--accent-soft);
+  color: inherit;
 }
 
 button,
@@ -52,26 +65,46 @@ select {
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  border: none;
-  border-radius: 999px;
-  padding: 0.75rem 1.2rem;
-  font: inherit;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 0.95rem 2rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
   font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
-}
-
-.btn:hover {
-  transform: translateY(-1px);
+  transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
 }
 
 .btn.primary {
-  background: linear-gradient(120deg, #2e8b8a, #1f6f6d);
-  color: #f4fffd;
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+.btn.primary:hover {
+  background: #065043;
 }
 
 .btn.ghost {
-  border: 1px solid rgba(232, 241, 239, 0.22);
-  color: var(--ink-soft);
-  background: rgba(8, 22, 27, 0.35);
+  background: rgba(255, 255, 255, 0.55);
+  border-color: var(--line);
+  color: var(--ink);
+  backdrop-filter: blur(6px);
+}
+
+.btn.ghost:hover {
+  background: var(--surface-low);
+  border-color: var(--muted);
+}
+
+.btn.ink {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.btn.ink:hover {
+  border-color: var(--primary);
+  color: var(--primary);
 }

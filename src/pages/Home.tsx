@@ -1,57 +1,43 @@
 import { Link } from "react-router-dom";
-import { emergencies, materials, protocols, regions } from "../data";
 import { useLocale } from "../i18n";
 import "./Home.css";
 
-export function HomePage() {
-  const { pick, t } = useLocale();
+const MODULES = [
+  { to: "/consultation", he: "ייעוץ קליני", key: "consultation" as const },
+  { to: "/simulation", he: "סימולציית מטופל", key: "simulation" as const },
+  { to: "/materials", he: "חומרים ותכשירים", key: "materials" as const },
+  { to: "/regions", he: "אזורי הזרקה", key: "regions" as const },
+  { to: "/protocols", he: "פרוטוקולים טיפוליים", key: "protocols" as const },
+  { to: "/emergency", he: "עזרה ראשונה", key: "emergency" as const },
+];
 
-  const modules = [
-    {
-      to: "/consultation",
-      title: pick(t.nav.consultation),
-      text: pick(t.consultation.lead),
-      count: "4 steps",
-    },
-    {
-      to: "/simulation",
-      title: pick(t.nav.simulation),
-      text: pick(t.simulation.lead),
-      count: pick(t.common.before) + " / " + pick(t.common.after),
-    },
-    {
-      to: "/materials",
-      title: pick(t.nav.materials),
-      text: "HA, toxin, biostimulators, enzymes",
-      count: `${materials.length}`,
-    },
-    {
-      to: "/regions",
-      title: pick(t.nav.regions),
-      text: "Danger zones · planes · emergency flags",
-      count: `${regions.length}`,
-    },
-    {
-      to: "/protocols",
-      title: pick(t.nav.protocols),
-      text: pick(t.consultation.stepAssess) + " → " + pick(t.consultation.stepDocument),
-      count: `${protocols.length}`,
-    },
-    {
-      to: "/emergency",
-      title: pick(t.nav.emergency),
-      text: "Vascular · vision · anaphylaxis",
-      count: `${emergencies.length}`,
-    },
-  ];
+export function HomePage() {
+  const { pick, t, locale } = useLocale();
 
   return (
     <div className="home">
-      <section className="hero">
-        <div className="hero-copy">
-          <p className="hero-brand">{pick(t.appName)}</p>
-          <h1>{pick(t.home.heroTitle)}</h1>
-          <p className="hero-lead">{pick(t.home.heroLead)}</p>
+      <section className="hero" aria-label={pick(t.appName)}>
+        <div className="hero-media" aria-hidden="true">
+          <img
+            src={`${import.meta.env.BASE_URL}stitch/hero-clinic.png`}
+            alt=""
+            className="hero-img"
+          />
+          <div className="hero-veil" />
+        </div>
+
+        <div className="hero-content">
+          <h1 className="hero-brand">{pick(t.appName)}</h1>
+          <p className="hero-title">
+            {locale === "he"
+              ? "מצוינות קלינית באסתטיקה רפואית."
+              : pick(t.home.heroTitle)}
+          </p>
+          <p className="hero-lead">
+            {locale === "he"
+              ? "הפלטפורמה המתקדמת לניהול פרוטוקולים, סימולציות וייעוץ מקצועי לרופאים בלבד."
+              : pick(t.home.heroLead)}
+          </p>
           <div className="hero-actions">
             <Link className="btn primary" to="/consultation">
               {pick(t.common.startConsultation)}
@@ -59,51 +45,21 @@ export function HomePage() {
             <Link className="btn ghost" to="/simulation">
               {pick(t.home.openSimulation)}
             </Link>
-            <Link className="btn ghost" to="/emergency">
-              {pick(t.home.openEmergency)}
-            </Link>
-          </div>
-        </div>
-        <div className="hero-visual" aria-hidden="true">
-          <div className="orbit orbit-a" />
-          <div className="orbit orbit-b" />
-          <div className="face-map">
-            <span className="node n1" />
-            <span className="node n2" />
-            <span className="node n3" />
-            <span className="node n4" />
-            <span className="node n5" />
           </div>
         </div>
       </section>
 
       <section className="modules">
-        <h2>{pick(t.home.modulesTitle)}</h2>
-        <div className="module-grid">
-          {modules.map((m, i) => (
-            <Link key={m.to} to={m.to} className="module" style={{ animationDelay: `${i * 70}ms` }}>
-              <div className="module-top">
-                <h3>{m.title}</h3>
-                <span>{m.count}</span>
-              </div>
-              <p>{m.text}</p>
+        <div className="modules-inner">
+          {MODULES.map((m) => (
+            <Link key={m.to} to={m.to} className="module-row">
+              <h2>{locale === "he" ? m.he : pick(t.nav[m.key])}</h2>
+              <span className="module-arrow" aria-hidden="true">
+                ←
+              </span>
             </Link>
           ))}
         </div>
-      </section>
-
-      <section className="ownership unique-section">
-        <h2>{pick(t.home.uniqueTitle)}</h2>
-        <ul className="unique-list">
-          {t.home.uniqueItems.map((item) => (
-            <li key={item.en}>{pick(item)}</li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="ownership">
-        <h2>{pick(t.home.ownershipTitle)}</h2>
-        <p>{pick(t.home.ownershipBody)}</p>
       </section>
     </div>
   );

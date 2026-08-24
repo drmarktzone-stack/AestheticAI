@@ -6,48 +6,34 @@ import "./Shell.css";
 export function Shell({ children }: { children: React.ReactNode }) {
   const { pick, t } = useLocale();
 
-  const links = [
-    { to: "/", label: pick(t.nav.home), end: true },
-    { to: "/consultation", label: pick(t.nav.consultation) },
-    { to: "/simulation", label: pick(t.nav.simulation) },
-    { to: "/materials", label: pick(t.nav.materials) },
-    { to: "/regions", label: pick(t.nav.regions) },
-    { to: "/techniques", label: pick(t.nav.techniques) },
-    { to: "/protocols", label: pick(t.nav.protocols) },
-    { to: "/emergency", label: pick(t.nav.emergency) },
-    { to: "/planner", label: pick(t.nav.planner) },
-  ];
-
   return (
     <div className="shell">
-      <div className="shell-atmosphere" aria-hidden="true" />
       <header className="topbar">
-        <NavLink to="/" className="brand">
-          <span className="brand-mark">{pick(t.appName).charAt(0)}</span>
-          <span className="brand-text">
-            <strong>{pick(t.appName)}</strong>
-            <small>{pick(t.tagline)}</small>
-          </span>
-        </NavLink>
-        <div className="topbar-actions">
-          <LanguageSwitcher />
-          <nav className="nav" aria-label="Main navigation">
-            {links.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                end={link.end}
-                className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
-              >
-                {link.label}
-              </NavLink>
-            ))}
-          </nav>
+        <div className="topbar-inner">
+          <NavLink to="/" className="brand" end>
+            {pick(t.appName)}
+          </NavLink>
+          <div className="topbar-mid">
+            <LanguageSwitcher />
+          </div>
+          <NavLink to="/consultation" className="doctor-enter">
+            כניסת רופאים
+          </NavLink>
         </div>
       </header>
       <main className="main">{children}</main>
       <footer className="footer">
-        <p>{pick(t.ownership)}</p>
+        <div className="footer-inner">
+          <div className="footer-brand">
+            <span>{pick(t.appName)}</span>
+            <p>{pick(t.ownership)}</p>
+          </div>
+          <nav className="footer-links" aria-label="Footer">
+            <a href="#terms">תנאי שימוש</a>
+            <a href="#privacy">מדיניות פרטיות</a>
+            <a href="#contact">צרו קשר</a>
+          </nav>
+        </div>
       </footer>
     </div>
   );
