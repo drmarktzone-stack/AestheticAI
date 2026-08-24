@@ -27,7 +27,9 @@ export function HomePage() {
         </div>
 
         <div className="hero-content">
-          <h1 className="hero-brand">{pick(t.appName)}</h1>
+          <h1 className="hero-brand">
+            {locale === "en" ? "Protokol" : pick(t.appName)}
+          </h1>
           <p className="hero-title">
             {locale === "he"
               ? "מצוינות קלינית באסתטיקה רפואית."
@@ -40,10 +42,10 @@ export function HomePage() {
           </p>
           <div className="hero-actions">
             <Link className="btn primary" to="/consultation">
-              {pick(t.common.startConsultation)}
+              {locale === "he" ? "התחל ייעוץ" : pick(t.common.startConsultation)}
             </Link>
             <Link className="btn ghost" to="/simulation">
-              {pick(t.home.openSimulation)}
+              {locale === "he" ? "סימולציית מטופל" : pick(t.home.openSimulation)}
             </Link>
           </div>
         </div>

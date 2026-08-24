@@ -4,7 +4,7 @@ import { useLocale } from "../i18n";
 import "./Shell.css";
 
 export function Shell({ children }: { children: React.ReactNode }) {
-  const { pick, t } = useLocale();
+  const { pick, t, locale } = useLocale();
 
   return (
     <div className="shell">
@@ -17,7 +17,11 @@ export function Shell({ children }: { children: React.ReactNode }) {
             <LanguageSwitcher />
           </div>
           <NavLink to="/consultation" className="doctor-enter">
-            כניסת רופאים
+            {locale === "en"
+              ? "Doctor login"
+              : locale === "ar"
+                ? "دخول الأطباء"
+                : "כניסת רופאים"}
           </NavLink>
         </div>
       </header>

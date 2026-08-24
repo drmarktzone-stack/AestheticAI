@@ -52,7 +52,7 @@
   border: none;
   background: transparent;
   color: var(--ink-soft);
-  padding: 0;
+  padding: 0.2rem 0;
   font: inherit;
   font-size: 0.7rem;
   font-weight: 600;
@@ -60,11 +60,16 @@
   text-transform: uppercase;
   cursor: pointer;
   transition: color 200ms ease;
+  border-bottom: 1px solid transparent;
 }
 
-.lang-switch button:hover,
+.lang-switch button:hover {
+  color: var(--primary);
+}
+
 .lang-switch button.active {
   color: var(--primary);
+  border-bottom-color: var(--primary);
 }
 
 .doctor-enter {

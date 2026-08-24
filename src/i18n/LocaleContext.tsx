@@ -26,9 +26,10 @@ function detectInitial(): Locale {
   const saved = localStorage.getItem(STORAGE_KEY) as Locale | null;
   if (saved === "he" || saved === "ar" || saved === "en") return saved;
   const lang = navigator.language.toLowerCase();
-  if (lang.startsWith("he")) return "he";
   if (lang.startsWith("ar")) return "ar";
-  return "en";
+  if (lang.startsWith("en")) return "en";
+  // Hebrew-first clinical product (Stitch / RTL default)
+  return "he";
 }
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
