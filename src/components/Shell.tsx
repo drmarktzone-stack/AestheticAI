@@ -4,6 +4,7 @@ import { useLocale } from "../i18n";
 import "./Shell.css";
 
 const NAV = [
+  { to: "/atlas", he: "מפה מלאה", ar: "خريطة كاملة", en: "Full atlas" },
   { to: "/world", he: "עולם אסתטיקה", ar: "عالم التجميل", en: "Aesthetic world" },
   { to: "/companies", he: "חברות", ar: "شركات", en: "Companies" },
   { to: "/materials", he: "חומרים", ar: "مواد", en: "Materials" },

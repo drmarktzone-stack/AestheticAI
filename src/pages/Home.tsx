@@ -67,6 +67,12 @@ const PILLARS = [
 
 const MODULES = [
   {
+    to: "/atlas",
+    he: "מפה מלאה — חיפוש על כל עולם האסתטיקה",
+    ar: "خريطة كاملة — بحث في كل عالم التجميل",
+    en: "Full atlas — search the entire aesthetic world",
+  },
+  {
     to: "/world",
     he: "עולם האסתטיקה — threads, peels, hair, body, devices",
     ar: "عالم التجميل — خيوط، تقشير، شعر، جسم، أجهزة",
@@ -162,12 +168,12 @@ export function HomePage() {
                 : "Protocols, materials, companies, full aesthetic world, dosing, complications and visualized injection — in Hebrew, Arabic and English."}
           </p>
           <div className="hero-actions">
-            <Link className="btn primary" to="/world">
+            <Link className="btn primary" to="/atlas">
               {locale === "he"
-                ? "עולם האסתטיקה המלא"
+                ? "מפת עולם האסתטיקה המלאה"
                 : locale === "ar"
-                  ? "عالم التجميل الكامل"
-                  : "Full aesthetic world"}
+                  ? "خريطة عالم التجميل الكاملة"
+                  : "Full aesthetic world atlas"}
             </Link>
             <Link className="btn ghost" to="/companies">
               {locale === "he"

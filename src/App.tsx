@@ -14,6 +14,7 @@ import { MentorIndexPage, MentorPage } from "./pages/Mentor";
 import { CompaniesPage, CompanyDetailPage } from "./pages/Companies";
 import { WorldPage, WorldDomainPage, WorldProductDetailPage } from "./pages/World";
 import { EvidencePage, EvidenceDetailPage } from "./pages/Evidence";
+import { AtlasPage } from "./pages/Atlas";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
       <Shell>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/atlas" element={<AtlasPage />} />
           <Route path="/world" element={<WorldPage />} />
           <Route path="/world/:domain" element={<WorldDomainPage />} />
           <Route path="/world/:domain/:productId" element={<WorldProductDetailPage />} />
