@@ -3,6 +3,7 @@ import type { GlobalCitation } from "../data/types";
 import { getCitation } from "../data";
 import { useLocale } from "../i18n";
 import { Badge } from "./ui";
+import "./citation-block.css";
 
 const TYPE_LABEL: Record<string, { he: string; ar: string; en: string }> = {
   consensus: { he: "קונсенסוס", ar: "إجماع", en: "Consensus" },

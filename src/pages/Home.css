@@ -84,6 +84,80 @@
   gap: 1rem;
 }
 
+.home-pillars {
+  border-block: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, rgba(0, 52, 43, 0.06), transparent 55%),
+    var(--surface);
+}
+
+.home-pillars-inner {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding: 3.5rem 2.5rem;
+}
+
+.home-pillars-head {
+  max-width: 36rem;
+  margin-bottom: 1.75rem;
+}
+
+.home-pillars-head h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 3vw, 2.1rem);
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.home-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.home-pillar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.15rem 1.1rem;
+  border: 1px solid rgba(191, 201, 196, 0.55);
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  background: rgba(252, 249, 248, 0.75);
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+.home-pillar:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.home-pillar-count {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.home-pillar strong {
+  font-size: 0.95rem;
+}
+
+.home-pillar-sub {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+.home-feature-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 .home-kicker {
   margin: 0 0 0.55rem;
   font-size: 0.7rem;
@@ -324,6 +398,14 @@
 
   .hero-actions .btn {
     width: 100%;
+  }
+
+  .home-pillars-inner {
+    padding: 2.5rem 1.25rem;
+  }
+
+  .home-pillars-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
   .home-feature,

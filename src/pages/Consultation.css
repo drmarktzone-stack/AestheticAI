@@ -295,6 +295,27 @@
   line-height: 1.55;
 }
 
+.smart-world-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: 0 0 1.25rem;
+}
+
+.smart-world-links a {
+  text-decoration: none;
+  color: var(--primary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid rgba(7, 80, 67, 0.25);
+  border-radius: 4px;
+}
+
+.smart-world-links a:hover {
+  background: rgba(7, 80, 67, 0.06);
+}
+
 .smart-notes {
   display: grid;
   gap: 0.4rem;

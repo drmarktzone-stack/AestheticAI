@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   CLINICAL_TREATMENTS,
   TREATMENT_FAMILIES,
@@ -374,6 +375,13 @@ export function ConsultationPage() {
                 <li key={e}>{e}</li>
               ))}
             </ul>
+          </div>
+
+          <div className="smart-world-links">
+            <Link to="/materials">{locale === "he" ? "ספריית חומרים" : "Materials library"}</Link>
+            <Link to="/companies">{locale === "he" ? "חברות ומותגים" : "Companies"}</Link>
+            <Link to="/evidence">{locale === "he" ? "פרוטוקולים עולמיים" : "Global evidence"}</Link>
+            <Link to="/protocols">{locale === "he" ? "פרוטוקולים קליניים" : "Clinical protocols"}</Link>
           </div>
 
           <label className="smart-notes">

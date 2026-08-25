@@ -2,8 +2,68 @@ import { Link } from "react-router-dom";
 import { STITCH, USER_LIPS } from "../lib/assets";
 import { ClinicalVideo, ClinicalVideoGrid } from "../components/visual/ClinicalVideo";
 import { featuredLipsVideos, injectionVideos } from "../lib/driveMedia";
+import {
+  COMPANIES,
+  GLOBAL_CITATIONS,
+  DOMAIN_PRODUCTS,
+  materials,
+  protocols,
+} from "../data";
 import { useLocale } from "../i18n";
 import "./Home.css";
+
+const PILLARS = [
+  {
+    to: "/world",
+    he: "עולם האסתטיקה",
+    ar: "عالم التجميل",
+    en: "Aesthetic world",
+    count: () => `${DOMAIN_PRODUCTS.length}+`,
+    subHe: "threads · peels · hair · body · devices",
+    subAr: "خيوط · تقشير · شعر · جسم · أجهزة",
+    subEn: "threads · peels · hair · body · devices",
+  },
+  {
+    to: "/companies",
+    he: "חברות ומותגים",
+    ar: "الشركات والعلامات",
+    en: "Companies & brands",
+    count: () => String(COMPANIES.length),
+    subHe: "מוצרים · מאפיינים · למה מומלץ",
+    subAr: "منتجات · خصائص · توصيات",
+    subEn: "products · traits · why recommended",
+  },
+  {
+    to: "/evidence",
+    he: "מקורות עולמיים",
+    ar: "مصادر عالمية",
+    en: "Global evidence",
+    count: () => String(GLOBAL_CITATIONS.length),
+    subHe: "ACE · ASAPS · MD Codes · IFU",
+    subAr: "ACE · ASAPS · MD Codes · IFU",
+    subEn: "ACE · ASAPS · MD Codes · IFU",
+  },
+  {
+    to: "/materials",
+    he: "חומרים",
+    ar: "المواد",
+    en: "Materials",
+    count: () => `${materials.length}+`,
+    subHe: "HA · toxin · PN · frontier",
+    subAr: "HA · توكسين · PN",
+    subEn: "HA · toxin · PN · frontier",
+  },
+  {
+    to: "/protocols",
+    he: "פרוטוקולים",
+    ar: "بروتوكولات",
+    en: "Protocols",
+    count: () => String(protocols.length),
+    subHe: "עם ציטוט עולמי בכל מסלול",
+    subAr: "مع استشهاد عالمي",
+    subEn: "global citations on every pathway",
+  },
+];
 
 const MODULES = [
   {
@@ -14,15 +74,15 @@ const MODULES = [
   },
   {
     to: "/companies",
-    he: "12 חברות — כל המוצרים, מאפיינים, למה מומלץ",
-    ar: "12 شركة — منتجات وخصائص وتوصيات",
-    en: "12 companies — all products, traits, why recommended",
+    he: "חברות — כל המוצרים, מאפיינים, למה מומלץ",
+    ar: "شركات — منتجات وخصائص وتوصيات",
+    en: "Companies — all products, traits, why recommended",
   },
   {
     to: "/evidence",
-    he: "22+ פרוטוקולים עולמיים — ACE, MD Codes, IFU",
-    ar: "22+ بروتوكول عالمي — ACE، MD Codes",
-    en: "22+ global protocols — ACE, MD Codes, IFU",
+    he: "פרוטוקולים עולמיים — ACE, MD Codes, IFU",
+    ar: "بروتوكولات عالمية — ACE، MD Codes",
+    en: "Global protocols — ACE, MD Codes, IFU",
   },
   {
     to: "/guide/lips",
@@ -44,9 +104,9 @@ const MODULES = [
   },
   {
     to: "/protocols",
-    he: "12 פרוטוקולים קליניים + ציטוטים",
-    ar: "12 بروتوكول سريري + استشهادات",
-    en: "12 clinical protocols + citations",
+    he: "פרוטוקולים קליניים + ציטוטים",
+    ar: "بروتوكولات سريرية + استشهادات",
+    en: "Clinical protocols + citations",
   },
   {
     to: "/simulation",
@@ -62,15 +122,15 @@ const MODULES = [
   },
   {
     to: "/emergency",
-    he: "6 פרוטוקולי חירום + ACE",
-    ar: "6 بروتوكولات طوارئ + ACE",
-    en: "6 emergency protocols + ACE",
+    he: "פרוטוקולי חירום + ACE",
+    ar: "بروتوكولات طوارئ + ACE",
+    en: "Emergency protocols + ACE",
   },
   {
     to: "/materials",
-    he: "65+ חומרים — HA, טוקסין, PN, חזית",
-    ar: "65+ مواد — HA، توكسين، PN",
-    en: "65+ materials — HA, toxin, PN, frontier",
+    he: "חומרים — HA, טוקסין, PN, חזית",
+    ar: "مواد — HA، توكسين، PN",
+    en: "Materials — HA, toxin, PN, frontier",
   },
 ];
 
@@ -102,20 +162,48 @@ export function HomePage() {
                 : "Protocols, materials, companies, full aesthetic world, dosing, complications and visualized injection — in Hebrew, Arabic and English."}
           </p>
           <div className="hero-actions">
-            <Link className="btn primary" to="/guide/lips">
-              {locale === "he"
-                ? "פתח מדריך שפתיים"
-                : locale === "ar"
-                  ? "افتح دليل الشفاه"
-                  : "Open lips mentor"}
-            </Link>
-            <Link className="btn ghost" to="/world">
+            <Link className="btn primary" to="/world">
               {locale === "he"
                 ? "עולם האסתטיקה המלא"
                 : locale === "ar"
                   ? "عالم التجميل الكامل"
                   : "Full aesthetic world"}
             </Link>
+            <Link className="btn ghost" to="/companies">
+              {locale === "he"
+                ? "חברות ומוצרים"
+                : locale === "ar"
+                  ? "الشركات والمنتجات"
+                  : "Companies & products"}
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="home-pillars" aria-label="Integrated aesthetic modules">
+        <div className="home-pillars-inner">
+          <header className="home-pillars-head">
+            <p className="home-kicker">
+              {locale === "he" ? "משולב באתר" : locale === "ar" ? "مدمج في الموقع" : "Integrated in the site"}
+            </p>
+            <h2>
+              {locale === "he"
+                ? "כל עולם האסתטיקה — מקום אחד."
+                : locale === "ar"
+                  ? "عالم التجميل كاملاً — في مكان واحد."
+                  : "The full aesthetic world — one place."}
+            </h2>
+          </header>
+          <div className="home-pillars-grid">
+            {PILLARS.map((p) => (
+              <Link key={p.to} to={p.to} className="home-pillar">
+                <span className="home-pillar-count">{p.count()}</span>
+                <strong>{p[locale]}</strong>
+                <span className="home-pillar-sub">
+                  {locale === "he" ? p.subHe : locale === "ar" ? p.subAr : p.subEn}
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -134,14 +222,19 @@ export function HomePage() {
           </h2>
           <p>
             {locale === "he"
-              ? "סקירה → חומר → מינון → הזרקה → סיבוך → סימולציה → תיעוד. כל שלב עם מדיה קלינית."
+              ? "עולם אסתטיקה → חברה → חומר → פרוטוקול עולמי → מינון → הזרקה → חירום ACE."
               : locale === "ar"
-                ? "نظرة عامة → مادة → جرعة → حقن → مضاعفة → محاكاة → توثيق. كل خطوة مع وسائط سريرية."
-                : "Overview → material → dose → injection → complication → simulation → documentation. Every step with clinical media."}
+                ? "عالم تجميل → شركة → مادة → بروتوكول عالمي → جرعة → حقن → طوارئ ACE."
+                : "Aesthetic world → company → material → global protocol → dose → injection → ACE emergency."}
           </p>
-          <Link className="btn primary" to="/guide/lips">
-            {locale === "he" ? "התחל בשפתיים" : locale === "ar" ? "ابدأ بالشفاه" : "Start with lips"}
-          </Link>
+          <div className="home-feature-actions">
+            <Link className="btn primary" to="/guide/lips">
+              {locale === "he" ? "התחל בשפתיים" : locale === "ar" ? "ابدأ بالشفاه" : "Start with lips"}
+            </Link>
+            <Link className="btn ghost" to="/evidence">
+              {locale === "he" ? "מקורות עולמיים" : "Global evidence"}
+            </Link>
+          </div>
         </div>
         <div className="home-feature-media">
           <img src={USER_LIPS.anatomy[0]} alt="" />
