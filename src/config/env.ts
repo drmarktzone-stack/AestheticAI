@@ -14,6 +14,15 @@ export interface AppEnv {
   isConfigured: boolean;
 }
 
+function isValidHttpUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" || url.protocol === "http:";
+  } catch {
+    return false;
+  }
+}
+
 function readEnv(): AppEnv {
   const extra = Constants.expoConfig?.extra as Record<string, string | undefined> | undefined;
 
@@ -53,7 +62,7 @@ function readEnv(): AppEnv {
     checkInUrl,
     clinicAlertsUrl,
     checkInApiKey,
-    isConfigured: Boolean(supabaseUrl && supabaseAnonKey),
+    isConfigured: Boolean(supabaseAnonKey && isValidHttpUrl(supabaseUrl)),
   };
 }
 
