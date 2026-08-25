@@ -12,11 +12,13 @@ export function HomeScreen({
   onOpenTimeline,
   onOpenCheckIn,
   onOpenClinicAlerts,
+  onOpenAestheticWorld,
 }: {
   onOpenCamera: () => void;
   onOpenTimeline: () => void;
   onOpenCheckIn: () => void;
   onOpenClinicAlerts: () => void;
+  onOpenAestheticWorld: () => void;
 }) {
   const { t } = useTranslation();
   const { row, textStart } = useRTL();
@@ -36,6 +38,11 @@ export function HomeScreen({
         <Text style={[styles.body, { textAlign: textStart }]}>{t("home.subtitle")}</Text>
 
         <View style={[styles.actions, { flexDirection: row }]}>
+          <Pressable style={styles.actionPrimary} onPress={onOpenAestheticWorld}>
+            <Text style={styles.actionPrimaryText}>
+              {t("home.openAestheticWorld", { defaultValue: "Aesthetic world" })}
+            </Text>
+          </Pressable>
           <Pressable style={styles.actionPrimary} onPress={onOpenCheckIn}>
             <Text style={styles.actionPrimaryText}>{t("home.openCheckIn")}</Text>
           </Pressable>
