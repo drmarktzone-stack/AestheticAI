@@ -98,6 +98,8 @@ const packs: RegionPack[] = [
     subtitle: L("הטלה וקונטור", "بروز وتحديد", "Projection and contour"),
     injectionPoints: [
       { id: "pog", x: 50, y: 78, label: L("פגוניון", "الذقن", "Pogonion"), dose: L("0.2–0.6 מ״ל", "0.2–0.6 مل", "0.2–0.6 ml") },
+      { id: "pre-l", x: 44, y: 80, label: L("pre-jowl", "أمام الفك", "Pre-jowl"), dose: L("0.1–0.2 מ״ל", "0.1–0.2 مل", "0.1–0.2 ml") },
+      { id: "pre-r", x: 56, y: 80, label: L("pre-jowl", "أمام الفك", "Pre-jowl"), dose: L("0.1–0.2 מ״ל", "0.1–0.2 مل", "0.1–0.2 ml") },
       { id: "mental", x: 42, y: 76, label: L("mental foramen", "الثقبة الذقنية", "Mental foramen"), dose: L("סכנה", "خطر", "Danger"), danger: true },
     ],
     dangerNotes: {
@@ -111,7 +113,8 @@ const packs: RegionPack[] = [
       en: ["Assess profile", "Deep bolus / linear", "Do not over-erase pre-jowl"],
     },
     doseLines: [
-      { site: L("סנטר", "الذقن", "Chin"), range: L("0.4–1.0 מ״ל", "0.4–1.0 مل", "0.4–1.0 ml"), plane: L("פריאוסטאלי", "فوق العظم", "Periosteal") },
+      { site: L("סנטר HA", "ذقن HA", "Chin HA"), range: L("0.4–1.0 מ״ל", "0.4–1.0 مل", "0.4–1.0 ml"), plane: L("פריאוסטאלי", "فوق العظم", "Periosteal") },
+      { site: L("pre-jowl / צד", "أمام الفك / جانب", "Pre-jowl / side"), range: L("0.1–0.3 מ״ל", "0.1–0.3 مل", "0.1–0.3 ml"), plane: L("עמוק", "عميق", "Deep") },
     ],
   },
   {
@@ -185,9 +188,12 @@ const packs: RegionPack[] = [
     regionId: "forehead",
     subtitle: L("קמטים אופקיים / frontalis", "تجاعيد أفقية", "Horizontal lines / frontalis"),
     injectionPoints: [
-      { id: "f1", x: 38, y: 24, label: L("frontalis", "الجبهية", "Frontalis"), dose: L("2–4 יח׳", "2–4 و", "2–4 U") },
-      { id: "f2", x: 50, y: 22, label: L("frontalis", "الجبهية", "Frontalis"), dose: L("2–4 יח׳", "2–4 و", "2–4 U") },
-      { id: "f3", x: 62, y: 24, label: L("frontalis", "الجبهية", "Frontalis"), dose: L("2–4 יח׳", "2–4 و", "2–4 U") },
+      { id: "f1", x: 32, y: 22, label: L("frontalis", "الجبهية", "Frontalis"), dose: L("2–4 יח׳", "2–4 و", "2–4 U") },
+      { id: "f2", x: 42, y: 20, label: L("frontalis", "الجبهية", "Frontalis"), dose: L("2–4 יח׳", "2–4 و", "2–4 U") },
+      { id: "f3", x: 50, y: 18, label: L("frontalis", "الجبهية", "Frontalis"), dose: L("2–4 יח׳", "2–4 و", "2–4 U") },
+      { id: "f4", x: 58, y: 20, label: L("frontalis", "الجبهية", "Frontalis"), dose: L("2–4 יח׳", "2–4 و", "2–4 U") },
+      { id: "f5", x: 68, y: 22, label: L("frontalis", "الجبهية", "Frontalis"), dose: L("2–4 יח׳", "2–4 و", "2–4 U") },
+      { id: "brow", x: 50, y: 30, label: L("שולי גבה", "هامش الحاجب", "Brow margin"), dose: L("סכנה", "خطر", "Danger"), danger: true },
     ],
     dangerNotes: {
       he: ["פטיוזיס / כובד גבה", "שמור arch", "גברים: מינון שמרני יותר לעיתים הפוך — לפי שריר"],
@@ -230,8 +236,11 @@ const packs: RegionPack[] = [
     regionId: "neck",
     subtitle: L("פלטיזמה / BAP / Nefertiti", "platysma / BAP", "Platysma / BAP / Nefertiti"),
     injectionPoints: [
-      { id: "plat", x: 50, y: 90, label: L("פלטיזמה", "platysma", "Platysma"), dose: L("2–4 יח׳/נקודה", "2–4 و/نقطة", "2–4 U/point") },
-      { id: "bap", x: 42, y: 88, label: L("BAP צוואר", "BAP رقبة", "Neck BAP"), dose: L("0.2 מ״ל/נקודה", "0.2 مل/نقطة", "0.2 ml/point") },
+      { id: "plat-l", x: 42, y: 90, label: L("רצועה", "شريط", "Band"), dose: L("2–4 יח׳", "2–4 و", "2–4 U") },
+      { id: "plat", x: 50, y: 92, label: L("פלטיזמה", "platysma", "Platysma"), dose: L("2–4 יח׳/נקודה", "2–4 و/نقطة", "2–4 U/point") },
+      { id: "plat-r", x: 58, y: 90, label: L("רצועה", "شريط", "Band"), dose: L("2–4 יח׳", "2–4 و", "2–4 U") },
+      { id: "bap", x: 38, y: 88, label: L("BAP צוואר", "BAP رقبة", "Neck BAP"), dose: L("0.2 מ״ל/נקודה", "0.2 مل/نقطة", "0.2 ml/point") },
+      { id: "swallow", x: 50, y: 86, label: L("מסלול בליעה", "مسار البلع", "Swallow path"), dose: L("סכנה", "خطر", "Danger"), danger: true },
     ],
     dangerNotes: {
       he: ["דיספגיה אם טוקסין גבוה/עמוק", "עור דק", "אל תערבב volumizer באותו יום עם Profhilo"],
@@ -252,8 +261,11 @@ const packs: RegionPack[] = [
     regionId: "tmj",
     subtitle: L("כאב / bruxism — טיפולי", "ألم / صرير — علاجي", "Pain / bruxism — therapeutic"),
     injectionPoints: [
-      { id: "tmj-l", x: 20, y: 42, label: L("TMJ", "المفصل", "TMJ"), dose: L("10–20 יח׳ temporalis", "10–20 و", "10–20 U temporalis") },
+      { id: "tmj-l", x: 20, y: 42, label: L("temporalis", "الصدغية", "Temporalis"), dose: L("10–20 יח׳", "10–20 و", "10–20 U") },
+      { id: "tmj-r", x: 80, y: 42, label: L("temporalis", "الصدغية", "Temporalis"), dose: L("10–20 יח׳", "10–20 و", "10–20 U") },
       { id: "ms-l", x: 24, y: 58, label: L("מססטר", "الماضغة", "Masseter"), dose: L("25–40 יח׳/צד", "25–40 و/جانب", "25–40 U/side") },
+      { id: "ms-r", x: 76, y: 58, label: L("מססטר", "الماضغة", "Masseter"), dose: L("25–40 יח׳/צד", "25–40 و/جانب", "25–40 U/side") },
+      { id: "ant", x: 28, y: 52, label: L("קדמי — סכנה", "أمامي — خطر", "Anterior — danger"), dose: L("סכנה", "خطر", "Danger"), danger: true },
     ],
     dangerNotes: {
       he: ["דיספגיה אם גבוה/קדמי", "שינוי נשיכה", "שמור night guard בשיחה"],
@@ -267,6 +279,7 @@ const packs: RegionPack[] = [
     },
     doseLines: [
       { site: L("מססטר/צד", "ماضغة/جانب", "Masseter/side"), range: L("25–40 יח׳ ona", "25–40 و", "25–40 U ona"), plane: L("תוך־שרירי", "عضلي", "IM") },
+      { site: L("temporalis/צד", "صدغية/جانب", "Temporalis/side"), range: L("10–20 יח׳ ona", "10–20 و", "10–20 U ona"), plane: L("תוך־שרירי", "عضلي", "IM") },
     ],
   },
   {
@@ -274,7 +287,10 @@ const packs: RegionPack[] = [
     subtitle: L("הקטנת מסה / V-line", "تصغير الكتلة", "Bulk reduction / V-line"),
     injectionPoints: [
       { id: "m-l", x: 24, y: 62, label: L("מססטר", "الماضغة", "Masseter"), dose: L("25–40 יח׳", "25–40 و", "25–40 U") },
+      { id: "m-l2", x: 26, y: 68, label: L("נקודה תחתונה", "نقطة سفلية", "Lower point"), dose: L("8–12 יח׳", "8–12 و", "8–12 U") },
       { id: "m-r", x: 76, y: 62, label: L("מססטר", "الماضغة", "Masseter"), dose: L("25–40 יח׳", "25–40 و", "25–40 U") },
+      { id: "m-r2", x: 74, y: 68, label: L("נקודה תחתונה", "نقطة سفلية", "Lower point"), dose: L("8–12 יח׳", "8–12 و", "8–12 U") },
+      { id: "risorius", x: 30, y: 58, label: L("risorius — סכנה", "الضحكة — خطر", "Risorius — danger"), dose: L("סכנה", "خطر", "Danger"), danger: true },
     ],
     dangerNotes: {
       he: ["אטרופיה יתר", "חיוך אסימטרי", "דיספגיה"],
@@ -294,8 +310,11 @@ const packs: RegionPack[] = [
     regionId: "axilla",
     subtitle: L("הזעת יתר ראשונית", "فرط تعرق أولي", "Primary hyperhidrosis"),
     injectionPoints: [
-      { id: "ax-l", x: 12, y: 55, label: L("בית שחי", "إبط", "Axilla"), dose: L("50 יח׳/צד", "50 و/جانب", "50 U/side") },
-      { id: "ax-r", x: 88, y: 55, label: L("בית שחי", "إبط", "Axilla"), dose: L("50 יח׳/צד", "50 و/جانب", "50 U/side") },
+      { id: "ax-l", x: 12, y: 52, label: L("בית שחי", "إبط", "Axilla"), dose: L("50 יח׳/צד", "50 و/جانب", "50 U/side") },
+      { id: "ax-l2", x: 14, y: 58, label: L("רשת", "شبكة", "Grid"), dose: L("תוך־עורי", "داخل الأدمة", "Intradermal") },
+      { id: "ax-r", x: 88, y: 52, label: L("בית שחי", "إبط", "Axilla"), dose: L("50 יח׳/צד", "50 و/جانب", "50 U/side") },
+      { id: "ax-r2", x: 86, y: 58, label: L("רשת", "شبكة", "Grid"), dose: L("תוך־עורי", "داخل الأدمة", "Intradermal") },
+      { id: "muscle", x: 12, y: 64, label: L("שריר — עמוק מדי", "عضلة — أعمق مما يلزم", "Muscle — too deep"), dose: L("סכנה", "خطر", "Danger"), danger: true },
     ],
     dangerNotes: {
       he: ["חולשה אם עמוק מדי", "הזעה מפצה נדירה", "Minor test לפני grid"],
@@ -315,10 +334,12 @@ const packs: RegionPack[] = [
     regionId: "migraine",
     subtitle: L("PREEMPT — 155 יח׳ / 31 אתרים", "PREEMPT — 155 و / 31 موقعاً", "PREEMPT — 155 U / 31 sites"),
     injectionPoints: [
-      { id: "gl", x: 50, y: 28, label: L("גלאבלה", "الجبينة", "Glabella"), dose: L("PREEMPT", "PREEMPT", "PREEMPT") },
-      { id: "fr", x: 50, y: 22, label: L("מצח", "الجبهة", "Forehead"), dose: L("5 יח׳/אתר", "5 و/موقع", "5 U/site") },
-      { id: "temp", x: 22, y: 36, label: L("temporalis", "الصدغية", "Temporalis"), dose: L("PREEMPT", "PREEMPT", "PREEMPT") },
-      { id: "occ", x: 50, y: 8, label: L("occipital / cervical", "قفوي / رقبي", "Occipital / cervical"), dose: L("PREEMPT", "PREEMPT", "PREEMPT") },
+      { id: "gl", x: 50, y: 28, label: L("גלאבלה", "الجبينة", "Glabella"), dose: L("5 יח׳×5", "5 و×5", "5 U × 5") },
+      { id: "fr", x: 50, y: 20, label: L("מצח", "الجبهة", "Forehead"), dose: L("5 יח׳/אתר", "5 و/موقع", "5 U/site") },
+      { id: "temp-l", x: 22, y: 36, label: L("temporalis", "الصدغية", "Temporalis"), dose: L("4 אתרים", "4 مواقع", "4 sites") },
+      { id: "temp-r", x: 78, y: 36, label: L("temporalis", "الصدغية", "Temporalis"), dose: L("4 אתרים", "4 مواقع", "4 sites") },
+      { id: "occ", x: 50, y: 8, label: L("occipital", "قفوي", "Occipital"), dose: L("PREEMPT", "PREEMPT", "PREEMPT") },
+      { id: "trap", x: 28, y: 14, label: L("cervical / trapezius", "رقبي / ترابيس", "Cervical / trapezius"), dose: L("זהירות", "حذر", "Caution"), danger: true },
     ],
     dangerNotes: {
       he: ["לא מפת בוטוקס אסתטית", "דיספגיה / חולשת צוואר", "רק לפי תווית מאושרת"],

@@ -171,6 +171,11 @@ export const strings = {
     after: L("אחרי — הדגמה", "بعد — تجريبي", "After — demo"),
     totalMl: L("סה״כ מ״ל (חינוכי)", "المجموع مل (تعليمي)", "Total ml (educational)"),
     totalUnits: L("סה״כ יחידות (חינוכי)", "المجموع وحدات (تعليمي)", "Total units (educational)"),
+    marked: L("אזורים מסומנים", "المناطق المحدّدة", "Marked regions"),
+    tapMap: L("לחץ על האליפסה במפה או על השבב", "انقر على الشكل أو الشريحة", "Tap an ellipse on the map or a chip"),
+    resolved: L("פרוטוקול מצוטט", "بروتوكول موثّق", "Cited protocol"),
+    retryAfter: L("נסה שוב לייצר תצוגה", "أعد إنشاء المعاينة", "Try generating the preview again"),
+    afterIdle: L("לחץ ליצירת תצוגת הדגמה מקומית — לא תוצאה קלינית.", "انقر لإنشاء معاينة تجريبية محلية — ليست نتيجة سريرية.", "Generate a local demo preview — not a clinical result."),
   },
 
   emergency: {

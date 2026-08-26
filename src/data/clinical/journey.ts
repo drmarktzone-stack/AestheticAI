@@ -24,6 +24,7 @@ import {
   TREATMENT_PROTOCOL,
 } from "./protocolMap";
 import { getRegionPack, type RegionPack } from "./regionPacks";
+import { getRegionDepth, type RegionDepth } from "./regionDepth";
 import { faceZones } from "../faceZones";
 import { DRIVE_VIDEOS, type DriveVideo } from "../../lib/driveMedia";
 import { STITCH, USER_LIPS } from "../../lib/assets";
@@ -50,6 +51,7 @@ export type AssembledJourney = {
   citations: GlobalCitation[];
   mentor: ClinicalMentorGuide | undefined;
   pack: RegionPack | undefined;
+  depth: RegionDepth | undefined;
   stills: string[];
   videos: DriveVideo[];
 };
@@ -192,6 +194,7 @@ export function assembleJourney(regionId: string): AssembledJourney | undefined 
     citations,
     mentor: getMentorByRegion(regionId),
     pack: getRegionPack(regionId),
+    depth: getRegionDepth(regionId),
     stills: stillsForRegion(regionId),
     videos: videosForRegion(regionId),
   };

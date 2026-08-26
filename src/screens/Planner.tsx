@@ -6,7 +6,6 @@ import { DemoBadge, DraftBadge, StatusBanner } from "../components/Chrome";
 import { InjectionMap } from "../components/InjectionMap";
 import { CLINICAL_TREATMENTS, type TreatmentFamily } from "../data/clinical/treatmentCatalog";
 import { atlasRegions, protocolForTreatment } from "../data/clinical/journey";
-import { TREATMENT_PROTOCOL } from "../data/clinical/protocolMap";
 import { faceZones, zonesForRegion } from "../data/faceZones";
 import { getCitation } from "../data";
 import { buildDosePlan } from "../lib/doseEngine";
@@ -162,6 +161,32 @@ export function PlannerPage() {
         <p className="tiny">{t(strings.planner.liveAiOff)}</p>
       </section>
 
+      <ol className="planner-steps" aria-label={t(strings.planner.title)}>
+        {[
+          strings.planner.stepPhoto,
+          strings.planner.stepRegions,
+          strings.planner.stepTypes,
+          strings.planner.stepPlan,
+          strings.planner.stepAfter,
+        ].map((label, index) => {
+          const done =
+            (index === 0 && photoState === "success") ||
+            (index === 1 && zones.length > 0) ||
+            (index === 2 && types.length > 0) ||
+            (index === 3 && canPlan) ||
+            (index === 4 && afterState === "success");
+          const current =
+            (index === 0 && photoState !== "success") ||
+            (index === 4 && canPlan && afterState !== "success");
+          return (
+            <li key={index} className={done ? "done" : current ? "current" : undefined}>
+              <span>{index + 1}</span>
+              {t(label)}
+            </li>
+          );
+        })}
+      </ol>
+
       <div className="planner-grid">
         <div className="stack">
           <section className="step-block">
@@ -216,7 +241,20 @@ export function PlannerPage() {
               })}
             </div>
             {photo ? (
-              <InjectionMap photo={photo} selected={zones} onToggle={toggleZone} />
+              <InjectionMap
+                photo={photo}
+                selected={zones}
+                onToggle={toggleZone}
+                onToggleRegion={(regionId) => {
+                  const ids = zonesForRegion(regionId);
+                  setZones((current) => {
+                    const has = ids.some((zoneId) => current.includes(zoneId));
+                    return has
+                      ? current.filter((zoneId) => !ids.includes(zoneId))
+                      : [...current, ...ids];
+                  });
+                }}
+              />
             ) : (
               <StatusBanner tone="empty">{t(strings.planner.photoEmpty)}</StatusBanner>
             )}
@@ -263,7 +301,7 @@ export function PlannerPage() {
                       <tr key={line.treatmentId}>
                         <td>
                           {line.title}
-                          <div className="tiny">{TREATMENT_PROTOCOL[line.treatmentId]}</div>
+                          <div className="tiny">{t(strings.planner.resolved)}</div>
                         </td>
                         <td>
                           {line.materialName}
@@ -284,14 +322,20 @@ export function PlannerPage() {
                   {plan.totalsByUnit.units}
                 </p>
                 <h4 className="kicker">{t(strings.planner.protocolCite)}</h4>
-                {resolvedProtocols.map((protocol) => (
-                  <p key={protocol.id}>
-                    <Link to={`/journey/${protocol.regionIds[0] ?? "lips"}/protocol`}>
-            {protocol.nameHe}
-            {locale !== "he" ? ` · ${entityName(protocol, locale)}` : ""}
+                <div className="protocol-list">
+                  {resolvedProtocols.map((protocol) => (
+                    <Link
+                      key={protocol.id}
+                      className="protocol-card"
+                      to={`/journey/${protocol.regionIds[0] ?? "lips"}/protocol`}
+                    >
+                      <span className="kicker">{t(strings.planner.resolved)}</span>
+                      <strong>{entityName(protocol, locale)}</strong>
+                      <span className="tiny">{protocol.indication}</span>
+                      <span className="tiny orchid-text">{t(strings.planner.openProtocol)}</span>
                     </Link>
-                  </p>
-                ))}
+                  ))}
+                </div>
                 <CitationList citations={citations} />
               </>
             )}
@@ -310,10 +354,10 @@ export function PlannerPage() {
               value={strength}
               onChange={(event) => setStrength(Number(event.target.value))}
             />
-            <button type="button" className="btn orchid" disabled={!canPlan} onClick={() => void runAfter()}>
-              {t(strings.planner.generateAfter)}
+            <button type="button" className="btn orchid" disabled={!canPlan || afterState === "loading"} onClick={() => void runAfter()}>
+              {afterState === "error" ? t(strings.planner.retryAfter) : t(strings.planner.generateAfter)}
             </button>
-            {afterState === "empty" ? <StatusBanner tone="empty">{t(strings.demoNotResult)}</StatusBanner> : null}
+            {afterState === "empty" ? <StatusBanner tone="empty">{t(strings.planner.afterIdle)}</StatusBanner> : null}
             {afterState === "loading" ? <StatusBanner tone="loading">{t(strings.planner.afterLoading)}</StatusBanner> : null}
             {afterState === "error" ? (
               <StatusBanner tone="error">{t(strings.planner.afterError)}</StatusBanner>

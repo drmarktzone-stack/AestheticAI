@@ -1,12 +1,12 @@
 :root {
-  --canvas: #f4f1ec;
-  --porcelain: #fbfaf7;
-  --paper: #fffdf8;
-  --ink: #171616;
-  --graphite: #53504c;
+  --canvas: #efeae3;
+  --porcelain: #f7f4ef;
+  --paper: #fbf8f3;
+  --ink: #1a1816;
+  --graphite: #534f4a;
   --stone: #8a847c;
-  --line: #e4ddd4;
-  --line-strong: #cfc6bb;
+  --line: #e0d8cc;
+  --line-strong: #c9bfb2;
   --orchid: #6b5ca5;
   --orchid-deep: #504389;
   --lavender: #e6e1f6;
@@ -16,9 +16,9 @@
   --amber-wash: #f6ecd3;
   --red: #b85252;
   --red-wash: #f6e2e2;
-  --blush: #f8e4db;
+  --blush: #f3e6dc;
   --target: 44px;
-  --gap: 1.25rem;
+  --gap: 1.1rem;
   --max: 1180px;
   --font-display: "Frank Ruhl Libre", "Source Serif 4", serif;
   --font-body: "Assistant", "Source Sans 3", sans-serif;
@@ -53,12 +53,12 @@ body {
   margin: 0;
   color: var(--ink);
   background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(107, 92, 165, 0.07), transparent 55%),
-    radial-gradient(900px 500px at 100% 0%, rgba(91, 143, 120, 0.06), transparent 50%),
-    var(--canvas);
+    radial-gradient(1100px 520px at 8% -8%, rgba(107, 92, 165, 0.08), transparent 52%),
+    radial-gradient(800px 420px at 100% 0%, rgba(91, 143, 120, 0.05), transparent 48%),
+    linear-gradient(180deg, #f3eee7 0%, var(--canvas) 28%);
   font-family: var(--font-body);
-  font-size: 17px;
-  line-height: 1.55;
+  font-size: 16.5px;
+  line-height: 1.5;
   font-feature-settings: "kern" 1, "liga" 1;
   text-rendering: optimizeLegibility;
 }
@@ -259,9 +259,9 @@ main {
 
 .opening {
   display: grid;
-  gap: 1.4rem;
-  padding: 2.2rem 0 2.6rem;
-  max-width: 46rem;
+  gap: 1.05rem;
+  padding: 1.6rem 0 1.8rem;
+  max-width: 44rem;
 }
 
 .eyebrow {
@@ -556,8 +556,8 @@ ul.clinical li {
 }
 
 .badge.draft {
-  background: var(--amber-wash);
-  color: #8a6918;
+  background: var(--lavender);
+  color: var(--orchid-deep);
 }
 
 .badge.warn {
@@ -920,6 +920,94 @@ ul.clinical li {
   color: var(--graphite);
 }
 
+.planner-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  list-style: none;
+  margin: 0 0 1.4rem;
+  padding: 0;
+}
+
+.planner-steps li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 36px;
+  padding: 0 0.75rem 0 0.35rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--stone);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+}
+
+.planner-steps li span {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--porcelain);
+  font-weight: 700;
+}
+
+.planner-steps li.done {
+  border-color: color-mix(in srgb, var(--orchid) 40%, var(--line));
+  color: var(--orchid-deep);
+  background: color-mix(in srgb, var(--lavender) 55%, transparent);
+}
+
+.planner-steps li.current {
+  border-color: var(--orchid);
+  color: var(--ink);
+  background: var(--lavender);
+}
+
+.map-block {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.map-selected {
+  padding: 0.7rem 0.9rem;
+  border-radius: 16px;
+  background: var(--lavender);
+  color: var(--orchid-deep);
+}
+
+.map-selected p {
+  margin-top: 0.2rem;
+  font-size: 0.95rem;
+}
+
+.protocol-list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.protocol-card {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.85rem 1rem;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  text-decoration: none;
+}
+
+.protocol-card:hover {
+  border-color: var(--orchid);
+}
+
+.orchid-text {
+  color: var(--orchid-deep);
+}
+
+[dir="rtl"] .planner-steps li {
+  padding: 0 0.35rem 0 0.75rem;
+}
+
 .range {
   font-variant-numeric: tabular-nums;
   font-weight: 650;
@@ -960,7 +1048,12 @@ input[type="file"] {
 
   .atlas-canvas,
   .atlas-svg {
-    min-height: 430px;
+    min-height: 400px;
+  }
+
+  .planner-steps {
+    flex-direction: column;
+    align-items: stretch;
   }
 
   main {

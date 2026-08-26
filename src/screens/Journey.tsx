@@ -35,6 +35,7 @@ export function JourneyPage() {
     relatedProtocols,
     mentor,
     pack,
+    depth,
     treatments,
     materials,
     companies,
@@ -83,11 +84,26 @@ export function JourneyPage() {
               <section className="step-block">
                 <h3>{t(strings.journey.anatomy)}</h3>
                 <ul className="clinical">
-                  {(mentor ? pickList(locale, mentor.anatomy) : region.anatomyNotes).map((item) => (
+                  {(depth
+                    ? pickList(locale, depth.anatomy)
+                    : mentor
+                      ? pickList(locale, mentor.anatomy)
+                      : region.anatomyNotes
+                  ).map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
               </section>
+              {depth ? (
+                <section className="step-block">
+                  <h3>{t(strings.journey.pearls)}</h3>
+                  <ul className="clinical">
+                    {pickList(locale, depth.pearls).map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </section>
+              ) : null}
               <section className="step-block">
                 <h3>{t(strings.journey.danger)}</h3>
                 <ul className="clinical">
@@ -163,6 +179,17 @@ export function JourneyPage() {
 
           {current === "materials" ? (
             <>
+              {depth ? (
+                <section className="step-block">
+                  <h3>{t(strings.journey.pearls)}</h3>
+                  <ul className="clinical">
+                    {pickList(locale, depth.pearls).map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                  <p className="tiny">{t(strings.ifuWins)}</p>
+                </section>
+              ) : null}
               {pack?.doseLines.length ? (
                 <section className="step-block">
                   <h3>{t(strings.journey.typicalDose)}</h3>
@@ -298,7 +325,7 @@ export function JourneyPage() {
 
           {current === "emergency" ? (
             <>
-              {(mentor?.complications ?? []).map((item) => (
+              {(depth?.complications ?? mentor?.complications ?? []).map((item) => (
                 <section key={item.id} className="step-block">
                   <div className="pill-row">
                     <span className={`risk ${item.urgency}`}>{t(strings.risk[item.urgency])}</span>
