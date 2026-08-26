@@ -1,50 +1,25 @@
 {
-  "name": "protokol-mobile",
+  "name": "aestheticai",
+  "private": true,
   "version": "1.0.0",
-  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --pretty false"
+  },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^3.1.1",
-    "@supabase/supabase-js": "^2.112.3",
-    "@types/aes-js": "^3.1.4",
-    "aes-js": "^3.1.2",
-    "babel-preset-expo": "~57.0.0",
-    "base64-arraybuffer": "^1.0.2",
-    "expo": "~57.0.15",
-    "expo-camera": "~57.0.4",
-    "expo-constants": "^57.0.13",
-    "expo-crypto": "~57.0.1",
-    "expo-device": "~57.0.1",
-    "expo-file-system": "^57.0.5",
-    "expo-image-picker": "~57.0.12",
-    "expo-localization": "^57.0.1",
-    "expo-notifications": "~57.0.13",
-    "expo-secure-store": "^57.0.1",
-    "expo-sensors": "~57.0.2",
-    "expo-status-bar": "~57.0.1",
-    "expo-updates": "^57.0.16",
-    "i18next": "^26.4.0",
-    "react": "19.2.3",
-    "react-dom": "^19.2.3",
-    "react-i18next": "^17.0.12",
-    "react-native": "0.86.2",
-    "react-native-svg": "15.15.4",
-    "react-native-web": "^0.21.2",
-    "zod": "^4.4.3"
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.2"
   },
   "devDependencies": {
-    "@types/base64-arraybuffer": "^0.1.0",
-    "@types/react": "~19.2.2",
-    "typescript": "~6.0.3"
-  },
-  "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "typecheck": "tsc --noEmit",
-    "supabase:link": "npx supabase link",
-    "supabase:push": "npx supabase db push",
-    "supabase:deploy": "npx supabase functions deploy"
-  },
-  "private": true
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.1.0",
+    "typescript": "~5.9.3",
+    "vite": "^8.2.2"
+  }
 }
