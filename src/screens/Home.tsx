@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { FaceAtlas } from "../components/FaceAtlas";
+import { FaceAtlas, RegionChips } from "../components/FaceAtlas";
 import { CitationList } from "../components/CitationList";
 import { DraftBadge, DemoBadge } from "../components/Chrome";
 import { atlasRegions, stillsForRegion } from "../data/clinical/journey";
@@ -68,7 +68,8 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="atlas-stage">
+      <section className="atlas-stage atlas-hero">
+        <RegionChips selectedId={selected} onSelect={setSelected} ids={FACE_ATLAS_IDS} />
         <FaceAtlas selectedId={selected} onSelect={setSelected} ids={FACE_ATLAS_IDS} />
         <aside className="panel">
           <div className="kicker">{t(strings.home.citedProtocol)}</div>

@@ -76,7 +76,8 @@ export const STITCH = {
   cinematicClinic: asset("stitch/cinematic/clinic.png"),
   injection: asset("stitch/clinical/injection.png"),
   treatment: asset("stitch/clinical/treatment.png"),
-  profile: USER_LIPS.anatomy[0],
+  profile: asset("stitch/clinical/profile.png"),
+  atlasPlate: asset("stitch/clinical/profile.png"),
   beforeAfter: USER_LIPS.beforeAfterGrid,
   lips: [...USER_LIPS.anatomy],
   midface: [
