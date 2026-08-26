@@ -30,7 +30,7 @@ export const faceZones: FaceZone[] = [
   { id: "tmj-r", regionId: "tmj", cx: 0.8, cy: 0.42, rx: 0.045, ry: 0.05, effect: "smooth" },
   { id: "chin", regionId: "chin", cx: 0.5, cy: 0.78, rx: 0.07, ry: 0.05, effect: "volume" },
   { id: "neck", regionId: "neck", cx: 0.5, cy: 0.9, rx: 0.14, ry: 0.05, effect: "smooth" },
-  { id: "migraine", regionId: "migraine", cx: 0.5, cy: 0.22, rx: 0.22, ry: 0.16, effect: "smooth" },
+  { id: "migraine", regionId: "migraine", cx: 0.22, cy: 0.12, rx: 0.06, ry: 0.05, effect: "smooth" },
   { id: "axilla-l", regionId: "axilla", cx: 0.08, cy: 0.55, rx: 0.05, ry: 0.07, effect: "smooth" },
   { id: "axilla-r", regionId: "axilla", cx: 0.92, cy: 0.55, rx: 0.05, ry: 0.07, effect: "smooth" },
   { id: "palm-l", regionId: "body", cx: 0.1, cy: 0.88, rx: 0.06, ry: 0.05, effect: "smooth" },

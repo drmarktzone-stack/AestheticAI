@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { CitationList } from "../components/CitationList";
@@ -40,6 +40,18 @@ export function PlannerPage() {
   const [afterState, setAfterState] = useState<AfterState>("empty");
   const [afterUrl, setAfterUrl] = useState<string | null>(null);
   const [strength, setStrength] = useState(58);
+
+  useEffect(() => {
+    const image = new Image();
+    image.crossOrigin = "anonymous";
+    image.onload = () => {
+      imageRef.current = image;
+      setPhoto(USER_LIPS.before);
+      setPhotoState("success");
+    };
+    image.onerror = () => setPhotoState("error");
+    image.src = USER_LIPS.before;
+  }, []);
 
   const typeLabels: Record<PlannerType, Localized> = {
     filler: strings.family.filler,

@@ -8,6 +8,8 @@ type Props = {
   dangerRegionIds?: string[];
 };
 
+const HIDDEN_REGIONS = new Set(["body"]);
+
 export function InjectionMap({ photo, selected, onToggle, dangerRegionIds = [] }: Props) {
   const { locale } = useLocale();
 
@@ -16,7 +18,7 @@ export function InjectionMap({ photo, selected, onToggle, dangerRegionIds = [] }
       <img src={photo} alt="" />
       <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
         {faceZones
-          .filter((zone) => zone.regionId !== "body" || zone.cx > 0.05)
+          .filter((zone) => !HIDDEN_REGIONS.has(zone.regionId))
           .map((zone) => {
             const active = selected.includes(zone.id) || selected.includes(zone.regionId);
             const danger = dangerRegionIds.includes(zone.regionId);
@@ -29,17 +31,19 @@ export function InjectionMap({ photo, selected, onToggle, dangerRegionIds = [] }
                   rx={zone.rx * 100}
                   ry={zone.ry * 100}
                 />
-                <text
-                  x={zone.cx * 100}
-                  y={zone.cy * 100}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  fill="#fff"
-                  fontSize="2.4"
-                  style={{ pointerEvents: "none" }}
-                >
-                  {ZONE_LABELS[zone.id]?.[locale] ?? zone.id}
-                </text>
+                {active ? (
+                  <text
+                    x={zone.cx * 100}
+                    y={zone.cy * 100}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    fill="#fff"
+                    fontSize="2.6"
+                    style={{ pointerEvents: "none" }}
+                  >
+                    {ZONE_LABELS[zone.id]?.[locale] ?? zone.id}
+                  </text>
+                ) : null}
               </g>
             );
           })}

@@ -63,6 +63,53 @@ export function HomePage() {
         </div>
       </section>
 
+      <section className="index-block" style={{ marginTop: 0 }}>
+        <div className="index-head">
+          <div className="kicker">{t(strings.home.faceIndex)}</div>
+          <h2>{t(strings.home.atlasTitle)}</h2>
+        </div>
+        <div className="region-grid">
+          {FACE_ATLAS_IDS.map((id) => {
+            const item = regions.find((entry) => entry.id === id);
+            if (!item) return null;
+            const still = stillsForRegion(id)[0] ?? STITCH.injection;
+            return (
+              <Link key={id} className={`region-tile${selected === id ? " selected" : ""}`} to={`/journey/${id}`}>
+                <img src={still} alt="" />
+                <span>
+                  <strong>{entityName(item, locale)}</strong>
+                  <em className={`risk ${item.risk}`}>{t(strings.risk[item.risk])}</em>
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="index-block">
+        <div className="index-head">
+          <div className="kicker">{t(strings.home.therapyIndex)}</div>
+          <h2>{t(strings.family["toxin-therapeutic"])}</h2>
+          <p className="muted">{t(strings.home.therapeuticNote)}</p>
+        </div>
+        <div className="region-grid therapy">
+          {THERAPY_ATLAS_IDS.map((id) => {
+            const item = regions.find((entry) => entry.id === id);
+            if (!item) return null;
+            const still = stillsForRegion(id)[0] ?? STITCH.treatment;
+            return (
+              <Link key={id} className={`region-tile${selected === id ? " selected" : ""}`} to={`/journey/${id}`}>
+                <img src={still} alt="" />
+                <span>
+                  <strong>{entityName(item, locale)}</strong>
+                  <em className={`risk ${item.risk}`}>{t(strings.risk[item.risk])}</em>
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
       <section className="atlas-stage">
         <FaceAtlas selectedId={selected} onSelect={setSelected} />
         <aside className="panel">
@@ -99,53 +146,6 @@ export function HomePage() {
             </button>
           </div>
         </aside>
-      </section>
-
-      <section className="index-block">
-        <div className="index-head">
-          <div className="kicker">{t(strings.home.faceIndex)}</div>
-          <h2>{t(strings.home.atlasTitle)}</h2>
-        </div>
-        <div className="region-grid">
-          {FACE_ATLAS_IDS.map((id) => {
-            const item = regions.find((entry) => entry.id === id);
-            if (!item) return null;
-            const still = stillsForRegion(id)[0] ?? STITCH.injection;
-            return (
-              <Link key={id} className="region-tile" to={`/journey/${id}`}>
-                <img src={still} alt="" />
-                <span>
-                  <strong>{entityName(item, locale)}</strong>
-                  <em className={`risk ${item.risk}`}>{t(strings.risk[item.risk])}</em>
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="index-block">
-        <div className="index-head">
-          <div className="kicker">{t(strings.home.therapyIndex)}</div>
-          <h2>{t(strings.family["toxin-therapeutic"])}</h2>
-          <p className="muted">{t(strings.home.therapeuticNote)}</p>
-        </div>
-        <div className="region-grid therapy">
-          {THERAPY_ATLAS_IDS.map((id) => {
-            const item = regions.find((entry) => entry.id === id);
-            if (!item) return null;
-            const still = stillsForRegion(id)[0] ?? STITCH.treatment;
-            return (
-              <Link key={id} className="region-tile" to={`/journey/${id}`}>
-                <img src={still} alt="" />
-                <span>
-                  <strong>{entityName(item, locale)}</strong>
-                  <em className={`risk ${item.risk}`}>{t(strings.risk[item.risk])}</em>
-                </span>
-              </Link>
-            );
-          })}
-        </div>
       </section>
 
       <section className="gallery-rail" aria-label={t(strings.home.galleryTitle)}>
