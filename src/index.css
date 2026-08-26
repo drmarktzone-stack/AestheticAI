@@ -299,6 +299,17 @@ main {
   margin-top: 0.5rem;
 }
 
+.atlas-block {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.atlas-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
 .atlas-canvas,
 .panel,
 .media-frame,
@@ -670,6 +681,240 @@ ul.clinical li {
   gap: 0.8rem;
 }
 
+.index-block {
+  margin-top: 2.8rem;
+  display: grid;
+  gap: 1.1rem;
+}
+
+.index-head {
+  display: grid;
+  gap: 0.35rem;
+  max-width: 42rem;
+}
+
+.index-head h2 {
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+}
+
+.region-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.region-grid.therapy {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.region-tile {
+  position: relative;
+  min-height: 148px;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  background: var(--paper);
+}
+
+.region-tile img {
+  width: 100%;
+  height: 148px;
+  object-fit: cover;
+  filter: saturate(0.78) contrast(1.04);
+}
+
+.region-tile span {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  padding: 0.7rem 0.8rem;
+  background: linear-gradient(transparent, rgba(23, 22, 22, 0.72));
+  color: #fbfaf7;
+}
+
+.region-tile strong {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.region-tile .risk {
+  background: color-mix(in srgb, #fbfaf7 18%, transparent);
+  color: #fbfaf7;
+}
+
+.preview-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.preview-strip figure,
+.gallery-tile,
+.rail-card {
+  position: relative;
+  margin: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #1b1714;
+}
+
+.preview-strip img,
+.gallery-tile img,
+.rail-card img {
+  width: 100%;
+  height: 92px;
+  object-fit: cover;
+}
+
+.preview-strip figcaption,
+.gallery-tile figcaption,
+.rail-card figcaption {
+  position: absolute;
+  inset-inline-start: 0.45rem;
+  inset-block-end: 0.45rem;
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+  color: #fff;
+  font-size: 0.72rem;
+}
+
+.still-gallery {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 0.55rem;
+}
+
+.still-gallery .gallery-tile:first-child img {
+  height: 320px;
+}
+
+.still-gallery .gallery-tile img {
+  height: 156px;
+}
+
+.gallery-rail {
+  margin-top: 2.8rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.rail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 1fr);
+  gap: 0.7rem;
+  overflow-x: auto;
+  padding-bottom: 0.4rem;
+}
+
+.rail-card img {
+  height: 240px;
+}
+
+.house-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.teach-plate {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 0.8rem;
+  align-items: stretch;
+}
+
+.teach-canvas {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #1b1714;
+  min-height: 420px;
+}
+
+.teach-canvas img {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  object-fit: cover;
+  opacity: 0.9;
+}
+
+.teach-canvas svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.teach-dot {
+  fill: color-mix(in srgb, var(--orchid) 70%, white);
+  stroke: #fff;
+  stroke-width: 1.1;
+}
+
+.teach-dot.danger {
+  fill: var(--red);
+}
+
+.teach-canvas text {
+  font-size: 3.2px;
+  fill: #fff;
+  font-family: var(--font-body);
+  pointer-events: none;
+}
+
+.teach-caption {
+  position: absolute;
+  inset-inline-start: 0.8rem;
+  inset-block-end: 0.8rem;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.teach-legend {
+  padding: 1.15rem 1.2rem;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: var(--porcelain);
+  display: grid;
+  gap: 0.7rem;
+  align-content: start;
+}
+
+.teach-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.teach-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.92rem;
+}
+
+.teach-list li.danger {
+  color: var(--red);
+}
+
+.teach-list span {
+  font-variant-numeric: tabular-nums;
+  color: var(--graphite);
+}
+
 .range {
   font-variant-numeric: tabular-nums;
   font-weight: 650;
@@ -689,7 +934,12 @@ input[type="file"] {
   .chapter,
   .planner-grid,
   .family-strip,
-  .compare {
+  .compare,
+  .region-grid,
+  .region-grid.therapy,
+  .house-strip,
+  .teach-plate,
+  .still-gallery {
     grid-template-columns: 1fr;
   }
 

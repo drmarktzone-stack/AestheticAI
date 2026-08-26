@@ -19,6 +19,7 @@ export default function App() {
           <Route path="/planner" element={<PlannerPage />} />
           <Route path="/emergency" element={<EmergencyPage />} />
           <Route path="/emergency/:id" element={<EmergencyPage />} />
+          <Route path="/house" element={<HousePage />} />
           <Route path="/house/:id" element={<HousePage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

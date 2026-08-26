@@ -23,6 +23,8 @@ import {
   REGION_EMERGENCIES,
   TREATMENT_PROTOCOL,
 } from "./protocolMap";
+import { getRegionPack, type RegionPack } from "./regionPacks";
+import { faceZones } from "../faceZones";
 import { DRIVE_VIDEOS, type DriveVideo } from "../../lib/driveMedia";
 import { STITCH, USER_LIPS } from "../../lib/assets";
 
@@ -47,6 +49,7 @@ export type AssembledJourney = {
   emergencies: EmergencyProtocol[];
   citations: GlobalCitation[];
   mentor: ClinicalMentorGuide | undefined;
+  pack: RegionPack | undefined;
   stills: string[];
   videos: DriveVideo[];
 };
@@ -66,19 +69,32 @@ function unique<T>(items: T[], key: (item: T) => string): T[] {
 export function stillsForRegion(regionId: string): string[] {
   switch (regionId) {
     case "lips":
-      return [...USER_LIPS.anatomy, USER_LIPS.clinical[0] ?? USER_LIPS.before];
+      return [...USER_LIPS.anatomy, USER_LIPS.clinical[0] ?? USER_LIPS.before, USER_LIPS.before];
     case "cheeks":
-      return [...STITCH.midface];
+      return [...STITCH.midface, STITCH.injection];
     case "jawline":
+      return [STITCH.side[1] ?? STITCH.profile, STITCH.profile, STITCH.side[0] ?? STITCH.profile];
     case "chin":
-      return [STITCH.side[1] ?? STITCH.profile, STITCH.profile];
+      return [STITCH.profile, STITCH.side[1] ?? STITCH.profile];
+    case "nose":
+      return [STITCH.profile, STITCH.side[0] ?? STITCH.profile, STITCH.injection];
     case "temple":
       return [STITCH.temple, STITCH.side[0] ?? STITCH.temple];
     case "periocular":
-      return [STITCH.periocular];
+      return [STITCH.periocular, STITCH.extreme];
     case "glabella":
-    case "forehead":
       return [STITCH.extreme, STITCH.periocular];
+    case "forehead":
+      return [STITCH.extreme, STITCH.periocular, STITCH.injection];
+    case "neck":
+      return [STITCH.side[1] ?? STITCH.treatment, STITCH.treatment];
+    case "masseter":
+    case "tmj":
+      return [STITCH.side[1] ?? STITCH.profile, STITCH.profile, STITCH.treatment];
+    case "axilla":
+      return [STITCH.treatment, STITCH.injection];
+    case "migraine":
+      return [STITCH.extreme, STITCH.periocular, STITCH.temple];
     default:
       return [STITCH.injection, STITCH.treatment];
   }
@@ -90,9 +106,14 @@ export function videosForRegion(regionId: string): DriveVideo[] {
       ? "lips"
       : regionId === "cheeks"
         ? "midface"
-        : regionId === "jawline" || regionId === "chin"
+        : regionId === "jawline" || regionId === "chin" || regionId === "nose"
           ? "jawline"
-          : regionId === "glabella" || regionId === "periocular" || regionId === "forehead"
+          : regionId === "glabella" ||
+              regionId === "periocular" ||
+              regionId === "forehead" ||
+              regionId === "migraine" ||
+              regionId === "tmj" ||
+              regionId === "masseter"
             ? "toxin"
             : null;
   if (!bucket) return [];
@@ -103,17 +124,8 @@ function regionMatchesTreatment(regionId: string, treatment: ClinicalTreatment):
   if (treatment.zoneIds.some((zone) => zone === regionId || zone.startsWith(`${regionId}-`))) {
     return true;
   }
-  const aliases: Record<string, string[]> = {
-    cheeks: ["cheek-l", "cheek-r"],
-    periocular: ["periocular-l", "periocular-r"],
-    jawline: ["jaw-l", "jaw-r"],
-    temple: ["temple-l", "temple-r"],
-    masseter: ["masseter-l", "masseter-r"],
-    tmj: ["tmj-l", "tmj-r"],
-    axilla: ["axilla-l", "axilla-r"],
-  };
-  const extra = aliases[regionId];
-  return extra ? treatment.zoneIds.some((zone) => extra.includes(zone)) : false;
+  const mapped = faceZones.filter((zone) => zone.regionId === regionId).map((zone) => zone.id);
+  return mapped.some((zone) => treatment.zoneIds.includes(zone));
 }
 
 export function assembleJourney(regionId: string): AssembledJourney | undefined {
@@ -179,6 +191,7 @@ export function assembleJourney(regionId: string): AssembledJourney | undefined 
     emergencies: regionEmergencies,
     citations,
     mentor: getMentorByRegion(regionId),
+    pack: getRegionPack(regionId),
     stills: stillsForRegion(regionId),
     videos: videosForRegion(regionId),
   };

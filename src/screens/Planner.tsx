@@ -7,7 +7,7 @@ import { InjectionMap } from "../components/InjectionMap";
 import { CLINICAL_TREATMENTS, type TreatmentFamily } from "../data/clinical/treatmentCatalog";
 import { atlasRegions, protocolForTreatment } from "../data/clinical/journey";
 import { TREATMENT_PROTOCOL } from "../data/clinical/protocolMap";
-import { faceZones } from "../data/faceZones";
+import { faceZones, zonesForRegion } from "../data/faceZones";
 import { getCitation } from "../data";
 import { buildDosePlan } from "../lib/doseEngine";
 import { generateAfterPreview } from "../lib/afterEngine";
@@ -53,7 +53,14 @@ export function PlannerPage() {
     () =>
       CLINICAL_TREATMENTS.filter((treatment) =>
         types.some((type) => TYPE_FILTER[type](treatment.family, treatment.id)),
-      ).filter((treatment) => treatment.zoneIds.some((zone) => zones.includes(zone) || zones.includes(treatment.zoneIds[0] ?? ""))),
+      ).filter((treatment) =>
+        treatment.zoneIds.some(
+          (zone) =>
+            zones.includes(zone) ||
+            zones.includes(treatment.zoneIds[0] ?? "") ||
+            faceZones.some((mapped) => mapped.id === zone && zones.includes(mapped.regionId)),
+        ),
+      ),
     [types, zones],
   );
 
@@ -174,8 +181,7 @@ export function PlannerPage() {
             <p className="tiny">{t(strings.planner.markHint)}</p>
             <div className="chip-row">
               {atlasRegions().map((region) => {
-                const related = faceZones.filter((zone) => zone.regionId === region.id).map((zone) => zone.id);
-                const ids = related.length ? related : [region.id];
+                const ids = zonesForRegion(region.id);
                 const active = ids.some((zoneId) => zones.includes(zoneId));
                 return (
                   <button
@@ -269,8 +275,8 @@ export function PlannerPage() {
                 {resolvedProtocols.map((protocol) => (
                   <p key={protocol.id}>
                     <Link to={`/journey/${protocol.regionIds[0] ?? "lips"}/protocol`}>
-                      {protocol.nameHe}
-                      {locale === "en" && protocol.nameEn ? ` · ${protocol.nameEn}` : ""}
+            {protocol.nameHe}
+            {locale !== "he" ? ` · ${entityName(protocol, locale)}` : ""}
                     </Link>
                   </p>
                 ))}

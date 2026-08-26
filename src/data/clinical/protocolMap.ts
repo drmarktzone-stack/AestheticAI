@@ -1,3 +1,5 @@
+import { FACE_ATLAS_IDS, THERAPY_ATLAS_IDS } from "./regionPacks";
+
 export const REGION_DEFAULT_PROTOCOL: Record<string, string> = {
   lips: "lip-refresh",
   cheeks: "midface-support",
@@ -6,12 +8,14 @@ export const REGION_DEFAULT_PROTOCOL: Record<string, string> = {
   forehead: "upper-face-toxin",
   jawline: "jawline-contour",
   temple: "sculptra-face-series",
-  chin: "kybella-submental",
+  chin: "chin-projection",
+  nose: "nose-conservative",
   neck: "profhilo-bap-face",
   nlf: "midface-support",
   masseter: "tmj-masseter",
   tmj: "tmj-masseter",
   axilla: "hyperhidrosis-axilla",
+  migraine: "preempt-migraine",
   scalp: "hair-prp-series",
   body: "hyperhidrosis-axilla",
   hands: "profhilo-bap-face",
@@ -22,6 +26,8 @@ export const TREATMENT_PROTOCOL: Record<string, string> = {
   "filler-lips-definition": "lip-refresh",
   "filler-midface": "midface-support",
   "filler-jawline": "jawline-contour",
+  "filler-chin": "chin-projection",
+  "filler-nose": "nose-conservative",
   "filler-temples": "sculptra-face-series",
   "filler-tear-trough": "midface-support",
   "filler-nasolabial": "midface-support",
@@ -33,8 +39,8 @@ export const TREATMENT_PROTOCOL: Record<string, string> = {
   "toxin-tmj": "tmj-masseter",
   "toxin-hyperhidrosis-axilla": "hyperhidrosis-axilla",
   "toxin-hyperhidrosis-palms": "hyperhidrosis-axilla",
-  "toxin-migraine": "upper-face-toxin",
-  "toxin-cervical-dystonia": "upper-face-toxin",
+  "toxin-migraine": "preempt-migraine",
+  "toxin-cervical-dystonia": "profhilo-bap-face",
 };
 
 export const REGION_EMERGENCIES: Record<string, string[]> = {
@@ -46,27 +52,16 @@ export const REGION_EMERGENCIES: Record<string, string[]> = {
   jawline: ["vascular-occlusion", "anaphylaxis"],
   temple: ["vascular-occlusion", "vision-threat"],
   chin: ["vascular-occlusion", "anaphylaxis"],
+  nose: ["vascular-occlusion", "vision-threat", "anaphylaxis"],
   neck: ["anaphylaxis", "toxin-ptosis"],
   nlf: ["vascular-occlusion", "tyndall-effect"],
   masseter: ["toxin-ptosis", "anaphylaxis"],
   tmj: ["anaphylaxis"],
   axilla: ["anaphylaxis"],
+  migraine: ["toxin-ptosis", "anaphylaxis"],
   scalp: ["anaphylaxis"],
   body: ["anaphylaxis"],
   hands: ["anaphylaxis"],
 };
 
-export const ATLAS_REGION_IDS = [
-  "lips",
-  "cheeks",
-  "jawline",
-  "periocular",
-  "glabella",
-  "temple",
-  "masseter",
-  "tmj",
-  "axilla",
-  "forehead",
-  "chin",
-  "neck",
-] as const;
+export const ATLAS_REGION_IDS = [...FACE_ATLAS_IDS, ...THERAPY_ATLAS_IDS] as const;

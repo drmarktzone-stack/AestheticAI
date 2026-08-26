@@ -89,6 +89,9 @@ export const strings = {
       "التوكسين العلاجي (ألم المفصل الفكي، فرط التعرق، الشقيقة) يعيش في المسار بجانب التجميل.",
       "Therapeutic toxin (TMJ pain, hyperhidrosis, migraine) lives on the same path as cosmetic use.",
     ),
+    faceIndex: L("אטלס פנים", "أطلس الوجه", "Face atlas"),
+    therapyIndex: L("טוקסין טיפולי", "توكسين علاجي", "Therapeutic toxin"),
+    galleryTitle: L("גלריה קלינית — הדגמה", "معرض سريري — تجريبي", "Clinical gallery — demo"),
   },
 
   journey: {
@@ -121,6 +124,7 @@ export const strings = {
     actions: L("פעולות", "إجراءات", "Actions"),
     relatedEmergency: L("נתיב חירום", "مسار الطوارئ", "Emergency pathway"),
     brandsInPlay: L("מוצרים ובתים", "المنتجات والشركات", "Products and houses"),
+    relatedProtocols: L("פרוטוקולים קשורים באזור", "بروتوكولات مرتبطة بالمنطقة", "Related protocols in this region"),
   },
 
   planner: {

@@ -4,6 +4,7 @@ import { CitationList } from "../components/CitationList";
 import { DraftBadge, DemoBadge } from "../components/Chrome";
 import { MediaFrame } from "../components/MediaFrame";
 import { InjectionMap } from "../components/InjectionMap";
+import { TeachingPlate, StillGallery } from "../components/TeachingPlate";
 import { Spine } from "../components/Shell";
 import { assembleJourney, JOURNEY_STEPS, type JourneyStepId } from "../data/clinical/journey";
 import { pickL, pickList } from "../data/clinical/types";
@@ -28,8 +29,22 @@ export function JourneyPage() {
   const current: JourneyStepId = isStep(step) ? step : "region";
   const stepIndex = JOURNEY_STEPS.indexOf(current);
   const go = (next: JourneyStepId) => navigate(`/journey/${regionId}/${next}`);
-  const { region, protocol, mentor, treatments, materials, companies, techniques, emergencies, citations, stills, videos } =
-    journey;
+  const {
+    region,
+    protocol,
+    relatedProtocols,
+    mentor,
+    pack,
+    treatments,
+    materials,
+    companies,
+    techniques,
+    emergencies,
+    citations,
+    stills,
+    videos,
+  } = journey;
+  const hero = stills[0] ?? USER_LIPS.anatomy[0] ?? USER_LIPS.before;
 
   return (
     <div className="page">
@@ -38,7 +53,11 @@ export function JourneyPage() {
         <div className="eyebrow">{t(strings.journey.title)}</div>
         <h1>{entityName(region, locale)}</h1>
         <p className="lead">
-          {mentor ? pickL(locale, mentor.subtitle) : t(strings.home.lead)}
+          {pack
+            ? pickL(locale, pack.subtitle)
+            : mentor
+              ? pickL(locale, mentor.subtitle)
+              : t(strings.home.lead)}
         </p>
         <div className="pill-row">
           <span className={`risk ${region.risk}`}>{t(strings.risk[region.risk])}</span>
@@ -51,7 +70,8 @@ export function JourneyPage() {
         <div className="stack">
           {current === "region" ? (
             <>
-              <MediaFrame src={stills[0]} alt={entityName(region, locale)} />
+              <StillGallery stills={stills} alt={entityName(region, locale)} />
+              {pack ? <TeachingPlate photo={hero} pack={pack} /> : <MediaFrame src={hero} alt={entityName(region, locale)} />}
               <section className="step-block">
                 <h3>{t(strings.journey.goals)}</h3>
                 <ul className="clinical">
@@ -71,7 +91,12 @@ export function JourneyPage() {
               <section className="step-block">
                 <h3>{t(strings.journey.danger)}</h3>
                 <ul className="clinical">
-                  {(mentor ? pickList(locale, mentor.dangerZones) : region.dangerZones).map((item) => (
+                  {(pack
+                    ? pickList(locale, pack.dangerNotes)
+                    : mentor
+                      ? pickList(locale, mentor.dangerZones)
+                      : region.dangerZones
+                  ).map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
@@ -81,6 +106,7 @@ export function JourneyPage() {
 
           {current === "protocol" && protocol ? (
             <>
+              <MediaFrame src={hero} alt={entityName(protocol, locale)} />
               <section className="step-block">
                 <div className="kicker">{t(strings.journey.protocolTitle)}</div>
                 <h2>{entityName(protocol, locale)}</h2>
@@ -106,6 +132,16 @@ export function JourneyPage() {
                 </ul>
                 <p className="tiny">{t(strings.ifuWins)}</p>
               </section>
+              {relatedProtocols.length > 1 ? (
+                <section className="step-block">
+                  <h3>{t(strings.journey.relatedProtocols)}</h3>
+                  <ul className="clinical">
+                    {relatedProtocols.map((item) => (
+                      <li key={item.id}>{entityName(item, locale)}</li>
+                    ))}
+                  </ul>
+                </section>
+              ) : null}
               <section className="step-block">
                 <h3>{t(strings.journey.followUp)}</h3>
                 <ul className="clinical">
@@ -127,6 +163,30 @@ export function JourneyPage() {
 
           {current === "materials" ? (
             <>
+              {pack?.doseLines.length ? (
+                <section className="step-block">
+                  <h3>{t(strings.journey.typicalDose)}</h3>
+                  <table className="dose-table">
+                    <thead>
+                      <tr>
+                        <th>{t(strings.journey.map)}</th>
+                        <th>{t(strings.planner.range)}</th>
+                        <th>{t(strings.journey.planes)}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {pack.doseLines.map((line, index) => (
+                        <tr key={`${pickL(locale, line.site)}-${index}`}>
+                          <td>{pickL(locale, line.site)}</td>
+                          <td className="range">{pickL(locale, line.range)}</td>
+                          <td>{pickL(locale, line.plane)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <p className="tiny">{t(strings.ifuWins)}</p>
+                </section>
+              ) : null}
               {(mentor?.materials ?? []).map((material) => (
                 <section key={material.id} className="step-block">
                   <h3>{pickL(locale, material.name)}</h3>
@@ -189,8 +249,9 @@ export function JourneyPage() {
 
           {current === "injection" ? (
             <>
+              {pack ? <TeachingPlate photo={hero} pack={pack} /> : null}
               <InjectionMap
-                photo={stills[0] ?? USER_LIPS.anatomy[0] ?? ""}
+                photo={hero}
                 selected={[region.id]}
                 onToggle={() => undefined}
                 dangerRegionIds={[region.id]}
@@ -200,6 +261,16 @@ export function JourneyPage() {
               ) : (
                 <MediaFrame src={stills[1] ?? stills[0]} alt={t(strings.journey.injectionTitle)} />
               )}
+              {pack ? (
+                <section className="step-block">
+                  <h3>{t(strings.journey.technique)}</h3>
+                  <ol className="clinical">
+                    {pickList(locale, pack.techniqueSteps).map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ol>
+                </section>
+              ) : null}
               {(mentor?.techniques ?? []).map((technique) => (
                 <section key={technique.id} className="step-block">
                   <h3>{pickL(locale, technique.name)}</h3>

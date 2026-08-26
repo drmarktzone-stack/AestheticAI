@@ -2,20 +2,42 @@ import { Link, useParams } from "react-router-dom";
 
 import { CitationList } from "../components/CitationList";
 import { DraftBadge } from "../components/Chrome";
-import { getCitation, getCompany, getMaterial } from "../data";
+import { COMPANIES, getCitation, getCompany, getMaterial } from "../data";
 import { entityName } from "../lib/entityName";
 import { useLocale } from "../i18n/LocaleContext";
 
 export function HousePage() {
-  const { id = "" } = useParams();
+  const { id } = useParams();
   const { locale, strings, t } = useLocale();
+
+  if (!id) {
+    return (
+      <div className="page">
+        <section className="opening">
+          <div className="eyebrow">{t(strings.house.title)}</div>
+          <h1>{t(strings.journey.brandsInPlay)}</h1>
+          <p className="lead">{t(strings.ifuWins)}</p>
+        </section>
+        <div className="house-strip">
+          {COMPANIES.map((company) => (
+            <Link key={company.id} className="family-item" to={`/house/${company.id}`}>
+              <span className="kicker">{company.hq}</span>
+              <strong>{company.name}</strong>
+              <span className="tiny">{company.whyRecommended[locale]}</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   const company = getCompany(id);
 
   if (!company) {
     return (
       <div className="page">
         <p>{t(strings.empty)}</p>
-        <Link to="/">{t(strings.back)}</Link>
+        <Link to="/house">{t(strings.back)}</Link>
       </div>
     );
   }
