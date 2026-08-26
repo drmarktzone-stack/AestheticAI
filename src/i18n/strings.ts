@@ -43,10 +43,13 @@ export const strings = {
   open: L("פתיחה", "فتح", "Open"),
 
   nav: {
-    world: L("עולם האסתטיקה", "عالم التجميل", "World of aesthetics"),
+    world: L("אטלס פנים", "أطلس الوجه", "Face atlas"),
     journey: L("מנטור", "الموجّه", "Mentor"),
     planner: L("מתכנן חכם", "المخطط الذكي", "Smart planner"),
+    houses: L("ספריית חברות", "دليل الشركاء", "Partner directory"),
     emergency: L("חירום", "طوارئ", "Emergency"),
+    workspace: L("Clinical workspace", "Clinical workspace", "Clinical workspace"),
+    clinician: L("Dr. Aesthetic", "Dr. Aesthetic", "Dr. Aesthetic"),
   },
 
   spine: {
@@ -60,6 +63,8 @@ export const strings = {
 
   home: {
     eyebrow: L("כלי קליני ליד המיטה", "أداة سريرية بجانب السرير", "A bedside clinical instrument"),
+    atlasAnatomical: L("אטלס אנטומי", "أطلس تشريحي", "Anatomical atlas"),
+    citedProtocol: L("פרוטוקול מצוטט", "بروتوكول مستشهد", "Cited protocol"),
     title: L(
       "מנטור אחד. מסלול אחד. מהאזור עד החירום.",
       "موجّه واحد. مسار واحد. من المنطقة إلى الطوارئ.",
@@ -76,8 +81,8 @@ export const strings = {
       "النقر على منطقة يفتح المسار السريري الكامل — وليس كتالوج بطاقات.",
       "A region opens the full clinical path — not a card catalog.",
     ),
-    enterRegion: L("כניסה למסלול", "دخول المسار", "Enter the path"),
-    openPlanner: L("פתיחת המתכנן החכם", "فتح المخطط الذكي", "Open the smart planner"),
+    enterRegion: L("מסלול", "المسار", "Path"),
+    openPlanner: L("מתכנן חכם", "المخطط الذكي", "Smart planner"),
     familiesTitle: L("משפחות טיפול", "عائلات العلاج", "Treatment families"),
     familiesLead: L(
       "פילר, מיצוק, קמטים, טוקסין אסתטי וטוקסין טיפולי — כולל TMJ והזעת יתר.",
@@ -174,8 +179,18 @@ export const strings = {
     marked: L("אזורים מסומנים", "المناطق المحدّدة", "Marked regions"),
     tapMap: L("לחץ על האליפסה במפה או על השבב", "انقر على الشكل أو الشريحة", "Tap an ellipse on the map or a chip"),
     resolved: L("פרוטוקול מצוטט", "بروتوكول موثّق", "Cited protocol"),
-    retryAfter: L("נסה שוב לייצר תצוגה", "أعد إنشاء المعاينة", "Try generating the preview again"),
-    afterIdle: L("לחץ ליצירת תצוגת הדגמה מקומית — לא תוצאה קלינית.", "انقر لإنشاء معاينة تجريبية محلية — ليست نتيجة سريرية.", "Generate a local demo preview — not a clinical result."),
+    applyCanvas: L("החל על הקנבס", "طبّق على اللوحة", "Apply to canvas"),
+    formulation: L("ניסוח טיפול", "صياغة العلاج", "Treatment formulation"),
+    colDose: L("מינון", "الجرعة", "Dose"),
+    colMaterial: L("חומר", "المادة", "Material"),
+    colRegion: L("אזור", "المنطقة", "Region"),
+    canvasMeta: L("רשומה חינוכית · הדגמה · מוכן", "سجل تعليمي · تجريبي · جاهز", "Educational record · Demo · Ready"),
+    retryAfter: L("נסה שוב את ההדגמה", "أعد المحاولة التجريبية", "Retry demo preview"),
+    afterIdle: L("ההמחשה מוכנה אחרי בחירת אזור וסוג טיפול.", "الإيضاح جاهز بعد اختيار المنطقة ونوع العلاج.", "The illustration is ready after a region and treatment type are selected."),
+    markRegions: L("סימון אזורים", "تعليم المناطق", "Mark regions"),
+    uploadSource: L("העלאת מקור", "رفع المصدر", "Upload source"),
+    illustrativeAfter: L("הדמיה למחשבה בלבד", "إيضاح للتفكير فقط", "Illustrative after — Demo only"),
+    modality: L("סוג טיפול", "نوع العلاج", "Treatment modality"),
   },
 
   emergency: {
@@ -194,7 +209,8 @@ export const strings = {
   },
 
   house: {
-    title: L("בתים ומוצרים", "الشركات والمنتجات", "Houses and products"),
+    title: L("ספריית חברות ושותפים", "دليل الشركات والشركاء", "Industry partners"),
+    directory: L("בתים קליניים", "بيوت سريرية", "Clinical houses"),
     hq: L("מטה", "المقر", "Headquarters"),
     focus: L("מיקוד", "التركيز", "Focus"),
     why: L("מדוע עשוי להיבחר", "لماذا قد يُختار", "Why it might be chosen"),

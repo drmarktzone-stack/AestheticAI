@@ -1,6 +1,6 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 
-import { BrandMark, LanguageSwitcher, ShellNav } from "./Chrome";
+import { LanguageSwitcher, ShellNav } from "./Chrome";
 import { useLocale } from "../i18n/LocaleContext";
 
 export function Shell() {
@@ -10,22 +10,27 @@ export function Shell() {
     <div className="app-shell">
       <header className="topbar">
         <Link className="brand" to="/">
-          <BrandMark />
-          <span>
-            <span className="brand-name">{t(strings.appName)}</span>
-            <div className="brand-tag">{t(strings.tagline)}</div>
-          </span>
+          <span className="brand-name">{t(strings.appName)}</span>
         </Link>
         <div className="topbar-tools">
-          <ShellNav />
           <LanguageSwitcher />
+          <div className="workspace-id">
+            <span className="kicker">{t(strings.nav.workspace)}</span>
+            <strong>{t(strings.nav.clinician)}</strong>
+          </div>
         </div>
       </header>
+      <div className="workspace-nav">
+        <ShellNav />
+      </div>
       <main>
         <Outlet />
       </main>
       <footer className="footer-note">
-        {t(strings.physicianOnly)} {t(strings.clinicianDecides)}
+        <span>
+          {t(strings.physicianOnly)} {t(strings.clinicianDecides)}
+        </span>
+        <span>AestheticAI. Physician use only.</span>
       </footer>
     </div>
   );

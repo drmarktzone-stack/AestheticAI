@@ -326,7 +326,7 @@ export function JourneyPage() {
           {current === "emergency" ? (
             <>
               {(depth?.complications ?? mentor?.complications ?? []).map((item) => (
-                <section key={item.id} className="step-block">
+                <section key={item.id} className="step-block ace-block">
                   <div className="pill-row">
                     <span className={`risk ${item.urgency}`}>{t(strings.risk[item.urgency])}</span>
                     <DemoBadge label={t(strings.emergency.openAce)} />

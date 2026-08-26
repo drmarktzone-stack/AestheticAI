@@ -46,7 +46,7 @@ export function EmergencyPage() {
               </Link>
             ))}
           </div>
-          <article className="step-block">
+          <article className="step-block ace-block">
             <span className={`risk ${selected.urgency}`}>{t(strings.risk[selected.urgency])}</span>
             <h2>{entityName(selected, locale)}</h2>
             <DraftBadge label={t(strings.draft)} />

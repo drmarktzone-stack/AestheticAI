@@ -3,9 +3,9 @@ export type Locale = "he" | "ar" | "en";
 export type Localized = Record<Locale, string>;
 
 export const LOCALES: { id: Locale; label: string }[] = [
-  { id: "he", label: "עב" },
-  { id: "ar", label: "عر" },
   { id: "en", label: "EN" },
+  { id: "ar", label: "AR" },
+  { id: "he", label: "HE" },
 ];
 
 export function isRtl(locale: Locale): boolean {

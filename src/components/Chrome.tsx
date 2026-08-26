@@ -23,22 +23,6 @@ export function LanguageSwitcher() {
   );
 }
 
-export function BrandMark() {
-  return (
-    <svg className="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
-      <path
-        d="M18 46 L32 14 L46 46"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="3.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path d="M24 34 H40" stroke="#6B5CA5" strokeWidth="3.2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 export function DemoBadge({ label }: { label: string }) {
   return <span className="badge demo">{label}</span>;
 }
@@ -67,6 +51,7 @@ export function ShellNav() {
     { to: "/", label: strings.nav.world, end: true },
     { to: "/journey", label: strings.nav.journey, end: false },
     { to: "/planner", label: strings.nav.planner, end: false },
+    { to: "/house", label: strings.nav.houses, end: false },
     { to: "/emergency", label: strings.nav.emergency, end: false, emergency: true },
   ] as const;
 

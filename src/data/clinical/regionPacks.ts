@@ -366,15 +366,15 @@ export function getRegionPack(regionId: string): RegionPack | undefined {
 }
 
 export const FACE_ATLAS_IDS = [
-  "lips",
-  "cheeks",
-  "jawline",
-  "chin",
-  "nose",
-  "temple",
   "periocular",
-  "forehead",
   "glabella",
+  "forehead",
+  "nose",
+  "cheeks",
+  "temple",
+  "chin",
+  "jawline",
+  "lips",
   "neck",
 ] as const;
 
