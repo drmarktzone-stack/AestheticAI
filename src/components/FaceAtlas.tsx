@@ -65,7 +65,7 @@ export function FaceAtlas({ selectedId, onSelect }: Props) {
               }}
             >
               <ellipse cx={copy.x} cy={copy.y} rx={copy.rx} ry={copy.ry} />
-              {index === 0 ? (
+              {index === 0 && selectedId === region.id ? (
                 <text x={copy.x} y={copy.y - copy.ry - 2} textAnchor="middle">
                   {entityName(region, locale)}
                 </text>
