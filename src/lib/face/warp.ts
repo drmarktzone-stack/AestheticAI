@@ -194,7 +194,7 @@ function barycentric(
   const v = (v2x * v1y - v1x * v2y) / den;
   const w = (v0x * v2y - v2x * v0y) / den;
   const u = 1 - v - w;
-  if (u < -0.01 || v < -0.01 || w < -0.01) return null;
+  if (u < -1e-4 || v < -1e-4 || w < -1e-4) return null;
   return [u, v, w];
 }
 
@@ -223,6 +223,21 @@ function warpMesh(src: ImageData, from: Vec2[], to: Vec2[], w: number, h: number
   const out = new ImageData(w, h);
   out.data.set(src.data);
   const tris = delaunayTris(from);
+  const moved = new Uint8Array(from.length);
+  for (let i = 0; i < from.length; i++) {
+    const a = from[i];
+    const b = to[i];
+    if (a && b && landmarkShift(a, b, w, h) >= 0.35) moved[i] = 1;
+  }
+  const ring = new Uint8Array(from.length);
+  ring.set(moved);
+  for (const [ia, ib, ic] of tris) {
+    if (moved[ia!] || moved[ib!] || moved[ic!]) {
+      ring[ia!] = 1;
+      ring[ib!] = 1;
+      ring[ic!] = 1;
+    }
+  }
 
   for (const [ia, ib, ic] of tris) {
     const da = to[ia];
@@ -232,13 +247,7 @@ function warpMesh(src: ImageData, from: Vec2[], to: Vec2[], w: number, h: number
     const sb = from[ib];
     const sc = from[ic];
     if (!da || !db || !dc || !sa || !sb || !sc) continue;
-    if (
-      landmarkShift(sa, da, w, h) < 0.45 &&
-      landmarkShift(sb, db, w, h) < 0.45 &&
-      landmarkShift(sc, dc, w, h) < 0.45
-    ) {
-      continue;
-    }
+    if (!ring[ia!] && !ring[ib!] && !ring[ic!]) continue;
     const ax = da.x * w;
     const ay = da.y * h;
     const bx = db.x * w;
@@ -310,9 +319,9 @@ function texturePass(
         data[i + 2] = data[i + 2]! * (1 - t) + avg * t + 9 * t;
       }
       if (gloss) {
-        data[i] = Math.min(255, data[i]! + 32 * strength * fall);
-        data[i + 1] = Math.min(255, data[i + 1]! + 10 * strength * fall);
-        data[i + 2] = Math.max(0, data[i + 2]! - 8 * strength * fall);
+        data[i] = Math.min(255, data[i]! + 16 * strength * fall);
+        data[i + 1] = Math.min(255, data[i + 1]! + 11 * strength * fall);
+        data[i + 2] = Math.min(255, data[i + 2]! + 9 * strength * fall);
       }
       if (lift && plan.regionId !== "lips") {
         data[i] = Math.min(255, data[i]! + 12 * strength * fall);
