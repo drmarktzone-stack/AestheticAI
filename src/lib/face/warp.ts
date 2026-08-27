@@ -60,12 +60,12 @@ function displace(src: Vec2[], plan: RegionPlan, strength: number): Vec2[] {
     const upper = [61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291, 78, 191, 80, 81, 82, 13, 312, 311, 310, 415, 308];
     const lower = [146, 91, 181, 84, 17, 314, 405, 321, 375, 95, 88, 178, 87, 14, 317, 402, 318, 324];
     if (plan.intent === "fuller" || plan.treatment === "filler") {
-      move(outer, (p) => push(p, mouth, faceW * 0.055 * s));
+      move(outer, (p) => push(p, mouth, faceW * 0.12 * s));
       move(upper, (p) => {
-        p.y -= faceW * 0.028 * s;
+        p.y -= faceW * 0.055 * s;
       });
       move(lower, (p) => {
-        p.y += faceW * 0.034 * s;
+        p.y += faceW * 0.065 * s;
       });
     }
     if (plan.intent === "evert") {
@@ -99,17 +99,17 @@ function displace(src: Vec2[], plan: RegionPlan, strength: number): Vec2[] {
     if (plan.intent === "sharper" || plan.intent === "define") {
       const chin = lm(dst, 152);
       move(jaw, (p) => {
-        p.y += faceW * 0.012 * s;
-        p.x += (p.x < 0.5 ? -1 : 1) * faceW * 0.018 * s;
-        p.y += (chin.y - p.y) * 0.12 * s;
+        p.y += faceW * 0.028 * s;
+        p.x += (p.x < 0.5 ? -1 : 1) * faceW * 0.04 * s;
+        p.y += (chin.y - p.y) * 0.18 * s;
       });
       move(gonion, (p) => {
-        p.x += (p.x < 0.5 ? -1 : 1) * faceW * 0.03 * s;
+        p.x += (p.x < 0.5 ? -1 : 1) * faceW * 0.055 * s;
       });
     }
     if (plan.intent === "slimmer" || plan.regionId === "masseter") {
       move([234, 227, 116, 123, 147, 213, 58, 172, 454, 447, 345, 352, 376, 288, 397], (p) => {
-        p.x += (0.5 - p.x) * 0.16 * s;
+        p.x += (0.5 - p.x) * 0.28 * s;
       });
     }
   }
@@ -230,6 +230,10 @@ function sample(data: Uint8ClampedArray, w: number, h: number, x: number, y: num
   ) as [number, number, number, number];
 }
 
+function landmarkShift(from: Vec2, to: Vec2, w: number, h: number): number {
+  return Math.hypot((to.x - from.x) * w, (to.y - from.y) * h);
+}
+
 function warpMesh(src: ImageData, from: Vec2[], to: Vec2[], w: number, h: number): ImageData {
   const out = new ImageData(w, h);
   out.data.set(src.data);
@@ -244,6 +248,13 @@ function warpMesh(src: ImageData, from: Vec2[], to: Vec2[], w: number, h: number
     const sb = from[ib];
     const sc = from[ic];
     if (!da || !db || !dc || !sa || !sb || !sc) continue;
+    if (
+      landmarkShift(sa, da, w, h) < 0.45 &&
+      landmarkShift(sb, db, w, h) < 0.45 &&
+      landmarkShift(sc, dc, w, h) < 0.45
+    ) {
+      continue;
+    }
     const ax = da.x * w;
     const ay = da.y * h;
     const bx = db.x * w;
@@ -309,15 +320,15 @@ function texturePass(
       const i = (y * w + x) * 4;
       if (smooth) {
         const avg = (data[i]! + data[i + 1]! + data[i + 2]!) / 3;
-        const t = 0.28 * strength * fall;
-        data[i] = data[i]! * (1 - t) + avg * t + 8 * t;
-        data[i + 1] = data[i + 1]! * (1 - t) + avg * t + 7 * t;
-        data[i + 2] = data[i + 2]! * (1 - t) + avg * t + 6 * t;
+        const t = 0.42 * strength * fall;
+        data[i] = data[i]! * (1 - t) + avg * t + 12 * t;
+        data[i + 1] = data[i + 1]! * (1 - t) + avg * t + 10 * t;
+        data[i + 2] = data[i + 2]! * (1 - t) + avg * t + 9 * t;
       }
       if (gloss) {
-        data[i] = Math.min(255, data[i]! + 18 * strength * fall);
-        data[i + 1] = Math.min(255, data[i + 1]! + 6 * strength * fall);
-        data[i + 2] = Math.max(0, data[i + 2]! - 4 * strength * fall);
+        data[i] = Math.min(255, data[i]! + 32 * strength * fall);
+        data[i + 1] = Math.min(255, data[i + 1]! + 10 * strength * fall);
+        data[i + 2] = Math.max(0, data[i + 2]! - 8 * strength * fall);
       }
       if (lift && plan.regionId !== "lips") {
         data[i] = Math.min(255, data[i]! + 12 * strength * fall);
@@ -351,13 +362,24 @@ function pointInScaled(x: number, y: number, poly: Vec2[], w: number, h: number)
   return inside;
 }
 
-export function renderAfter(frame: FaceFrame, plans: RegionPlan[], strength = 0.72): HTMLCanvasElement {
-  const w = frame.width;
-  const h = frame.height;
-  const ctx = frame.image.getContext("2d", { willReadFrequently: true });
-  if (!ctx) return frame.image;
-  const src = ctx.getImageData(0, 0, w, h);
-  let from = frame.landmarks.map((p) => ({ x: p.x, y: p.y }));
+export function renderAfter(frame: FaceFrame, plans: RegionPlan[], strength = 0.92): HTMLCanvasElement {
+  const srcW = frame.width;
+  const srcH = frame.height;
+  const maxW = 520;
+  const scale = srcW > maxW ? maxW / srcW : 1;
+  const w = Math.max(1, Math.round(srcW * scale));
+  const h = Math.max(1, Math.round(srcH * scale));
+
+  const work = document.createElement("canvas");
+  work.width = w;
+  work.height = h;
+  const wctx = work.getContext("2d", { willReadFrequently: true });
+  if (!wctx) return frame.image;
+  wctx.imageSmoothingQuality = "high";
+  wctx.drawImage(frame.image, 0, 0, w, h);
+  const src = wctx.getImageData(0, 0, w, h);
+
+  const from = frame.landmarks.map((p) => ({ x: p.x, y: p.y }));
   let to = from;
   for (const plan of plans) {
     to = displace(to, plan, strength);
@@ -366,12 +388,15 @@ export function renderAfter(frame: FaceFrame, plans: RegionPlan[], strength = 0.
   for (const plan of plans) {
     texturePass(warped.data, w, h, to, plan, strength);
   }
+  wctx.putImageData(warped, 0, 0);
+
   const out = document.createElement("canvas");
-  out.width = w;
-  out.height = h;
+  out.width = srcW;
+  out.height = srcH;
   const octx = out.getContext("2d");
   if (!octx) return frame.image;
-  octx.putImageData(warped, 0, 0);
+  octx.imageSmoothingQuality = "high";
+  octx.drawImage(work, 0, 0, srcW, srcH);
   return out;
 }
 

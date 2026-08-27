@@ -385,8 +385,8 @@ export function JourneyPage() {
                 {t(strings.next)}
               </button>
             ) : (
-              <Link className="btn" to="/planner">
-                {t(strings.home.openPlanner)}
+              <Link className="btn" to="/">
+                {t(strings.nav.simulate)}
               </Link>
             )}
           </div>

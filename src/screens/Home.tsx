@@ -143,7 +143,9 @@ export function HomePage() {
     const plan: RegionPlan = { regionId: selected, treatment, intent };
     const merged = [...plans.filter((item) => item.regionId !== selected), plan];
     setPlans(merged);
-    await new Promise((resolve) => window.setTimeout(resolve, 40));
+    await new Promise<void>((resolve) => {
+      requestAnimationFrame(() => window.setTimeout(resolve, 30));
+    });
     try {
       const canvas = renderAfter(frame, merged);
       setAfterUrl(canvas.toDataURL("image/jpeg", 0.9));
@@ -199,8 +201,15 @@ export function HomePage() {
               ) : null}
               <svg className="sim-marks" viewBox="0 0 100 100" preserveAspectRatio="none">
                 {markers.map((mark) => (
-                  <g key={mark.id} className={selected === mark.id ? "on" : undefined}>
-                    <circle cx={mark.x * 100} cy={mark.y * 100} r={selected === mark.id ? 1.7 : 1.15} />
+                  <g
+                    key={mark.id}
+                    className={selected === mark.id ? "on" : undefined}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      setSelected(mark.id);
+                    }}
+                  >
+                    <circle cx={mark.x * 100} cy={mark.y * 100} r={selected === mark.id ? 2.1 : 1.35} />
                   </g>
                 ))}
               </svg>

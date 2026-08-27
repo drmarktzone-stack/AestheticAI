@@ -79,9 +79,9 @@ export const strings = {
     ),
     atlasTitle: L("העולם, לפי אזור", "العالم حسب المنطقة", "The world, by region"),
     atlasLead: L(
-      "לחיצה על אזור פותחת את המסלול הקליני המלא — לא קטלוג כרטיסים.",
-      "النقر على منطقة يفتح المسار السريري الكامل — وليس كتالوج بطاقات.",
-      "A region opens the full clinical path — not a card catalog.",
+      "אזור אחד לעומק — שכבות, מינון, ומסלול ACE.",
+      "منطقة واحدة بعمق — طبقات، جرعة، ومسار ACE.",
+      "One region in depth — layers, dose, and the ACE path.",
     ),
     enterRegion: L("מסלול", "المسار", "Path"),
     openPlanner: L("מתכנן חכם", "المخطط الذكي", "Smart planner"),
@@ -208,6 +208,22 @@ export const strings = {
     escalation: L("הסלמה", "التصعيد", "Escalation"),
     documentation: L("תיעוד", "التوثيق", "Documentation"),
     openAce: L("נתיב ACE", "مسار ACE", "ACE pathway"),
+    activeBanner: L(
+      "פרוטוקול חירום פעיל — אירוע וסקולרי (ACE)",
+      "بروتوكول طوارئ نشط — حدث وعائي (ACE)",
+      "Active emergency protocol — vascular event (ACE)",
+    ),
+    ischemiaTitle: L(
+      "זיהוי וטיפול באיסכמיה וסקולרית",
+      "التعرّف على الإقفار الوعائي وعلاجه",
+      "Identification and treatment of vascular ischemia",
+    ),
+    ischemiaLead: L(
+      "פרוטוקול ACE להתערבות מיידית בחסימה עורקית או בחשד לאיסכמיה לאחר מילוי.",
+      "بروتوكول ACE للتدخل الفوري عند انسداد شرياني أو اشتباه إقفار بعد الفيلر.",
+      "ACE protocol for immediate intervention in arterial occlusion or suspected ischemia after filler.",
+    ),
+    immediateDx: L("אבחון מיידי", "تشخيص فوري", "Immediate diagnosis"),
   },
 
   house: {
@@ -237,7 +253,7 @@ export const strings = {
   },
 
   sim: {
-    title: L("סימולציית פנים", "محاكاة الوجه", "Face simulation"),
+    title: L("סימולציית פנים מתקדמת", "محاكاة وجه متقدمة", "Advanced face simulation"),
     lead: L(
       "העלו תמונת פנים. המנוע יישר את הפנים למסגרת. לחצו על אזור — בחרו טיפול ותוצאה צפויה — והפיקו הדמיה על אותה תמונה.",
       "ارفعوا صورة وجه. يحاذي المحرك الوجه في الإطار. اضغطوا على منطقة — اختاروا علاجاً ونتيجة متوقعة — ثم ولّدوا إيضاحاً على الصورة نفسها.",
@@ -273,6 +289,12 @@ export const strings = {
       tighter: L("מיצוק צוואר", "شد الرقبة", "Tighter neck"),
       relax: L("הרפיית מסהטר", "إرخاء الماضغة", "Relax masseter"),
     },
+  },
+
+  atlas: {
+    kicker: L("אטלס קליני", "أطلس سريري", "Clinical atlas"),
+    layers: L("שכבות אנטומיות", "طبقات تشريحية", "Anatomical layers"),
+    ace: L("מסלול ACE לאזור", "مسار ACE للمنطقة", "ACE path for this region"),
   },
 } as const;
 

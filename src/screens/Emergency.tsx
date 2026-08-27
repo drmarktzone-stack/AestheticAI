@@ -1,8 +1,9 @@
 import { Link, useParams } from "react-router-dom";
 
 import { CitationList } from "../components/CitationList";
-import { DraftBadge } from "../components/Chrome";
+import { DemoBadge, DraftBadge } from "../components/Chrome";
 import { emergencies, getCitation, getEmergency } from "../data";
+import { STITCH } from "../lib/assets";
 import { entityName } from "../lib/entityName";
 import { useLocale } from "../i18n/LocaleContext";
 
@@ -23,15 +24,25 @@ export function EmergencyPage() {
   const citations = (selected.citationIds ?? [])
     .map((citationId) => getCitation(citationId))
     .filter((item): item is NonNullable<typeof item> => Boolean(item));
+  const ischemia = selected.id === "vascular-occlusion";
 
   return (
-    <div className="page">
-      <div className="ace-banner">{t(strings.emergency.openAce)} — ACE</div>
+    <div className="page ace-page">
+      <div className="ace-banner">{t(strings.emergency.activeBanner)}</div>
       <section className="opening">
         <div className="eyebrow">{t(strings.emergency.openAce)}</div>
-        <h1>{t(strings.emergency.title)}</h1>
-        <p className="lead">{t(strings.emergency.lead)}</p>
+        <h1>{ischemia ? t(strings.emergency.ischemiaTitle) : entityName(selected, locale)}</h1>
+        <p className="lead">{ischemia ? t(strings.emergency.ischemiaLead) : t(strings.emergency.lead)}</p>
       </section>
+      {ischemia ? (
+        <figure className="ace-dx">
+          <img src={STITCH.treatment} alt={t(strings.emergency.immediateDx)} />
+          <figcaption>
+            <DemoBadge label={t(strings.demoMedia)} />
+            <strong>{t(strings.emergency.immediateDx)}</strong>
+          </figcaption>
+        </figure>
+      ) : null}
       <div className="chapter">
         <div className="stack">
           <div className="chip-row">
