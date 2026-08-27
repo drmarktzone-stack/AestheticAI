@@ -1,23 +1,8 @@
 import Delaunator from "delaunator";
 
-import { FaceLandmarker } from "./detect";
 import { regionPoly, SIM_REGIONS } from "./regions";
 import type { AfterIntent, FaceFrame, RegionPlan, TreatmentKind, Vec2 } from "./types";
 import { lm } from "./types";
-
-function triangles(): [number, number, number][] {
-  const conns = FaceLandmarker.FACE_LANDMARKS_TESSELATION;
-  const tris: [number, number, number][] = [];
-  for (let i = 0; i + 2 < conns.length; i += 3) {
-    const a = conns[i];
-    const b = conns[i + 1];
-    const c = conns[i + 2];
-    if (!a || !b || !c) continue;
-    const verts = [...new Set([a.start, a.end, b.start, b.end, c.start, c.end])];
-    if (verts.length === 3) tris.push([verts[0]!, verts[1]!, verts[2]!]);
-  }
-  return tris;
-}
 
 function delaunayTris(points: Vec2[]): [number, number, number][] {
   const coords = new Float64Array(points.length * 2);
@@ -237,8 +222,7 @@ function landmarkShift(from: Vec2, to: Vec2, w: number, h: number): number {
 function warpMesh(src: ImageData, from: Vec2[], to: Vec2[], w: number, h: number): ImageData {
   const out = new ImageData(w, h);
   out.data.set(src.data);
-  let tris = triangles();
-  if (tris.length < 80) tris = delaunayTris(from);
+  const tris = delaunayTris(from);
 
   for (const [ia, ib, ic] of tris) {
     const da = to[ia];
@@ -365,7 +349,7 @@ function pointInScaled(x: number, y: number, poly: Vec2[], w: number, h: number)
 export function renderAfter(frame: FaceFrame, plans: RegionPlan[], strength = 0.92): HTMLCanvasElement {
   const srcW = frame.width;
   const srcH = frame.height;
-  const maxW = 520;
+  const maxW = 420;
   const scale = srcW > maxW ? maxW / srcW : 1;
   const w = Math.max(1, Math.round(srcW * scale));
   const h = Math.max(1, Math.round(srcH * scale));
