@@ -111,7 +111,7 @@ button {
 .app-shell {
   min-height: 100dvh;
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
 }
 
 .topbar {
@@ -1221,3 +1221,229 @@ input[type="file"] {
     transition: none !important;
   }
 }
+
+.app-shell[data-space="sim"] {
+  background: #070709;
+  color: #f3eee7;
+}
+
+.app-shell[data-space="sim"] .topbar {
+  background: linear-gradient(180deg, rgba(7, 7, 9, 0.92), rgba(7, 7, 9, 0.2));
+  border-bottom: 0;
+  position: sticky;
+}
+
+.app-shell[data-space="sim"] .brand-name,
+.app-shell[data-space="sim"] .nav-link {
+  color: #f3eee7;
+}
+
+.app-shell[data-space="sim"] .nav-link[aria-current="page"] {
+  background: rgba(243, 238, 231, 0.08);
+}
+
+.app-shell[data-space="sim"] .lang-btn {
+  color: #b8b2aa;
+}
+
+.app-shell[data-space="sim"] .lang-btn[aria-pressed="true"] {
+  color: #f3eee7;
+  box-shadow: inset 0 -1px 0 #f3eee7;
+}
+
+.app-shell[data-space="sim"] main {
+  padding: 0 0 2rem;
+}
+
+.app-shell[data-space="sim"] .footer-note {
+  color: #8a8580;
+  border-top-color: #232226;
+}
+
+.app-shell[data-space="ace"] .ace-banner {
+  display: block;
+}
+
+.ace-banner {
+  display: none;
+  background: #9b2c2c;
+  color: #fff;
+  padding: 0.7rem 1.2rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.app-shell[data-space="ace"] .ace-banner {
+  display: block;
+}
+
+.sim-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.4rem 1.2rem 2rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.sim-copy {
+  max-width: 36rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.sim-copy h1 {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  color: #f6f1ea;
+}
+
+.sim-copy .lead {
+  color: #c9c3bb;
+}
+
+.sim-rig {
+  display: grid;
+  place-items: center;
+}
+
+.sim-frame {
+  position: relative;
+  width: min(100%, 560px);
+  aspect-ratio: 4 / 5;
+  background:
+    linear-gradient(180deg, rgba(18, 19, 26, 0.2), rgba(7, 7, 9, 0.55)),
+    #16161b;
+  border: 1px solid rgba(237, 232, 226, 0.22);
+  box-shadow:
+    0 0 0 8px #0d0d11,
+    0 0 0 9px rgba(237, 232, 226, 0.28),
+    0 30px 80px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+  cursor: crosshair;
+}
+
+.sim-frame img,
+.sim-frame .sim-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sim-after {
+  z-index: 2;
+}
+
+.sim-marks {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.sim-marks circle {
+  fill: rgba(255, 255, 255, 0.55);
+  stroke: #fff;
+  stroke-width: 0.35;
+}
+
+.sim-marks .on circle {
+  fill: #bc5b7a;
+  stroke: #f3eee7;
+}
+
+.sim-empty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 0.7rem;
+  padding: 2rem;
+  text-align: center;
+  color: #d7d1c9;
+}
+
+.sim-empty strong {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+}
+
+.sim-frame-meta {
+  position: absolute;
+  inset-inline: 0.8rem;
+  bottom: 0.8rem;
+  z-index: 4;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.6rem;
+  align-items: end;
+  pointer-events: none;
+}
+
+.sim-slider {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f3eee7;
+  background: rgba(7, 7, 9, 0.55);
+  padding: 0.25rem 0.5rem;
+}
+
+.sim-slider input {
+  width: 120px;
+  accent-color: #bc5b7a;
+}
+
+.sim-status {
+  text-align: center;
+  color: #d7d1c9;
+}
+
+.sim-status.error {
+  color: #e7b4b4;
+}
+
+.sim-dock {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.sim-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  justify-content: center;
+}
+
+.sim-plan {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(237, 232, 226, 0.18);
+  background: rgba(18, 18, 22, 0.72);
+}
+
+.app-shell[data-space="sim"] .chip {
+  border-color: rgba(237, 232, 226, 0.45);
+  color: #f3eee7;
+}
+
+.app-shell[data-space="sim"] .chip[aria-pressed="true"] {
+  background: #f3eee7;
+  color: #12131a;
+}
+
+.app-shell[data-space="sim"] .kicker {
+  color: #9a948c;
+}
+

@@ -1,28 +1,29 @@
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 
 import { LanguageSwitcher, ShellNav } from "./Chrome";
 import { useLocale } from "../i18n/LocaleContext";
 
 export function Shell() {
   const { strings, t } = useLocale();
+  const { pathname } = useLocation();
+  const space =
+    pathname === "/" || pathname.startsWith("/planner")
+      ? "sim"
+      : pathname.startsWith("/emergency")
+        ? "ace"
+        : "atlas";
 
   return (
-    <div className="app-shell">
+    <div className="app-shell" data-space={space}>
       <header className="topbar">
         <Link className="brand" to="/">
           <span className="brand-name">{t(strings.appName)}</span>
         </Link>
+        <ShellNav />
         <div className="topbar-tools">
           <LanguageSwitcher />
-          <div className="workspace-id">
-            <span className="kicker">{t(strings.nav.workspace)}</span>
-            <strong>{t(strings.nav.clinician)}</strong>
-          </div>
         </div>
       </header>
-      <div className="workspace-nav">
-        <ShellNav />
-      </div>
       <main>
         <Outlet />
       </main>
@@ -44,9 +45,9 @@ export function Spine({
   current: "world" | "region" | "protocol" | "materials" | "injection" | "emergency";
 }) {
   const { strings, t } = useLocale();
-  const base = regionId ? `/journey/${regionId}` : "/journey";
+  const base = regionId ? `/journey/${regionId}` : "/atlas";
   const items = [
-    { id: "world" as const, to: "/", label: strings.spine.world },
+    { id: "world" as const, to: "/atlas", label: strings.nav.atlas },
     { id: "region" as const, to: `${base}/region`, label: strings.spine.region },
     { id: "protocol" as const, to: `${base}/protocol`, label: strings.spine.protocol },
     { id: "materials" as const, to: `${base}/materials`, label: strings.spine.materials },

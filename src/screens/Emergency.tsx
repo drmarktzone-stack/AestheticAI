@@ -2,7 +2,6 @@ import { Link, useParams } from "react-router-dom";
 
 import { CitationList } from "../components/CitationList";
 import { DraftBadge } from "../components/Chrome";
-import { Spine } from "../components/Shell";
 import { emergencies, getCitation, getEmergency } from "../data";
 import { entityName } from "../lib/entityName";
 import { useLocale } from "../i18n/LocaleContext";
@@ -27,7 +26,7 @@ export function EmergencyPage() {
 
   return (
     <div className="page">
-      <Spine current="emergency" />
+      <div className="ace-banner">{t(strings.emergency.openAce)} — ACE</div>
       <section className="opening">
         <div className="eyebrow">{t(strings.emergency.openAce)}</div>
         <h1>{t(strings.emergency.title)}</h1>

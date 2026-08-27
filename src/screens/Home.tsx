@@ -1,189 +1,316 @@
-import { useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
-import { FaceAtlas, RegionChips } from "../components/FaceAtlas";
-import { CitationList } from "../components/CitationList";
-import { DraftBadge, DemoBadge } from "../components/Chrome";
-import { atlasRegions, stillsForRegion } from "../data/clinical/journey";
-import { FACE_ATLAS_IDS, THERAPY_ATLAS_IDS } from "../data/clinical/regionPacks";
-import { REGION_DEFAULT_PROTOCOL } from "../data/clinical/protocolMap";
-import { COMPANIES, getCitation, getProtocol } from "../data";
+import { DemoBadge } from "../components/Chrome";
+import { atlasRegions } from "../data/clinical/journey";
 import { entityName } from "../lib/entityName";
-import { LIBRARY_SECTIONS } from "../lib/assets";
+import {
+  alignFace,
+  defaultIntent,
+  hitRegion,
+  intentsFor,
+  regionCenter,
+  renderAfter,
+  SIM_REGIONS,
+  type AfterIntent,
+  type FaceFrame,
+  type RegionPlan,
+  type SimRegionId,
+  type TreatmentKind,
+} from "../lib/face";
 import { useLocale } from "../i18n/LocaleContext";
+import type { Localized } from "../i18n/types";
 
-const FAMILIES = ["filler", "tightening", "wrinkles", "toxin-aesthetic", "toxin-therapeutic"] as const;
+const TREATMENTS: TreatmentKind[] = [
+  "filler",
+  "tightening",
+  "wrinkles",
+  "toxin-aesthetic",
+  "toxin-therapeutic",
+];
 
-const HOUSE_IDS = ["allergan-abbvie", "galderma", "merz", "teoxane", "ibsa"];
+type Status = "idle" | "loading" | "noface" | "ready" | "warping";
 
 export function HomePage() {
   const { locale, strings, t } = useLocale();
-  const navigate = useNavigate();
-  const [selected, setSelected] = useState("lips");
+  const fileRef = useRef<HTMLInputElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const [status, setStatus] = useState<Status>("idle");
+  const [frame, setFrame] = useState<FaceFrame | null>(null);
+  const [beforeUrl, setBeforeUrl] = useState<string | null>(null);
+  const [afterUrl, setAfterUrl] = useState<string | null>(null);
+  const [selected, setSelected] = useState<SimRegionId | null>(null);
+  const [treatment, setTreatment] = useState<TreatmentKind>("filler");
+  const [intent, setIntent] = useState<AfterIntent>("fuller");
+  const [plans, setPlans] = useState<RegionPlan[]>([]);
+  const [split, setSplit] = useState(100);
+  const [cameraOn, setCameraOn] = useState(false);
   const regions = atlasRegions();
-  const region = regions.find((item) => item.id === selected) ?? regions[0];
-  const protocol = region ? getProtocol(REGION_DEFAULT_PROTOCOL[region.id] ?? "") : undefined;
-  const citations = (protocol?.citationIds ?? [])
-    .map((id) => getCitation(id))
-    .filter((item): item is NonNullable<typeof item> => Boolean(item))
-    .slice(0, 2);
-  const previewStills = region ? stillsForRegion(region.id).slice(0, 3) : [];
 
-  const familyLinks = useMemo(
-    () =>
-      FAMILIES.map((id) => ({
-        id,
-        label: strings.family[id],
-        to:
-          id === "toxin-therapeutic"
-            ? "/journey/tmj"
-            : id === "tightening"
-              ? "/journey/neck"
-              : id === "wrinkles"
-                ? "/journey/glabella"
-                : "/planner",
-      })),
-    [strings],
-  );
+  const treatmentLabels: Record<TreatmentKind, Localized> = {
+    filler: strings.family.filler,
+    tightening: strings.family.tightening,
+    wrinkles: strings.family.wrinkles,
+    "toxin-aesthetic": strings.family["toxin-aesthetic"],
+    "toxin-therapeutic": strings.family["toxin-therapeutic"],
+  };
 
-  const houses = HOUSE_IDS.map((id) => COMPANIES.find((company) => company.id === id)).filter(
-    (company): company is NonNullable<typeof company> => Boolean(company),
-  );
+  useEffect(() => {
+    return () => stopCamera();
+  }, []);
 
-  if (!region) return null;
+  useEffect(() => {
+    if (selected) setIntent(defaultIntent(selected, treatment));
+  }, [selected, treatment]);
+
+  function stopCamera() {
+    streamRef.current?.getTracks().forEach((track) => track.stop());
+    streamRef.current = null;
+    setCameraOn(false);
+  }
+
+  async function ingest(source: ImageBitmap | HTMLImageElement | HTMLCanvasElement) {
+    setStatus("loading");
+    setAfterUrl(null);
+    setPlans([]);
+    setSelected(null);
+    setSplit(100);
+    try {
+      const aligned = await alignFace(source);
+      if (!aligned) {
+        setFrame(null);
+        setBeforeUrl(null);
+        setStatus("noface");
+        return;
+      }
+      setFrame(aligned);
+      setBeforeUrl(aligned.image.toDataURL("image/jpeg", 0.92));
+      setStatus("ready");
+    } catch {
+      setFrame(null);
+      setBeforeUrl(null);
+      setStatus("noface");
+    }
+  }
+
+  async function onFile(file: File | undefined) {
+    if (!file) return;
+    stopCamera();
+    const bitmap = await createImageBitmap(file);
+    await ingest(bitmap);
+  }
+
+  async function startCamera() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 960 } },
+        audio: false,
+      });
+      streamRef.current = stream;
+      setCameraOn(true);
+      requestAnimationFrame(() => {
+        if (videoRef.current) videoRef.current.srcObject = stream;
+      });
+    } catch {
+      setStatus("noface");
+    }
+  }
+
+  async function capture() {
+    const video = videoRef.current;
+    if (!video || !video.videoWidth) return;
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext("2d")?.drawImage(video, 0, 0);
+    stopCamera();
+    await ingest(canvas);
+  }
+
+  function onStageClick(event: React.MouseEvent<HTMLDivElement>) {
+    if (!frame || status !== "ready") return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const nx = (event.clientX - rect.left) / Math.max(rect.width, 1);
+    const ny = (event.clientY - rect.top) / Math.max(rect.height, 1);
+    const id = hitRegion(frame.landmarks, nx, ny);
+    if (id) setSelected(id);
+  }
+
+  async function generate() {
+    if (!frame || !selected) return;
+    setStatus("warping");
+    const plan: RegionPlan = { regionId: selected, treatment, intent };
+    const merged = [...plans.filter((item) => item.regionId !== selected), plan];
+    setPlans(merged);
+    await new Promise((resolve) => window.setTimeout(resolve, 40));
+    try {
+      const canvas = renderAfter(frame, merged);
+      setAfterUrl(canvas.toDataURL("image/jpeg", 0.9));
+      setSplit(48);
+      setStatus("ready");
+    } catch {
+      setStatus("ready");
+    }
+  }
+
+  const selectedDef = SIM_REGIONS.find((item) => item.id === selected);
+  const selectedRegion = selectedDef
+    ? regions.find((item) => item.id === selectedDef.atlasId)
+    : undefined;
+  const atlasLink = selectedDef ? `/journey/${selectedDef.atlasId}` : "/atlas";
+  const intentOptions = selected ? intentsFor(selected) : [];
+
+  const markers = useMemo(() => {
+    if (!frame) return [];
+    return SIM_REGIONS.map((def) => ({
+      id: def.id,
+      ...regionCenter(frame.landmarks, def.id),
+      label: entityName(regions.find((item) => item.id === def.atlasId) ?? { nameHe: def.id, nameEn: def.id }, locale),
+    }));
+  }, [frame, locale, regions]);
 
   return (
-    <div className="page">
-      <section className="opening">
-        <div className="eyebrow">{t(strings.home.eyebrow)}</div>
-        <h1 className="display">{t(strings.home.atlasAnatomical)}</h1>
-        <p className="lead">{t(strings.home.lead)}</p>
-        <div className="cta-row">
-          <Link className="btn" to={`/journey/${region.id}`}>
-            {t(strings.home.enterRegion)}
-          </Link>
-          <Link className="btn ghost" to="/planner">
-            {t(strings.home.openPlanner)}
-          </Link>
-        </div>
-      </section>
+    <div className="sim-page">
+      <div className="sim-copy">
+        <p className="eyebrow">{t(strings.nav.simulate)}</p>
+        <h1>{t(strings.sim.title)}</h1>
+        <p className="lead">{t(strings.sim.lead)}</p>
+      </div>
 
-      <section className="atlas-stage atlas-hero">
-        <RegionChips selectedId={selected} onSelect={setSelected} ids={FACE_ATLAS_IDS} />
-        <FaceAtlas selectedId={selected} onSelect={setSelected} ids={FACE_ATLAS_IDS} />
-        <aside className="panel">
-          <div className="kicker">{t(strings.home.citedProtocol)}</div>
-          <h2>{entityName(region, locale)}</h2>
-          <p className="muted">{t(strings.home.atlasLead)}</p>
-          <div className="pill-row">
-            <span className={`risk ${region.risk}`}>{t(strings.risk[region.risk])}</span>
-            <DraftBadge label={t(strings.draft)} />
-          </div>
-          {protocol ? (
-            <div className="protocol-card" style={{ border: 0, padding: 0 }}>
-              <strong>{entityName(protocol, locale)}</strong>
-              <span className="tiny">{protocol.indication}</span>
+      <div className="sim-rig">
+        <div
+          className={`sim-frame${frame ? " has-face" : ""}`}
+          onClick={onStageClick}
+          role="presentation"
+        >
+          {cameraOn ? (
+            <video ref={videoRef} autoPlay playsInline muted className="sim-video" />
+          ) : beforeUrl ? (
+            <>
+              <img className="sim-before" src={beforeUrl} alt={t(strings.sim.before)} />
+              {afterUrl ? (
+                <img
+                  className="sim-after"
+                  src={afterUrl}
+                  alt={t(strings.sim.after)}
+                  style={{ clipPath: `inset(0 0 0 ${split}%)` }}
+                />
+              ) : null}
+              <svg className="sim-marks" viewBox="0 0 100 100" preserveAspectRatio="none">
+                {markers.map((mark) => (
+                  <g key={mark.id} className={selected === mark.id ? "on" : undefined}>
+                    <circle cx={mark.x * 100} cy={mark.y * 100} r={selected === mark.id ? 1.7 : 1.15} />
+                  </g>
+                ))}
+              </svg>
+            </>
+          ) : (
+            <div className="sim-empty">
+              <strong>{t(strings.sim.title)}</strong>
+              <span>{t(strings.sim.lead)}</span>
             </div>
+          )}
+          <div className="sim-frame-meta">
+            <DemoBadge label={t(strings.sim.demoLabel)} />
+            {afterUrl ? (
+              <div className="sim-slider">
+                <span>{t(strings.sim.before)}</span>
+                <input
+                  type="range"
+                  min={0}
+                  max={100}
+                  value={split}
+                  onChange={(event) => setSplit(Number(event.target.value))}
+                  onClick={(event) => event.stopPropagation()}
+                />
+                <span>{t(strings.sim.after)}</span>
+              </div>
+            ) : null}
+          </div>
+        </div>
+      </div>
+
+      {status === "loading" ? <p className="sim-status">{t(strings.sim.aligning)}</p> : null}
+      {status === "noface" ? <p className="sim-status error">{t(strings.sim.noFace)}</p> : null}
+      {status === "warping" ? <p className="sim-status">{t(strings.sim.generating)}</p> : null}
+      {status === "ready" && !selected ? <p className="sim-status">{t(strings.sim.tapFace)}</p> : null}
+
+      <div className="sim-dock">
+        <div className="sim-actions">
+          <button type="button" className="btn" onClick={() => fileRef.current?.click()}>
+            {t(strings.sim.upload)}
+          </button>
+          {cameraOn ? (
+            <button type="button" className="btn" onClick={() => void capture()}>
+              {t(strings.sim.capture)}
+            </button>
+          ) : (
+            <button type="button" className="btn ghost" onClick={() => void startCamera()}>
+              {t(strings.sim.camera)}
+            </button>
+          )}
+          {frame ? (
+            <button type="button" className="btn ghost" onClick={() => fileRef.current?.click()}>
+              {t(strings.sim.retryPhoto)}
+            </button>
           ) : null}
-          <ul className="clinical">
-            {region.goals.slice(0, 4).map((goal) => (
-              <li key={goal}>{goal}</li>
-            ))}
-          </ul>
-          <CitationList citations={citations} />
-          <div className="preview-strip">
-            {previewStills.map((src) => (
-              <figure key={src}>
-                <img src={src} alt="" />
-                <figcaption>
-                  <DemoBadge label={t(strings.demo)} />
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-          <div className="cta-row">
-            <button type="button" className="btn" onClick={() => navigate(`/journey/${region.id}`)}>
-              {t(strings.home.enterRegion)}
+        </div>
+        <input
+          ref={fileRef}
+          type="file"
+          accept="image/*"
+          capture="user"
+          onChange={(event) => void onFile(event.target.files?.[0])}
+        />
+
+        {selected && selectedRegion ? (
+          <div className="sim-plan">
+            <div>
+              <div className="kicker">{t(strings.sim.tapFace)}</div>
+              <strong>{entityName(selectedRegion, locale)}</strong>
+            </div>
+            <div>
+              <div className="kicker">{t(strings.sim.treatment)}</div>
+              <div className="chip-row">
+                {TREATMENTS.map((id) => (
+                  <button
+                    key={id}
+                    type="button"
+                    className="chip"
+                    aria-pressed={treatment === id}
+                    onClick={() => setTreatment(id)}
+                  >
+                    {t(treatmentLabels[id])}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="kicker">{t(strings.sim.expect)}</div>
+              <div className="chip-row">
+                {intentOptions.map((id) => (
+                  <button
+                    key={id}
+                    type="button"
+                    className="chip"
+                    aria-pressed={intent === id}
+                    onClick={() => setIntent(id)}
+                  >
+                    {t(strings.sim.intent[id])}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <button type="button" className="btn" disabled={status === "warping"} onClick={() => void generate()}>
+              {t(strings.sim.generate)}
             </button>
-            <button type="button" className="btn ghost" onClick={() => navigate("/planner")}>
-              {t(strings.home.openPlanner)}
-            </button>
-          </div>
-        </aside>
-      </section>
-
-      <section className="index-block">
-        <div className="index-head">
-          <div className="kicker">{t(strings.home.therapyIndex)}</div>
-          <h2>{t(strings.family["toxin-therapeutic"])}</h2>
-          <p className="muted">{t(strings.home.therapeuticNote)}</p>
-        </div>
-        <div className="therapy-row">
-          {THERAPY_ATLAS_IDS.map((id, index) => {
-            const item = regions.find((entry) => entry.id === id);
-            if (!item) return null;
-            return (
-              <Link
-                key={id}
-                className={`therapy-card${selected === id ? " selected" : ""}`}
-                to={`/journey/${id}`}
-              >
-                <span className="therapy-num">{String(index + 1).padStart(2, "0")}</span>
-                <strong>{entityName(item, locale)}</strong>
-                <span className={`risk ${item.risk}`}>{t(strings.risk[item.risk])}</span>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="gallery-rail" aria-label={t(strings.home.galleryTitle)}>
-        <div className="index-head">
-          <div className="kicker">{t(strings.demoMedia)}</div>
-          <h2>{t(strings.home.galleryTitle)}</h2>
-        </div>
-        <div className="rail">
-          {LIBRARY_SECTIONS.flatMap((section) =>
-            section.items.slice(0, 2).map((item) => ({
-              src: item.src,
-              title: item.title,
-            })),
-          ).map((item) => (
-            <figure key={item.src} className="rail-card">
-              <img src={item.src} alt={item.title} />
-              <figcaption>
-                <DemoBadge label={t(strings.demo)} />
-                <span>{item.title}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
-
-      <section className="family-strip" aria-label={t(strings.home.familiesTitle)}>
-        {familyLinks.map((family) => (
-          <Link key={family.id} className="family-item" to={family.to}>
-            <span className="kicker">{t(strings.home.familiesTitle)}</span>
-            <strong>{t(family.label)}</strong>
-          </Link>
-        ))}
-      </section>
-
-      <section className="index-block">
-        <div className="index-head">
-          <div className="kicker">{t(strings.house.directory)}</div>
-          <h2>{t(strings.house.title)}</h2>
-        </div>
-        <div className="partner-grid">
-          {houses.map((company) => (
-            <Link key={company.id} className="partner-card" to={`/house/${company.id}`}>
-              <span className="kicker">{company.hq}</span>
-              <h3>{company.name}</h3>
-              <p className="tiny">{company.whyRecommended[locale]}</p>
+            <Link className="btn ghost" to={atlasLink}>
+              {t(strings.sim.openAtlas)}
             </Link>
-          ))}
-        </div>
-      </section>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }

@@ -48,10 +48,8 @@ export function StatusBanner({
 export function ShellNav() {
   const { strings, t } = useLocale();
   const items = [
-    { to: "/", label: strings.nav.world, end: true },
-    { to: "/journey", label: strings.nav.journey, end: false },
-    { to: "/planner", label: strings.nav.planner, end: false },
-    { to: "/house", label: strings.nav.houses, end: false },
+    { to: "/", label: strings.nav.simulate, end: true },
+    { to: "/atlas", label: strings.nav.atlas, end: false },
     { to: "/emergency", label: strings.nav.emergency, end: false, emergency: true },
   ] as const;
 

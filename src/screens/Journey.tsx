@@ -11,7 +11,7 @@ import { pickL, pickList } from "../data/clinical/types";
 import { entityName } from "../lib/entityName";
 import { USER_LIPS } from "../lib/assets";
 import { useLocale } from "../i18n/LocaleContext";
-import { HomePage } from "./Home";
+import { AtlasPage } from "./Atlas";
 
 function isStep(value: string | undefined): value is JourneyStepId {
   return JOURNEY_STEPS.includes(value as JourneyStepId);
@@ -24,7 +24,7 @@ export function JourneyPage() {
   const journey = assembleJourney(regionId);
 
   if (!regionId) return <Navigate to="/journey/lips" replace />;
-  if (!journey) return <HomePage />;
+  if (!journey) return <AtlasPage />;
 
   const current: JourneyStepId = isStep(step) ? step : "region";
   const stepIndex = JOURNEY_STEPS.indexOf(current);
