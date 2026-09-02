@@ -1,23 +1,35 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 import { DemoBadge } from "../components/Chrome";
+import { PlanTable, type PlanRow } from "../components/PlanTable";
+import { ScanOverlay } from "../components/ScanOverlay";
 import { atlasRegions } from "../data/clinical/journey";
+import { getTreatment } from "../data/clinical/treatmentCatalog";
 import { entityName } from "../lib/entityName";
+import { generateAfterPreview } from "../lib/afterEngine";
+import {
+  enabledTreatmentIds,
+  enabledZoneIds,
+  injectionMarks,
+  localAnalyze,
+  overrideFinding,
+  uniqueIds,
+} from "../lib/clinicalScan";
+import { buildDosePlan, type DoseLine } from "../lib/doseEngine";
 import {
   alignFace,
   defaultIntent,
   hitRegion,
   intentsFor,
-  regionCenter,
-  renderAfter,
   SIM_REGIONS,
   type AfterIntent,
   type FaceFrame,
-  type RegionPlan,
   type SimRegionId,
   type TreatmentKind,
 } from "../lib/face";
+import type { ScanFinding } from "../lib/scanTypes";
+import { analyzeFace, fetchVertexHealth, simulateAfter } from "../lib/vertexApi";
 import { useLocale } from "../i18n/LocaleContext";
 import type { Localized } from "../i18n/types";
 
@@ -29,22 +41,57 @@ const TREATMENTS: TreatmentKind[] = [
   "toxin-therapeutic",
 ];
 
-type Status = "idle" | "loading" | "noface" | "ready" | "warping";
+type Status = "idle" | "loading" | "noface" | "scanning" | "ready" | "warping";
+type AfterSource = "vertex" | "local" | null;
+
+function formatDose(line: DoseLine | undefined): string {
+  if (!line) return "—";
+  const unit = line.unit === "ml" ? "ml" : "U";
+  return `${line.calculated} ${unit}`;
+}
+
+function perSiteLabel(line: DoseLine): string {
+  const n = Math.max(line.sitesTypical, 1);
+  if (line.unit === "ml") return `${Number((line.calculated / n).toFixed(2))} ml`;
+  return `${Math.max(1, Math.round(line.calculated / n))} U`;
+}
+
+async function localAfter(frame: FaceFrame, findings: ScanFinding[]): Promise<string> {
+  const treatmentIds = enabledTreatmentIds(findings);
+  if (!treatmentIds.length) return frame.image.toDataURL("image/jpeg", 0.9);
+  try {
+    const canvas = await generateAfterPreview({
+      source: frame.image,
+      treatmentIds,
+      zoneIds: enabledZoneIds(findings),
+      strength: 84,
+      maxWidth: Math.max(frame.width, 960),
+    });
+    return canvas.toDataURL("image/jpeg", 0.92);
+  } catch {
+    return frame.image.toDataURL("image/jpeg", 0.9);
+  }
+}
 
 export function HomePage() {
   const { locale, strings, t } = useLocale();
   const fileRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
+  const runRef = useRef(0);
   const [status, setStatus] = useState<Status>("idle");
   const [frame, setFrame] = useState<FaceFrame | null>(null);
   const [beforeUrl, setBeforeUrl] = useState<string | null>(null);
+  const [injectUrl, setInjectUrl] = useState<string | null>(null);
   const [afterUrl, setAfterUrl] = useState<string | null>(null);
+  const [findings, setFindings] = useState<ScanFinding[]>([]);
+  const [clinicalNote, setClinicalNote] = useState("");
+  const [vertexLive, setVertexLive] = useState(false);
+  const [afterSource, setAfterSource] = useState<AfterSource>(null);
+  const [afterBlocked, setAfterBlocked] = useState(false);
   const [selected, setSelected] = useState<SimRegionId | null>(null);
   const [treatment, setTreatment] = useState<TreatmentKind>("filler");
   const [intent, setIntent] = useState<AfterIntent>("fuller");
-  const [plans, setPlans] = useState<RegionPlan[]>([]);
-  const [split, setSplit] = useState(100);
   const [cameraOn, setCameraOn] = useState(false);
   const regions = atlasRegions();
 
@@ -70,24 +117,84 @@ export function HomePage() {
     setCameraOn(false);
   }
 
-  async function ingest(source: ImageBitmap | HTMLImageElement | HTMLCanvasElement) {
-    setStatus("loading");
+  function resetSession() {
     setAfterUrl(null);
-    setPlans([]);
+    setInjectUrl(null);
+    setFindings([]);
+    setClinicalNote("");
     setSelected(null);
-    setSplit(100);
+    setAfterSource(null);
+    setAfterBlocked(false);
+  }
+
+  async function paintAfter(aligned: FaceFrame, nextFindings: ScanFinding[], tryVertex: boolean, token: number) {
+    const localUrl = await localAfter(aligned, nextFindings);
+    if (token !== runRef.current) return;
+    setAfterUrl(localUrl);
+    setAfterSource("local");
+    if (!tryVertex) return;
+    const enabled = nextFindings.filter((item) => item.enabled);
+    const sim = await simulateAfter({
+      image: aligned.image.toDataURL("image/jpeg", 0.92),
+      findings: enabled,
+      treatmentIds: enabledTreatmentIds(enabled),
+      locale,
+    });
+    if (token !== runRef.current) return;
+    if (sim.ok) {
+      setAfterUrl(sim.after);
+      setAfterSource("vertex");
+      setAfterBlocked(false);
+    } else if (sim.code === "FACE_EDIT_BLOCKED") {
+      setAfterBlocked(true);
+    }
+  }
+
+  async function ingest(source: ImageBitmap | HTMLImageElement | HTMLCanvasElement) {
+    const token = ++runRef.current;
+    setStatus("loading");
+    resetSession();
     try {
       const aligned = await alignFace(source);
+      if (token !== runRef.current) return;
       if (!aligned) {
         setFrame(null);
         setBeforeUrl(null);
         setStatus("noface");
         return;
       }
+      const jpeg = aligned.image.toDataURL("image/jpeg", 0.92);
       setFrame(aligned);
-      setBeforeUrl(aligned.image.toDataURL("image/jpeg", 0.92));
+      setBeforeUrl(jpeg);
+      setInjectUrl(jpeg);
+      setStatus("scanning");
+
+      const health = await fetchVertexHealth();
+      if (token !== runRef.current) return;
+      setVertexLive(health.vertex);
+
+      let nextFindings: ScanFinding[] = localAnalyze(aligned);
+      let note = "";
+      if (health.vertex) {
+        const remote = await analyzeFace({ image: jpeg, locale });
+        if (token !== runRef.current) return;
+        if (remote.ok && remote.data.findings.length) {
+          nextFindings = remote.data.findings.map((item, index) => ({
+            ...item,
+            id: item.id || `vertex-${item.regionId}-${index}`,
+            enabled: true,
+          }));
+          note = remote.data.clinicalNote;
+        }
+      }
+      setFindings(nextFindings);
+      setClinicalNote(note);
+      setStatus("warping");
+      await paintAfter(aligned, nextFindings, health.vertex, token);
+      if (token !== runRef.current) return;
       setStatus("ready");
     } catch {
+      if (token !== runRef.current) return;
       setFrame(null);
       setBeforeUrl(null);
       setStatus("noface");
@@ -128,8 +235,8 @@ export function HomePage() {
     await ingest(canvas);
   }
 
-  function onStageClick(event: React.MouseEvent<HTMLDivElement>) {
-    if (!frame || status !== "ready") return;
+  function onStageClick(event: MouseEvent<HTMLDivElement>) {
+    if (!frame || (status !== "ready" && status !== "warping")) return;
     const rect = event.currentTarget.getBoundingClientRect();
     const nx = (event.clientX - rect.left) / Math.max(rect.width, 1);
     const ny = (event.clientY - rect.top) / Math.max(rect.height, 1);
@@ -138,20 +245,26 @@ export function HomePage() {
   }
 
   async function generate() {
-    if (!frame || !selected) return;
+    if (!frame) return;
+    const token = ++runRef.current;
     setStatus("warping");
-    const plan: RegionPlan = { regionId: selected, treatment, intent };
-    const merged = [...plans.filter((item) => item.regionId !== selected), plan];
-    setPlans(merged);
     await new Promise<void>((resolve) => {
       requestAnimationFrame(() => window.setTimeout(resolve, 30));
     });
+    const merged = selected
+      ? (() => {
+          const next = overrideFinding(selected, treatment, frame.landmarks, locale);
+          if (!next) return findings;
+          return [...findings.filter((item) => item.regionId !== selected), next];
+        })()
+      : findings;
+    if (selected) setFindings(merged);
     try {
-      const canvas = renderAfter(frame, merged);
-      setAfterUrl(canvas.toDataURL("image/jpeg", 0.9));
-      setSplit(48);
+      await paintAfter(frame, merged, vertexLive, token);
+      if (token !== runRef.current) return;
       setStatus("ready");
     } catch {
+      if (token !== runRef.current) return;
       setStatus("ready");
     }
   }
@@ -163,14 +276,42 @@ export function HomePage() {
   const atlasLink = selectedDef ? `/journey/${selectedDef.atlasId}` : "/atlas";
   const intentOptions = selected ? intentsFor(selected) : [];
 
-  const markers = useMemo(() => {
+  const dosePlan = useMemo(
+    () => buildDosePlan(enabledTreatmentIds(findings), enabledZoneIds(findings), locale),
+    [findings, locale],
+  );
+
+  const injectMarks = useMemo(() => {
     if (!frame) return [];
-    return SIM_REGIONS.map((def) => ({
-      id: def.id,
-      ...regionCenter(frame.landmarks, def.id),
-      label: entityName(regions.find((item) => item.id === def.atlasId) ?? { nameHe: def.id, nameEn: def.id }, locale),
-    }));
-  }, [frame, locale, regions]);
+    return dosePlan.lines.flatMap((line) =>
+      injectionMarks(frame.landmarks, line.treatmentId, line.sitesTypical, perSiteLabel(line)),
+    );
+  }, [dosePlan.lines, frame]);
+
+  const tableRows: PlanRow[] = useMemo(() => {
+    const byTreatment = new Map(dosePlan.lines.map((line) => [line.treatmentId, line]));
+    return findings.map((finding) => {
+      const treatmentId = finding.suggestedTreatmentIds[0];
+      const line = treatmentId ? byTreatment.get(treatmentId) : undefined;
+      const catalog = treatmentId ? getTreatment(treatmentId) : undefined;
+      const regionDef = SIM_REGIONS.find((item) => item.id === finding.regionId);
+      const regionEntity = regionDef
+        ? regions.find((item) => item.id === regionDef.atlasId)
+        : undefined;
+      return {
+        finding,
+        region: regionEntity
+          ? entityName(regionEntity, locale)
+          : finding.regionId,
+        treatment: catalog?.title[locale] ?? line?.title ?? "—",
+        material: line?.materialName ?? catalog?.material.name[locale] ?? "—",
+        dose: formatDose(line),
+        plane: line?.plane ?? catalog?.dosing.plane[locale] ?? "—",
+      };
+    });
+  }, [dosePlan.lines, findings, locale, regions]);
+
+  const education = uniqueIds(dosePlan.education).slice(0, 3);
 
   return (
     <div className="sim-page">
@@ -180,70 +321,77 @@ export function HomePage() {
         <p className="lead">{t(strings.sim.lead)}</p>
       </div>
 
-      <div className="sim-rig">
-        <div
-          className={`sim-frame${frame ? " has-face" : ""}`}
-          onClick={onStageClick}
-          role="presentation"
-        >
-          {cameraOn ? (
+      {cameraOn ? (
+        <div className="sim-rig">
+          <div className="sim-frame">
             <video ref={videoRef} autoPlay playsInline muted className="sim-video" />
-          ) : beforeUrl ? (
-            <>
-              <img className="sim-before" src={beforeUrl} alt={t(strings.sim.before)} />
-              {afterUrl ? (
-                <img
-                  className="sim-after"
-                  src={afterUrl}
-                  alt={t(strings.sim.after)}
-                  style={{ clipPath: `inset(0 0 0 ${split}%)` }}
-                />
-              ) : null}
-              <svg className="sim-marks" viewBox="0 0 100 100" preserveAspectRatio="none">
-                {markers.map((mark) => (
-                  <g
-                    key={mark.id}
-                    className={selected === mark.id ? "on" : undefined}
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      setSelected(mark.id);
-                    }}
-                  >
-                    <circle cx={mark.x * 100} cy={mark.y * 100} r={selected === mark.id ? 2.1 : 1.35} />
-                  </g>
-                ))}
-              </svg>
-            </>
-          ) : (
-            <div className="sim-empty">
-              <strong>{t(strings.sim.title)}</strong>
-              <span>{t(strings.sim.lead)}</span>
+            <div className="sim-frame-meta">
+              <DemoBadge label={t(strings.sim.demoLabel)} />
             </div>
-          )}
-          <div className="sim-frame-meta">
-            <DemoBadge label={t(strings.sim.demoLabel)} />
-            {afterUrl ? (
-              <div className="sim-slider">
-                <span>{t(strings.sim.before)}</span>
-                <input
-                  type="range"
-                  min={0}
-                  max={100}
-                  value={split}
-                  onChange={(event) => setSplit(Number(event.target.value))}
-                  onClick={(event) => event.stopPropagation()}
-                />
-                <span>{t(strings.sim.after)}</span>
-              </div>
-            ) : null}
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="sim-plates">
+          <SimPlate
+            kicker={t(strings.sim.scanPanel)}
+            demo={t(strings.sim.demoLabel)}
+            emptyTitle={t(strings.sim.title)}
+            emptyLead={t(strings.sim.lead)}
+            src={beforeUrl}
+            alt={t(strings.sim.scanPanel)}
+            onClick={onStageClick}
+          >
+            {frame && beforeUrl ? (
+              <ScanOverlay
+                landmarks={frame.landmarks}
+                findings={findings}
+                mode="scan"
+                selected={selected}
+                onSelectRegion={setSelected}
+              />
+            ) : null}
+          </SimPlate>
+          <SimPlate
+            kicker={t(strings.sim.injectPanel)}
+            demo={t(strings.sim.demoLabel)}
+            emptyTitle={t(strings.sim.injectPanel)}
+            emptyLead={t(strings.sim.lead)}
+            src={injectUrl}
+            alt={t(strings.sim.injectPanel)}
+          >
+            {frame && injectUrl ? (
+              <ScanOverlay
+                landmarks={frame.landmarks}
+                findings={findings}
+                mode="inject"
+                selected={selected}
+                marks={injectMarks}
+                onSelectRegion={setSelected}
+              />
+            ) : null}
+          </SimPlate>
+          <SimPlate
+            kicker={t(strings.sim.afterPanel)}
+            demo={t(strings.sim.demoLabel)}
+            emptyTitle={t(strings.sim.afterPanel)}
+            emptyLead={t(strings.sim.afterIdle)}
+            src={afterUrl ?? (status === "scanning" || status === "warping" ? beforeUrl : null)}
+            alt={t(strings.sim.after)}
+          />
+        </div>
+      )}
 
       {status === "loading" ? <p className="sim-status">{t(strings.sim.aligning)}</p> : null}
+      {status === "scanning" ? <p className="sim-status">{t(strings.sim.scanning)}</p> : null}
       {status === "noface" ? <p className="sim-status error">{t(strings.sim.noFace)}</p> : null}
       {status === "warping" ? <p className="sim-status">{t(strings.sim.generating)}</p> : null}
-      {status === "ready" && !selected ? <p className="sim-status">{t(strings.sim.tapFace)}</p> : null}
+      {status === "ready" && !selected && findings.length === 0 ? (
+        <p className="sim-status">{t(strings.sim.tapFace)}</p>
+      ) : null}
+      {frame && !vertexLive ? <p className="sim-status">{t(strings.sim.degraded)}</p> : null}
+      {afterBlocked && afterSource === "local" && status === "ready" ? (
+        <p className="sim-status">{t(strings.sim.faceBlocked)}</p>
+      ) : null}
 
       <div className="sim-dock">
         <div className="sim-actions">
@@ -264,6 +412,11 @@ export function HomePage() {
               {t(strings.sim.retryPhoto)}
             </button>
           ) : null}
+          {frame ? (
+            <button type="button" className="btn" disabled={status === "warping" || status === "scanning"} onClick={() => void generate()}>
+              {t(strings.sim.regenerate)}
+            </button>
+          ) : null}
         </div>
         <input
           ref={fileRef}
@@ -276,7 +429,7 @@ export function HomePage() {
         {selected && selectedRegion ? (
           <div className="sim-plan">
             <div>
-              <div className="kicker">{t(strings.sim.tapFace)}</div>
+              <div className="kicker">{t(strings.sim.override)}</div>
               <strong>{entityName(selectedRegion, locale)}</strong>
             </div>
             <div>
@@ -319,7 +472,75 @@ export function HomePage() {
             </Link>
           </div>
         ) : null}
+
+        {findings.length ? (
+          <div className="sim-plan-block">
+            <div className="kicker">{t(strings.sim.planTitle)}</div>
+            <PlanTable
+              rows={tableRows}
+              locale={locale}
+              onToggle={(id, enabled) => {
+                setFindings((current) => current.map((item) => (item.id === id ? { ...item, enabled } : item)));
+              }}
+            />
+            {clinicalNote ? <p className="sim-note">{clinicalNote}</p> : null}
+            <p className="sim-note">
+              {t(strings.ifuWins)} {t(strings.clinicianDecides)}
+            </p>
+            {education.length ? (
+              <ul className="sim-edu">
+                {education.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        ) : null}
       </div>
     </div>
+  );
+}
+
+function SimPlate({
+  kicker,
+  demo,
+  emptyTitle,
+  emptyLead,
+  src,
+  alt,
+  onClick,
+  children,
+}: {
+  kicker: string;
+  demo: string;
+  emptyTitle: string;
+  emptyLead: string;
+  src: string | null;
+  alt: string;
+  onClick?: (event: MouseEvent<HTMLDivElement>) => void;
+  children?: ReactNode;
+}) {
+  return (
+    <figure className="sim-plate">
+      <figcaption>
+        <span className="kicker">{kicker}</span>
+      </figcaption>
+      <div className={`sim-frame${src ? " has-face" : ""}`} onClick={onClick} role="presentation">
+        {src ? (
+          <>
+            <img className="sim-before" src={src} alt={alt} />
+            {children}
+          </>
+        ) : (
+          <div className="sim-empty">
+            <strong>{emptyTitle}</strong>
+            <span>{emptyLead}</span>
+          </div>
+        )}
+        <div className="sim-frame-meta">
+          <DemoBadge label={demo} />
+        </div>
+      </div>
+    </figure>
   );
 }
