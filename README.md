@@ -17,7 +17,7 @@ npm install
 npm run dev
 ```
 
-Open the URL Vite prints (typically http://localhost:5173). No API keys are required. Face alignment uses a self-hosted MediaPipe model plus WASM from jsDelivr. Without Vertex, the client degrades to on-device MediaPipe overlays, catalog doses (`buildDosePlan` / `treatmentCatalog`), and the local warp (`renderAfter` / `generateAfterPreview`).
+Open the URL Vite prints (typically http://localhost:5173). No API keys are required. Face alignment uses a self-hosted MediaPipe model plus WASM from jsDelivr. Without Vertex, the client degrades to on-device MediaPipe overlays, catalog doses (`buildDosePlan` / `treatmentCatalog`), and the local after-engine pixel preview (`generateAfterPreview`) — never a Delaunay mesh warp.
 
 ```bash
 npm run build
@@ -60,7 +60,7 @@ docker build -t aestheticai .
 docker run --rm -p 8080:8080 -e PORT=8080 aestheticai
 ```
 
-`GET /api/health` returns `{ ok, vertex }`. If Vertex is down, `/api/analyze` returns `503 VERTEX_UNAVAILABLE` and the client still draws MediaPipe overlays and catalog doses. If the image model blocks photoreal faces, `/api/simulate` returns `422 FACE_EDIT_BLOCKED` and panel 3 falls back to the local warp — it is never left empty.
+`GET /api/health` returns `{ ok, vertex }`. If Vertex is down, `/api/analyze` returns `503 VERTEX_UNAVAILABLE` and the client still draws MediaPipe overlays and catalog doses. If the image model blocks photoreal faces, `/api/simulate` returns `422 FACE_EDIT_BLOCKED` and panel 3 falls back to `generateAfterPreview` (pixel smoothing / subtle volume, never mesh warp) — it is never left empty.
 
 ## Public preview
 

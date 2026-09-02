@@ -332,12 +332,13 @@ function simulatePrompt(findings, treatmentIds, locale) {
     .map((f) => `${f.regionId} (${f.kind}, severity ${f.severity}): ${f.labelEn || f.labelHe}`)
     .join("; ");
   return [
-    "Medical photography edit of THIS same patient. Photoreal. Preserve identity, lighting, hair, background, camera, skin tone, and pose.",
-    "Edit ONLY the listed regions as described. Do not beautify the whole face. No makeup, no identity change, no extra people, no text, no watermarks.",
-    "Toxin / wrinkle regions (glabella, crow's feet, forehead): smoother dynamic lines, same person.",
-    "Volume regions (midface, lips, chin, jaw, temples): subtle educational volume as planned, not overfill.",
-    `Planned regions: ${regions || "none"}. Treatment ids (catalog): ${treatmentIds.join(", ") || "none"}.`,
-    "Educational clinical illustration — not a guaranteed clinical result.",
+    "HARD RULES — follow all of them. This is a photoreal medical-photography EDIT of the attached patient still, not an illustration and not a 3D render.",
+    "1. Identity lock: the SAME person. Same beard, hair, hairline, eyes, brows, ears, skin tone, pores, clothing, lighting, camera, pose, and background. No identity change. No extra people. No text. No watermarks. No makeup.",
+    "2. The result MUST look more rested and slightly more attractive than the input — NEVER older, NEVER more wrinkled, NEVER harsher. If you cannot improve the treated areas, return the original image UNCHANGED. Never output a worse face.",
+    "3. Soften ONLY the listed treated areas. Typical toxin/wrinkle work: flatten glabellar frown (11s), horizontal forehead lines, and crow's feet so those lines are fewer and shallower. Typical filler/fold work: soften nasolabial fold shadow and add subtle midface/lip/chin volume where listed — not overfill.",
+    "4. Do NOT add wrinkles, scars, pores clusters, mesh, triangle/Delaunay artifacts, plastic sheen, waxy skin, or extra creases. Do not deepen nasolabial folds. Do not pull the eyes or distort lids.",
+    "5. Photoreal clinical 2D still of THIS photograph. Educational preview of a rested result — not a guaranteed clinical outcome.",
+    `Treated findings: ${regions || "none"}. Catalog treatment ids: ${treatmentIds.join(", ") || "none"}.`,
     `Locale hint: ${locale}.`,
   ].join(" ");
 }

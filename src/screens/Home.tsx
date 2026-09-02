@@ -14,7 +14,6 @@ import {
   injectionMarks,
   localAnalyze,
   overrideFinding,
-  plansFromFindings,
   uniqueIds,
 } from "../lib/clinicalScan";
 import { buildDosePlan, type DoseLine } from "../lib/doseEngine";
@@ -23,7 +22,6 @@ import {
   defaultIntent,
   hitRegion,
   intentsFor,
-  renderAfter,
   SIM_REGIONS,
   type AfterIntent,
   type FaceFrame,
@@ -58,33 +56,18 @@ function perSiteLabel(line: DoseLine): string {
   return `${Math.max(1, Math.round(line.calculated / n))} U`;
 }
 
-async function canvasToImage(canvas: HTMLCanvasElement): Promise<HTMLImageElement> {
-  return new Promise((resolve, reject) => {
-    const image = new Image();
-    image.onload = () => resolve(image);
-    image.onerror = () => reject(new Error("image"));
-    image.src = canvas.toDataURL("image/jpeg", 0.92);
-  });
-}
-
 async function localAfter(frame: FaceFrame, findings: ScanFinding[]): Promise<string> {
-  const plans = plansFromFindings(findings);
+  const treatmentIds = enabledTreatmentIds(findings);
+  if (!treatmentIds.length) return frame.image.toDataURL("image/jpeg", 0.9);
   try {
-    if (plans.length) {
-      return renderAfter(frame, plans).toDataURL("image/jpeg", 0.9);
-    }
-  } catch {
-    /* warp failed — try afterEngine */
-  }
-  try {
-    const image = await canvasToImage(frame.image);
     const canvas = await generateAfterPreview({
-      source: image,
-      treatmentIds: enabledTreatmentIds(findings),
+      source: frame.image,
+      treatmentIds,
       zoneIds: enabledZoneIds(findings),
-      strength: 62,
+      strength: 84,
+      maxWidth: Math.max(frame.width, 960),
     });
-    return canvas.toDataURL("image/jpeg", 0.9);
+    return canvas.toDataURL("image/jpeg", 0.92);
   } catch {
     return frame.image.toDataURL("image/jpeg", 0.9);
   }
