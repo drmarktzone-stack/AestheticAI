@@ -41,10 +41,15 @@ Live target: `https://aestheticai-308665814452.me-west1.run.app` (GCP project `p
 
 Dockerfile at repo root (`/Dockerfile`): Node 22 build, then production `npm ci --omit=dev` (includes `@google/genai`) and `node scripts/server.mjs` on `0.0.0.0:$PORT` (default 8080). No API keys are baked into the image. GitHub Pages stays on the existing workflow (`GITHUB_PAGES=1`).
 
-Required Cloud Run environment:
+Cloud Run does **not** auto-inject `GOOGLE_CLOUD_PROJECT`. It only sets `PORT`, `K_SERVICE`, `K_REVISION`, and `K_CONFIGURATION`. Set both of these on the service (belt-and-suspenders):
 
 - `GOOGLE_CLOUD_LOCATION=global` (Vertex Gemini via the global endpoint)
-- `GOOGLE_CLOUD_PROJECT` is injected by Cloud Run
+- `GOOGLE_CLOUD_PROJECT` (your GCP project id)
+
+If those are missing, the server also reads `GCLOUD_PROJECT` / `GCP_PROJECT`, then fetches the project id once from the metadata server (`GET http://metadata.google.internal/computeMetadata/v1/project/project-id` with `Metadata-Flavor: Google`, ~1s timeout) and caches it. The project id is never baked into the image.
+
+Also:
+
 - Enable `aiplatform.googleapis.com`
 - Grant the Cloud Run runtime service account `roles/aiplatform.user`
 

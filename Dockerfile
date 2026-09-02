@@ -3,6 +3,8 @@
 # Do not set GITHUB_PAGES here — Cloud Run is rooted at /.
 # Do not bake GEMINI_API_KEY or other secrets into this image.
 # Vertex uses Application Default Credentials (Cloud Run service account).
+# Cloud Run does not inject GOOGLE_CLOUD_PROJECT — set it plus GOOGLE_CLOUD_LOCATION=global
+# on the service. The runtime also resolves project id from metadata if env is unset.
 
 FROM node:22-alpine AS build
 WORKDIR /app

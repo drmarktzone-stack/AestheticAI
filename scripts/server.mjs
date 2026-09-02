@@ -98,20 +98,70 @@ const types = {
   ".woff2": "font/woff2",
 };
 
-function vertexConfigured() {
-  return Boolean(process.env.GOOGLE_CLOUD_PROJECT);
-}
+const METADATA_PROJECT_URL = "http://metadata.google.internal/computeMetadata/v1/project/project-id";
 
+/** Cached project id: undefined = not resolved, "" = none, otherwise the id. Never baked into the image. */
+let cachedProjectId;
+let projectIdPromise = null;
 let genaiPromise = null;
 
+function envProjectId() {
+  const raw = process.env.GOOGLE_CLOUD_PROJECT || process.env.GCLOUD_PROJECT || process.env.GCP_PROJECT;
+  return typeof raw === "string" ? raw.trim() : "";
+}
+
+async function fetchMetadataProjectId() {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 1000);
+  try {
+    const res = await fetch(METADATA_PROJECT_URL, {
+      method: "GET",
+      headers: { "Metadata-Flavor": "Google" },
+      signal: ctrl.signal,
+    });
+    if (!res.ok) return "";
+    const text = (await res.text()).trim();
+    return text;
+  } catch {
+    return "";
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function resolveProjectId() {
+  if (cachedProjectId !== undefined) return cachedProjectId;
+  if (!projectIdPromise) {
+    projectIdPromise = (async () => {
+      const fromEnv = envProjectId();
+      if (fromEnv) {
+        cachedProjectId = fromEnv;
+        return fromEnv;
+      }
+      const fromMeta = await fetchMetadataProjectId();
+      cachedProjectId = fromMeta || "";
+      return cachedProjectId;
+    })().catch((err) => {
+      projectIdPromise = null;
+      throw err;
+    });
+  }
+  return projectIdPromise;
+}
+
+async function vertexConfigured() {
+  return Boolean(await resolveProjectId());
+}
+
 async function getGenAI() {
-  if (!vertexConfigured()) return null;
+  const project = await resolveProjectId();
+  if (!project) return null;
   if (!genaiPromise) {
     genaiPromise = import("@google/genai")
       .then(({ GoogleGenAI }) => {
         return new GoogleGenAI({
           vertexai: true,
-          project: process.env.GOOGLE_CLOUD_PROJECT,
+          project,
           location: process.env.GOOGLE_CLOUD_LOCATION || "global",
         });
       })
@@ -319,7 +369,7 @@ function firstImageDataUrl(response) {
 }
 
 async function handleAnalyze(req, res) {
-  if (!vertexConfigured()) {
+  if (!(await vertexConfigured())) {
     sendJson(res, 503, { error: "Vertex unavailable", code: "VERTEX_UNAVAILABLE" });
     return;
   }
@@ -378,7 +428,7 @@ async function handleAnalyze(req, res) {
 }
 
 async function handleSimulate(req, res) {
-  if (!vertexConfigured()) {
+  if (!(await vertexConfigured())) {
     sendJson(res, 503, { error: "Vertex unavailable", code: "VERTEX_UNAVAILABLE" });
     return;
   }
@@ -505,7 +555,7 @@ const server = createServer(async (req, res) => {
 
   try {
     if (path === "/api/health" && req.method === "GET") {
-      sendJson(res, 200, { ok: true, vertex: vertexConfigured() });
+      sendJson(res, 200, { ok: true, vertex: await vertexConfigured() });
       return;
     }
     if (path === "/api/analyze" && req.method === "POST") {
@@ -537,4 +587,7 @@ server.timeout = 120000;
 
 server.listen(port, host, () => {
   console.log(`AestheticAI listening on http://${host}:${port}`);
+  void resolveProjectId().then((id) => {
+    console.log(id ? "AestheticAI Vertex project resolved" : "AestheticAI Vertex project not found");
+  });
 });
