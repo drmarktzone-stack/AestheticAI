@@ -1,0 +1,15 @@
+.git
+.github
+.cursor
+node_modules
+dist
+*.local
+.env
+.env.*
+**/.env
+**/.env.*
+*.md
+*.tsbuildinfo
+.vite
+coverage
+.DS_Store

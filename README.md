@@ -33,6 +33,21 @@ GITHUB_PAGES=1 npm run preview
 
 Preview is then at http://localhost:4173/AestheticAI/
 
+## Cloud Run
+
+The Google Cloud Run wizard for this repo must **not** track `main` until this Vite app is merged. `main` is still the Expo `protokol-mobile` package and cannot serve `$PORT`.
+
+Track this branch:
+
+**`cursor/aestheticai-clinical-app-14fb`**
+
+Dockerfile at repo root (`/Dockerfile`): Node 22 build, then a tiny static server on `0.0.0.0:$PORT` (default 8080). No API keys are baked into the image. GitHub Pages stays on the existing workflow (`GITHUB_PAGES=1`).
+
+```bash
+docker build -t aestheticai .
+docker run --rm -p 8080:8080 -e PORT=8080 aestheticai
+```
+
 ## Public preview
 
 GitHub Pages (after the workflow publishes `dist/`):
