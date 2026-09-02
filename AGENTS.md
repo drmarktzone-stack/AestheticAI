@@ -1,3 +1,8 @@
-# Expo HAS CHANGED
+# AestheticAI
 
-Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before writing any code.
+One clinical mentor web app for aesthetic physicians.
+
+- Hebrew default, Arabic and English, RTL layout flip
+- Do not brand the product Protokol
+- Protocols, planner, materials, emergency and illustration live in the same journey
+- Demo data must run with zero API keys

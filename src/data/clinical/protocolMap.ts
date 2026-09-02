@@ -1,0 +1,67 @@
+import { FACE_ATLAS_IDS, THERAPY_ATLAS_IDS } from "./regionPacks";
+
+export const REGION_DEFAULT_PROTOCOL: Record<string, string> = {
+  lips: "lip-refresh",
+  cheeks: "midface-support",
+  glabella: "upper-face-toxin",
+  periocular: "upper-face-toxin",
+  forehead: "upper-face-toxin",
+  jawline: "jawline-contour",
+  temple: "sculptra-face-series",
+  chin: "chin-projection",
+  nose: "nose-conservative",
+  neck: "profhilo-bap-face",
+  nlf: "midface-support",
+  masseter: "tmj-masseter",
+  tmj: "tmj-masseter",
+  axilla: "hyperhidrosis-axilla",
+  migraine: "preempt-migraine",
+  scalp: "hair-prp-series",
+  body: "hyperhidrosis-axilla",
+  hands: "profhilo-bap-face",
+};
+
+export const TREATMENT_PROTOCOL: Record<string, string> = {
+  "filler-lips-volume": "lip-refresh",
+  "filler-lips-definition": "lip-refresh",
+  "filler-midface": "midface-support",
+  "filler-jawline": "jawline-contour",
+  "filler-chin": "chin-projection",
+  "filler-nose": "nose-conservative",
+  "filler-temples": "sculptra-face-series",
+  "filler-tear-trough": "midface-support",
+  "filler-nasolabial": "midface-support",
+  "biostim-skin": "profhilo-bap-face",
+  "toxin-glabella": "upper-face-toxin",
+  "toxin-forehead": "upper-face-toxin",
+  "toxin-crows": "upper-face-toxin",
+  "toxin-masseter-slim": "tmj-masseter",
+  "toxin-tmj": "tmj-masseter",
+  "toxin-hyperhidrosis-axilla": "hyperhidrosis-axilla",
+  "toxin-hyperhidrosis-palms": "hyperhidrosis-axilla",
+  "toxin-migraine": "preempt-migraine",
+  "toxin-cervical-dystonia": "profhilo-bap-face",
+};
+
+export const REGION_EMERGENCIES: Record<string, string[]> = {
+  lips: ["vascular-occlusion", "tyndall-effect", "anaphylaxis"],
+  cheeks: ["vascular-occlusion", "vision-threat", "anaphylaxis"],
+  glabella: ["vascular-occlusion", "vision-threat", "toxin-ptosis"],
+  periocular: ["vision-threat", "toxin-ptosis", "vascular-occlusion"],
+  forehead: ["toxin-ptosis", "anaphylaxis"],
+  jawline: ["vascular-occlusion", "anaphylaxis"],
+  temple: ["vascular-occlusion", "vision-threat"],
+  chin: ["vascular-occlusion", "anaphylaxis"],
+  nose: ["vascular-occlusion", "vision-threat", "anaphylaxis"],
+  neck: ["anaphylaxis", "toxin-ptosis"],
+  nlf: ["vascular-occlusion", "tyndall-effect"],
+  masseter: ["toxin-ptosis", "anaphylaxis"],
+  tmj: ["anaphylaxis"],
+  axilla: ["anaphylaxis"],
+  migraine: ["toxin-ptosis", "anaphylaxis"],
+  scalp: ["anaphylaxis"],
+  body: ["anaphylaxis"],
+  hands: ["anaphylaxis"],
+};
+
+export const ATLAS_REGION_IDS = [...FACE_ATLAS_IDS, ...THERAPY_ATLAS_IDS] as const;
