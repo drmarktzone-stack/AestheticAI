@@ -309,7 +309,11 @@ export function injectionMarks(
   doseLabel: string,
 ): InjectionMark[] {
   const sites = injectionSites(landmarks, treatmentId, Math.max(1, sitesTypical));
-  return sites.map((point) => ({ ...point, label: doseLabel, treatmentId }));
+  return sites.map((point, index) => ({
+    ...point,
+    label: index === 0 ? doseLabel : "",
+    treatmentId,
+  }));
 }
 
 function injectionSites(landmarks: Vec2[], treatmentId: string, count: number): Vec2[] {

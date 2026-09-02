@@ -1439,6 +1439,8 @@ input[type="file"] {
   font-size: 2.2px;
   font-family: var(--font-body);
   letter-spacing: 0.04em;
+  direction: ltr;
+  unicode-bidi: isolate;
 }
 
 .sim-empty {
@@ -1546,6 +1548,10 @@ input[type="file"] {
 
 .sim-table tr.off td {
   opacity: 0.42;
+}
+
+.sim-table td[dir="ltr"] {
+  unicode-bidi: isolate;
 }
 
 .sim-table input[type="checkbox"] {

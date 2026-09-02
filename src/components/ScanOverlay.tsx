@@ -46,41 +46,47 @@ export function ScanOverlay({ landmarks, findings, mode, selected, marks = [], o
         ? marks.map((mark, index) => (
             <g key={`${mark.treatmentId}-${index}`} className="inject-mark">
               <circle className="inject-dot" cx={mark.x * 100} cy={mark.y * 100} r="1.15" />
-              <rect
-                className="inject-chip-bg"
-                x={mark.x * 100 + 1.4}
-                y={mark.y * 100 - 1.7}
-                width={Math.max(8, mark.label.length * 1.55)}
-                height="3.2"
-                rx="0.7"
-              />
-              <text className="inject-chip" x={mark.x * 100 + 1.9} y={mark.y * 100 + 0.55}>
-                {mark.label}
-              </text>
+              {mark.label ? (
+                <>
+                  <rect
+                    className="inject-chip-bg"
+                    x={mark.x * 100 + 1.4}
+                    y={mark.y * 100 - 1.7}
+                    width={Math.max(8, mark.label.length * 1.55)}
+                    height="3.2"
+                    rx="0.7"
+                  />
+                  <text className="inject-chip" direction="ltr" x={mark.x * 100 + 1.9} y={mark.y * 100 + 0.55}>
+                    {mark.label}
+                  </text>
+                </>
+              ) : null}
             </g>
           ))
         : null}
 
-      {SIM_REGIONS.map((def) => {
-        const poly = regionPoly(landmarks, def);
-        if (!poly.length) return null;
-        const c = {
-          x: poly.reduce((s, p) => s + p.x, 0) / poly.length,
-          y: poly.reduce((s, p) => s + p.y, 0) / poly.length,
-        };
-        return (
-          <g
-            key={def.id}
-            className={selected === def.id ? "on" : undefined}
-            onClick={(event) => {
-              event.stopPropagation();
-              onSelectRegion?.(def.id);
-            }}
-          >
-            <circle cx={c.x * 100} cy={c.y * 100} r={selected === def.id ? 1.7 : 0.95} />
-          </g>
-        );
-      })}
+      {mode === "scan"
+        ? SIM_REGIONS.map((def) => {
+            const poly = regionPoly(landmarks, def);
+            if (!poly.length) return null;
+            const c = {
+              x: poly.reduce((s, p) => s + p.x, 0) / poly.length,
+              y: poly.reduce((s, p) => s + p.y, 0) / poly.length,
+            };
+            return (
+              <g
+                key={def.id}
+                className={selected === def.id ? "on" : undefined}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onSelectRegion?.(def.id);
+                }}
+              >
+                <circle cx={c.x * 100} cy={c.y * 100} r={selected === def.id ? 1.7 : 0.95} />
+              </g>
+            );
+          })
+        : null}
     </svg>
   );
 }

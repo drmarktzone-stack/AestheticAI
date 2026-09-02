@@ -52,7 +52,7 @@ export function PlanTable({ rows, locale, onToggle }: Props) {
               <td>{row.finding.severity}</td>
               <td>{row.treatment}</td>
               <td>{row.material}</td>
-              <td>{row.dose}</td>
+              <td dir="ltr">{row.dose}</td>
               <td>{row.plane}</td>
             </tr>
           ))}
